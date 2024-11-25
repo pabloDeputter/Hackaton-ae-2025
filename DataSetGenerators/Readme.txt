@@ -3,8 +3,8 @@ First run these before running the .py's
 Terminal:
 python (install from windows store)
 
-python -m venv venv/myenv
+python -m venv my_vevn      
 
-pip3 install pandas
+pip install pandas
 
-pip3 install numpy
+pip install numpy
