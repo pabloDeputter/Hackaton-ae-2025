@@ -75,7 +75,7 @@ def generate_dataset(diseases):
 dataset = generate_dataset(disease_list)
 
 # Save the dataset to a CSV file
-dataset.to_csv("fictional_disease_dataset.csv", index=False)
+dataset.to_csv("dataset_disease.csv", index=False)
 
 # Display the first few rows
-print(dataset.head())
+print("Dataset generated and saved as 'dataset_disease.csv'")

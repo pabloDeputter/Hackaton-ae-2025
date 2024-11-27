@@ -38,6 +38,6 @@ medicine_data = generate_medicine_data(num_records)
 df = pd.DataFrame(medicine_data)
 
 # Save to CSV file
-output_file = "fictional_medicines_dataset.csv"
+output_file = "dataset_medicines.csv"
 df.to_csv(output_file, index=False)
 print(f"Dataset generated and saved to {output_file}")

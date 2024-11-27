@@ -1,0 +1,150 @@
+Disease,Fever,Heart Rate,Breath Rate,Blood Pressure,Symptoms,Type,Incubation Time (days),Period of Illness (days),Duration,Infectious
+Snorglesniff,yes,faster,slower,normal,"sleepy, shortness of breath, diarrhea",Degenerative,2,13,Chronic,yes
+Coughadoodle,yes,normal,slower,low,"fatigue, shortness of breath, sleepy, diarrhea, muscle aches, coughing",Endocrine,13,13,Chronic,yes
+Fumbleitis,yes,faster,normal,normal,"fatigue, muscle aches, diarrhea, shortness of breath, coughing, sleepy",Neoplastic,1,18,Chronic,no
+Giggleflux,yes,normal,slower,normal,"muscle aches, diarrhea",Idiopathic,9,21,Acute,no
+Sneezequake,yes,faster,slower,low,"muscle aches, sleepy, diarrhea, shortness of breath, coughing",Degenerative,10,13,Chronic,no
+Toe Tangle,yes,slower,faster,high,"fatigue, diarrhea",Neoplastic,1,21,Acute,yes
+Elbow Wiggle Syndrome,no,normal,slower,low,"shortness of breath, coughing",Congenital,2,2,Acute,yes
+Brain Freeze Disorder,yes,slower,faster,low,"sleepy, muscle aches, fatigue, coughing, diarrhea, shortness of breath",Inherited,14,6,Chronic,yes
+Blabber Mouth,yes,slower,normal,low,"diarrhea, muscle aches",Degenerative,1,18,Acute,no
+Wiggleworm Fever,yes,faster,slower,normal,"coughing, shortness of breath",Endocrine,11,12,Acute,yes
+Itchy Nose Syndrome,no,slower,faster,low,"coughing, shortness of breath, sleepy, muscle aches, fatigue, diarrhea",Degenerative,1,5,Acute,yes
+Smirk Spasm,no,normal,faster,high,"sleepy, shortness of breath",Neoplastic,5,14,Acute,yes
+Jelly Legs,yes,normal,slower,low,"diarrhea, fatigue, shortness of breath, sleepy",Inherited,5,3,Chronic,no
+Pickle Pox,yes,faster,slower,normal,"shortness of breath, muscle aches, fatigue, sleepy, coughing",Degenerative,9,1,Acute,yes
+Hiccuphobia,yes,normal,slower,high,"shortness of breath, coughing, sleepy, muscle aches",Neoplastic,8,7,Chronic,no
+Belly Button Bounce,yes,normal,slower,low,"diarrhea, fatigue, muscle aches, coughing, sleepy",Neoplastic,1,6,Acute,no
+Eye Twitch Fever,yes,normal,faster,low,"fatigue, shortness of breath",Inherited,6,16,Chronic,no
+Snore-a-palooza,no,normal,slower,low,"fatigue, diarrhea, shortness of breath, muscle aches, coughing",Inherited,13,3,Acute,yes
+Stumblebum Syndrome,yes,faster,normal,normal,"muscle aches, sleepy, diarrhea",Endocrine,3,6,Acute,yes
+Gigglicious,no,normal,slower,normal,"fatigue, diarrhea, shortness of breath",Idiopathic,13,7,Chronic,no
+Chewbug Syndrome,no,faster,faster,high,coughing,Idiopathic,14,6,Chronic,no
+Earwax Overflow,yes,slower,normal,normal,"shortness of breath, sleepy, fatigue, diarrhea, muscle aches",Degenerative,9,12,Acute,no
+Laughter Laryngitis,no,slower,faster,normal,"coughing, fatigue, shortness of breath, sleepy, muscle aches",Inherited,10,15,Acute,no
+Hair Frizzitis,yes,slower,faster,normal,"sleepy, diarrhea, shortness of breath, fatigue, coughing, muscle aches",Endocrine,12,18,Acute,yes
+Lip Quiver Flu,no,normal,faster,normal,"diarrhea, fatigue",Congenital,2,13,Acute,no
+Kneecap Knots,no,normal,normal,low,"muscle aches, fatigue, coughing, sleepy",Degenerative,4,4,Acute,yes
+Wigglewig Fever,yes,normal,faster,low,"shortness of breath, muscle aches",Congenital,3,21,Acute,yes
+Butterfingers Disorder,yes,slower,normal,high,"coughing, sleepy, fatigue, muscle aches, diarrhea, shortness of breath",Nutritional deficiency,5,1,Chronic,yes
+Dandruff Avalanche,yes,normal,normal,normal,"diarrhea, coughing, muscle aches, fatigue, shortness of breath, sleepy",Congenital,2,15,Acute,yes
+Freckle Sprout,no,normal,slower,low,"sleepy, coughing, shortness of breath",Nutritional deficiency,1,20,Chronic,no
+Mustache Mishap,yes,normal,normal,low,"sleepy, shortness of breath, coughing",Idiopathic,3,4,Acute,yes
+Knuckle Knock Fever,no,slower,normal,low,"diarrhea, sleepy, shortness of breath, muscle aches",Idiopathic,1,12,Chronic,yes
+Toe Jamitis,yes,normal,slower,normal,"diarrhea, shortness of breath, fatigue, sleepy, muscle aches",Degenerative,5,5,Chronic,no
+Chatterbox Syndrome,yes,slower,faster,normal,"coughing, diarrhea, fatigue, shortness of breath, sleepy, muscle aches",Nutritional deficiency,6,16,Chronic,no
+Guffaw Glitch,yes,faster,slower,low,"muscle aches, fatigue, sleepy, diarrhea",Endocrine,2,7,Chronic,no
+Sneeze Surplus,yes,slower,normal,low,"sleepy, shortness of breath, muscle aches, fatigue, diarrhea",Inherited,4,15,Chronic,no
+Wink Warp,yes,slower,normal,normal,"diarrhea, sleepy",Inherited,13,2,Acute,yes
+Finger Fidget Flu,no,normal,faster,high,"muscle aches, diarrhea, coughing",Congenital,12,7,Chronic,yes
+Loopy Tongue,no,normal,normal,high,"coughing, fatigue",Endocrine,14,12,Acute,no
+Shiver Shakes,no,slower,slower,low,"shortness of breath, diarrhea, coughing, sleepy",Congenital,3,12,Acute,no
+Silly Spasm,no,slower,faster,high,"fatigue, muscle aches, shortness of breath, sleepy",Congenital,13,4,Chronic,yes
+Sniffle Storm,yes,faster,faster,normal,coughing,Nutritional deficiency,5,12,Chronic,yes
+Belly Jiggles,yes,slower,normal,high,"diarrhea, shortness of breath, sleepy",Degenerative,13,4,Acute,yes
+Ear Wobble Fever,no,faster,slower,normal,"coughing, shortness of breath, fatigue, sleepy",Nutritional deficiency,10,20,Acute,yes
+Tickleitis,no,faster,faster,normal,"diarrhea, muscle aches, coughing, shortness of breath, fatigue, sleepy",Neoplastic,5,7,Acute,yes
+Nose Wiggle Syndrome,no,faster,normal,low,coughing,Idiopathic,8,19,Acute,yes
+Flip Flop Flu,no,faster,faster,normal,"diarrhea, fatigue, shortness of breath, sleepy, muscle aches",Endocrine,8,18,Chronic,yes
+Grin-a-thon,no,faster,faster,low,shortness of breath,Degenerative,14,3,Acute,yes
+Whistle Whimsy,no,faster,faster,high,"fatigue, muscle aches, sleepy",Neoplastic,10,3,Acute,no
+Toe Wiggle Flu,yes,slower,faster,low,"muscle aches, shortness of breath, coughing, fatigue, sleepy",Degenerative,4,18,Chronic,no
+Guffaw Gallop,no,normal,normal,normal,"fatigue, muscle aches, diarrhea, shortness of breath, sleepy, coughing",Endocrine,8,4,Chronic,no
+Yawn Yodeling,no,normal,slower,normal,"sleepy, diarrhea, shortness of breath, muscle aches, fatigue, coughing",Congenital,14,19,Chronic,no
+Tongue Twister Fever,yes,faster,normal,normal,shortness of breath,Neoplastic,7,1,Acute,yes
+Wiggle Waggle,yes,slower,slower,low,"coughing, shortness of breath, muscle aches, diarrhea, fatigue, sleepy",Endocrine,13,3,Chronic,yes
+Skipping Sneeze,yes,faster,normal,high,"coughing, fatigue, sleepy, shortness of breath, diarrhea, muscle aches",Inherited,11,15,Chronic,yes
+Dizzy Doodles,no,normal,faster,high,"diarrhea, shortness of breath, fatigue, sleepy",Inherited,6,15,Chronic,no
+Fluff Flu,no,faster,faster,low,"fatigue, sleepy, muscle aches",Inherited,13,6,Acute,yes
+Chuckle Chills,no,normal,faster,normal,"shortness of breath, muscle aches, sleepy, fatigue, coughing",Degenerative,13,4,Chronic,no
+Hiccup Hurricane,no,slower,normal,low,"fatigue, muscle aches, diarrhea, sleepy, coughing",Congenital,3,4,Chronic,yes
+Lollipop Laryngitis,yes,slower,slower,low,"fatigue, diarrhea, shortness of breath, sleepy, muscle aches",Endocrine,1,21,Acute,no
+Hair Twiddle Fever,no,slower,faster,high,fatigue,Nutritional deficiency,12,13,Chronic,yes
+Knuckle Twitch,no,normal,normal,high,"shortness of breath, coughing, fatigue, sleepy, muscle aches",Endocrine,11,3,Acute,no
+Thumb Sneeze Syndrome,no,normal,faster,high,"diarrhea, sleepy, muscle aches",Nutritional deficiency,6,10,Acute,yes
+Giggly Goo,yes,slower,faster,high,"muscle aches, fatigue, coughing, sleepy",Idiopathic,9,10,Chronic,yes
+Fuzzbrain,yes,normal,faster,normal,"coughing, fatigue, sleepy, muscle aches",Neoplastic,6,19,Chronic,no
+Elbow Elasticitis,no,normal,slower,low,"muscle aches, diarrhea, fatigue",Idiopathic,3,15,Acute,no
+Snore Snaggle,no,normal,faster,high,"shortness of breath, coughing, muscle aches",Idiopathic,6,20,Chronic,yes
+Pickleitis,no,slower,slower,high,"fatigue, muscle aches, diarrhea",Inherited,5,13,Chronic,yes
+Groan Giggles,yes,faster,faster,normal,"diarrhea, shortness of breath, coughing",Degenerative,1,9,Chronic,no
+Twinkle Toe Flu,yes,normal,slower,high,"muscle aches, coughing, fatigue, diarrhea, shortness of breath",Endocrine,14,6,Acute,no
+Smirk Swirl,yes,normal,normal,high,coughing,Congenital,13,2,Acute,yes
+Whisker Wobble,yes,normal,normal,high,"fatigue, muscle aches, diarrhea, sleepy, coughing, shortness of breath",Inherited,14,5,Acute,yes
+Ear Flap Fever,no,faster,slower,normal,"shortness of breath, coughing, diarrhea",Degenerative,1,16,Chronic,no
+Jabberjaw Jitters,no,faster,slower,normal,"sleepy, shortness of breath",Congenital,10,4,Chronic,no
+Tiptoe Tingle,yes,faster,faster,normal,"muscle aches, fatigue, coughing, shortness of breath, sleepy, diarrhea",Inherited,2,15,Acute,yes
+Belly Bongo Syndrome,yes,slower,normal,low,"diarrhea, shortness of breath",Neoplastic,12,16,Acute,no
+Zany Zippers,yes,slower,normal,high,"sleepy, muscle aches, shortness of breath, diarrhea, fatigue",Congenital,1,14,Chronic,no
+Nose Tickle Tornado,no,slower,normal,low,coughing,Idiopathic,5,10,Chronic,no
+Wiggle Wobble Flu,yes,normal,normal,low,"shortness of breath, coughing, fatigue, muscle aches, diarrhea, sleepy",Degenerative,11,15,Chronic,yes
+Thumb Twiddle Trouble,yes,normal,faster,high,"sleepy, shortness of breath, fatigue, muscle aches",Endocrine,5,2,Acute,yes
+Snore Tsunami,yes,slower,faster,low,diarrhea,Neoplastic,3,21,Chronic,yes
+Noodle Knees,no,normal,normal,normal,"sleepy, diarrhea, shortness of breath, coughing, muscle aches, fatigue",Nutritional deficiency,2,4,Acute,yes
+Mirth Meltdown,yes,faster,normal,low,"coughing, muscle aches",Idiopathic,4,21,Chronic,no
+Chortle Chills,yes,slower,faster,normal,muscle aches,Idiopathic,6,7,Acute,no
+Sneeze Splat,no,slower,slower,low,muscle aches,Idiopathic,2,14,Chronic,yes
+Elbow Echo Fever,no,faster,faster,high,"coughing, diarrhea, fatigue, sleepy, shortness of breath",Congenital,6,4,Chronic,yes
+Toe Tango Syndrome,yes,normal,normal,low,"diarrhea, sleepy, shortness of breath, coughing",Degenerative,3,6,Chronic,no
+Chuckleitis,no,normal,faster,high,"muscle aches, diarrhea, shortness of breath, fatigue",Idiopathic,9,5,Acute,no
+Nose Twitch Tizzy,yes,faster,slower,normal,"muscle aches, sleepy, shortness of breath",Congenital,5,16,Acute,yes
+Wiggle Wag Syndrome,no,faster,normal,low,"diarrhea, coughing",Degenerative,13,15,Chronic,no
+Belly Button Bongo,yes,normal,faster,normal,"muscle aches, fatigue, shortness of breath, coughing, sleepy",Inherited,10,11,Chronic,no
+Sneezequake Shuffle,yes,faster,faster,high,"fatigue, shortness of breath",Idiopathic,11,21,Acute,no
+Fuzzy Flu,yes,faster,normal,normal,"diarrhea, fatigue, muscle aches, coughing, sleepy, shortness of breath",Neoplastic,6,20,Chronic,yes
+Gurgle Giggles,yes,faster,slower,high,fatigue,Endocrine,14,10,Chronic,no
+Blabberflu,no,slower,slower,normal,"muscle aches, shortness of breath, diarrhea, coughing, sleepy",Congenital,8,13,Chronic,yes
+Guffaw Gush,no,slower,faster,normal,"shortness of breath, coughing, fatigue, muscle aches, sleepy, diarrhea",Neoplastic,5,11,Chronic,yes
+Noodle Limb Disorder,no,faster,normal,normal,shortness of breath,Congenital,4,5,Chronic,no
+Freckle Freestyle,no,normal,slower,normal,"diarrhea, muscle aches, coughing, sleepy, fatigue",Congenital,5,6,Chronic,no
+Chuckle Flux,no,slower,faster,low,"muscle aches, sleepy, shortness of breath, fatigue",Nutritional deficiency,2,11,Acute,yes
+Cackle Chills,yes,slower,faster,normal,"sleepy, fatigue, muscle aches, shortness of breath, coughing",Degenerative,1,4,Chronic,no
+Nose Nugget Fever,no,normal,faster,high,"coughing, diarrhea",Nutritional deficiency,11,6,Acute,no
+Wiggle Wobble Woes,yes,slower,faster,high,"fatigue, muscle aches, shortness of breath, coughing",Congenital,3,21,Acute,yes
+Sniffle Snaggle,yes,faster,slower,low,"sleepy, muscle aches, diarrhea, shortness of breath",Inherited,9,16,Acute,no
+Knee Jerk Jamboree,no,faster,slower,low,"muscle aches, coughing, sleepy, diarrhea, fatigue",Endocrine,4,6,Acute,yes
+Mirth Madness,yes,slower,normal,low,sleepy,Neoplastic,13,4,Chronic,no
+Goosebump Gallop,no,slower,slower,normal,"shortness of breath, fatigue, coughing, muscle aches, diarrhea, sleepy",Idiopathic,2,3,Acute,yes
+Laughter Leakage,yes,slower,faster,low,"fatigue, muscle aches, diarrhea, sleepy, coughing",Nutritional deficiency,1,1,Acute,yes
+Freckle Fiasco,yes,slower,faster,low,"fatigue, sleepy, muscle aches, coughing, diarrhea",Degenerative,9,11,Acute,yes
+Snore Snag,no,normal,slower,normal,"sleepy, shortness of breath, diarrhea, fatigue",Nutritional deficiency,3,9,Chronic,yes
+Eye Pop Syndrome,no,faster,slower,high,"sleepy, shortness of breath, fatigue",Endocrine,1,11,Acute,no
+Giggle Twitch,yes,slower,normal,high,"muscle aches, fatigue, shortness of breath",Neoplastic,3,13,Acute,no
+Hairy Hiccups,yes,slower,normal,high,"coughing, sleepy, muscle aches, shortness of breath",Degenerative,1,8,Acute,yes
+Whisker Quiver,no,normal,faster,low,sleepy,Congenital,8,17,Acute,no
+Wink Whiz,yes,slower,normal,low,"coughing, shortness of breath, muscle aches, diarrhea, fatigue",Congenital,2,2,Chronic,yes
+Belly Button Boogie,no,slower,faster,low,"sleepy, shortness of breath, fatigue, diarrhea",Congenital,4,14,Acute,yes
+Snicker Sprain,yes,slower,normal,high,"fatigue, sleepy, muscle aches, shortness of breath, diarrhea, coughing",Idiopathic,2,7,Acute,yes
+Wiggle Wob Syndrome,yes,normal,normal,low,"shortness of breath, sleepy, coughing, diarrhea, muscle aches, fatigue",Idiopathic,12,10,Chronic,no
+Cackle Collapse,yes,normal,faster,high,"sleepy, diarrhea, shortness of breath",Nutritional deficiency,11,7,Chronic,no
+Yawn Yodel Flu,no,normal,normal,normal,"muscle aches, coughing, sleepy",Congenital,4,8,Chronic,yes
+Belly Button Jiggles,no,normal,faster,normal,"diarrhea, coughing, shortness of breath",Inherited,7,1,Acute,no
+Twitch Tummy Trouble,yes,faster,normal,normal,"shortness of breath, coughing",Degenerative,1,4,Acute,yes
+Silly Twitch Flu,yes,faster,faster,low,"fatigue, muscle aches, shortness of breath, sleepy, diarrhea",Idiopathic,9,19,Chronic,yes
+Nose Gobble Flu,yes,faster,faster,normal,"fatigue, coughing, sleepy, diarrhea, muscle aches, shortness of breath",Nutritional deficiency,5,15,Chronic,yes
+Smirk Shakes,no,normal,normal,low,coughing,Neoplastic,14,7,Acute,yes
+Jabberjaw Jive,yes,faster,normal,high,"sleepy, muscle aches, diarrhea, shortness of breath, coughing",Endocrine,1,2,Chronic,no
+Fuzzy Face Flu,yes,faster,slower,low,"shortness of breath, fatigue, sleepy, diarrhea, muscle aches, coughing",Congenital,1,18,Chronic,yes
+Toe Tangle Tizzy,no,normal,slower,low,muscle aches,Nutritional deficiency,6,9,Chronic,no
+Chucklequake,no,slower,faster,normal,"muscle aches, shortness of breath",Endocrine,9,16,Chronic,yes
+Tickle Tantrum,yes,faster,slower,normal,"shortness of breath, sleepy, coughing",Idiopathic,10,13,Chronic,yes
+Belly Belly Boogie,yes,faster,faster,low,"sleepy, diarrhea, fatigue",Idiopathic,11,11,Acute,no
+Wink Warp Syndrome,yes,slower,normal,high,"muscle aches, coughing, sleepy, diarrhea, fatigue, shortness of breath",Nutritional deficiency,6,7,Acute,no
+Silly Stagger,no,faster,normal,low,muscle aches,Neoplastic,7,6,Acute,yes
+Nose Goblin Flu,yes,faster,slower,high,"coughing, sleepy",Nutritional deficiency,12,3,Acute,no
+Belly Bumperitis,yes,faster,normal,low,"diarrhea, sleepy",Congenital,3,11,Chronic,no
+Hiccup Havoc,yes,slower,normal,normal,"shortness of breath, muscle aches",Idiopathic,14,17,Chronic,yes
+Wiggle Giggle Flu,yes,faster,faster,high,"sleepy, fatigue, diarrhea, coughing, shortness of breath",Nutritional deficiency,11,4,Chronic,no
+Toe Tangle Trauma,no,normal,slower,low,"fatigue, shortness of breath, diarrhea",Nutritional deficiency,6,9,Chronic,yes
+Elbow Elasticity Syndrome,no,normal,slower,normal,"sleepy, shortness of breath, muscle aches, fatigue, coughing",Endocrine,10,2,Acute,no
+Guffaw Glimmer,no,slower,normal,high,"sleepy, diarrhea, shortness of breath, coughing, fatigue",Inherited,7,7,Acute,yes
+Belly Jiggle Jitters,no,slower,faster,normal,"muscle aches, fatigue, shortness of breath, coughing",Nutritional deficiency,8,17,Acute,no
+Tickleitis Tango,yes,faster,faster,low,muscle aches,Degenerative,5,15,Chronic,yes
+Freckle Fumble,no,slower,normal,high,"muscle aches, fatigue, diarrhea, coughing, sleepy",Degenerative,14,4,Acute,no
+Elbow Snaggle,yes,slower,faster,high,"fatigue, muscle aches, diarrhea, sleepy, coughing, shortness of breath",Endocrine,10,6,Chronic,yes
+Hair Sprout Fever,no,faster,slower,high,diarrhea,Nutritional deficiency,2,5,Acute,no
+Toe Wobble Flu,yes,slower,faster,low,"coughing, diarrhea, shortness of breath, sleepy, fatigue",Idiopathic,11,5,Chronic,no
+Gurgle Giggle Glitch,yes,faster,normal,low,"sleepy, muscle aches, fatigue",Inherited,13,10,Acute,yes
+Sneeze Snap,yes,slower,normal,low,coughing,Idiopathic,6,15,Chronic,yes
+Yawn Yodelitis,no,normal,faster,low,"fatigue, muscle aches, coughing",Congenital,13,3,Chronic,yes
+Snore Wiggle Fever,no,faster,normal,normal,muscle aches,Endocrine,13,5,Acute,yes

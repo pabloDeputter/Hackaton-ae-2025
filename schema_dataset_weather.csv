@@ -1,0 +1,44 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+        "Location": {
+            "type": "string"
+        },
+        "UNIXTimestamp": {
+            "type": "integer"
+        },
+        "AirTemperatureCelsius": {
+            "type": "number"
+        },
+        "Air Pressure (hPa)": {
+            "type": "number"
+        },
+        "Wind Speed (km/h)": {
+            "type": "number"
+        },
+        "Wind Direction (\u00b0)": {
+            "type": "number"
+        },
+        "Humidity (%)": {
+            "type": "number"
+        },
+        "Cloud Coverage (%)": {
+            "type": "number"
+        },
+        "Precipitation (mm)": {
+            "type": "number"
+        }
+    },
+    "required": [
+        "Location",
+        "UNIXTimestamp",
+        "AirTemperatureCelsius",
+        "Air Pressure (hPa)",
+        "Wind Speed (km/h)",
+        "Wind Direction (\u00b0)",
+        "Humidity (%)",
+        "Cloud Coverage (%)",
+        "Precipitation (mm)"
+    ]
+}

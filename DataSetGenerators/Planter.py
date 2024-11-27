@@ -92,6 +92,6 @@ data = {
 df = pd.DataFrame(data)
 
 # Save to CSV
-df.to_csv("edible_plants_dataset.csv", index=False)
+df.to_csv("dataset_edible_plants.csv", index=False)
 
-print("Dataset generated and saved as 'edible_plants_dataset.csv'.")
+print("Dataset generated and saved as 'dataset_edible_plants.csv'.")
