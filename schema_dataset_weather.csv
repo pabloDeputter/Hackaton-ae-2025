@@ -2,43 +2,47 @@
     "$schema": "http://json-schema.org/draft-07/schema#",
     "type": "object",
     "properties": {
+        "UNIXTimestamp": {
+            "type": "integer"
+        },
         "Location": {
             "type": "string"
         },
-        "UNIXTimestamp": {
-            "type": "integer"
+        "LocationKoppenGeigerClassification": {
+            "type": "string"
         },
         "AirTemperatureCelsius": {
             "type": "number"
         },
-        "Air Pressure (hPa)": {
+        "AirPressure_hPa": {
             "type": "number"
         },
-        "Wind Speed (km/h)": {
+        "WindSpeed_kmh": {
             "type": "number"
         },
-        "Wind Direction (\u00b0)": {
+        "WindDirection_deg": {
             "type": "number"
         },
-        "Humidity (%)": {
+        "Humidity_percent": {
             "type": "number"
         },
-        "Cloud Coverage (%)": {
+        "CloudCoverage_percent": {
             "type": "number"
         },
-        "Precipitation (mm)": {
+        "Precipitation_mm": {
             "type": "number"
         }
     },
     "required": [
-        "Location",
         "UNIXTimestamp",
+        "Location",
+        "LocationKoppenGeigerClassification",
         "AirTemperatureCelsius",
-        "Air Pressure (hPa)",
-        "Wind Speed (km/h)",
-        "Wind Direction (\u00b0)",
-        "Humidity (%)",
-        "Cloud Coverage (%)",
-        "Precipitation (mm)"
+        "AirPressure_hPa",
+        "WindSpeed_kmh",
+        "WindDirection_deg",
+        "Humidity_percent",
+        "CloudCoverage_percent",
+        "Precipitation_mm"
     ]
 }

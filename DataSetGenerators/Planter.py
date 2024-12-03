@@ -80,7 +80,7 @@ num_records = len(plant_names)  # use the length of the provided list
 data = {
     "Name": plant_names,
     "Latin Name": [generate_latin_name(name) for name in plant_names],
-    "Growth Climate": [random_climate() for _ in range(num_records)],
+    "Ideal growth Climate": [random_climate() for _ in range(num_records)],
     "Watering Needs": [random_watering() for _ in range(num_records)],
     "Time to Consumable (days)": [random_time_to_consumable() for _ in range(num_records)],
     "Weight when Full Grown (kg)": [random_weight() for _ in range(num_records)],
