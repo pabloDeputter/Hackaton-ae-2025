@@ -1,98 +1,81 @@
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
+from datetime import datetime, timedelta
 
-# INFO #
-# create weather data for a year (1/1/2023 to 31/12/2023)
-# 
+# Fictional location names inspired by 1984
+locations = [
+    "Airstrip One", "Victory Mansions", "Ministry of Truth",
+    "Ministry of Love", "Ministry of Peace", "Ministry of Plenty",
+    "Chestnut Tree Café", "Golden Country", "Outer Party Sector",
+    "Prole District"
+]
 
-# Parameters for dataset generation
-start_unix = 1672527600  # Start of the year (2023-01-01 00:00:00 UTC)
-end_unix = 1704063599    # End of the year (2023-12-31 23:59:59 UTC)
-num_entries = 100000       # Number of data points
+# Köppen-Geiger classifications
+koppen_geiger = ["Af", "Am", "Aw", "Cfb", "Cfa", "Csb", "Csc", "Dfb", "Dfc", "ET"]
+location_koppen = dict(zip(locations, koppen_geiger))
 
-# Locations - 10 locations
-locations = np.random.choice(['Einstein Prime', 'Curie Station' 'Hawking Spire' ,'Turing Nexus',
- "Sagan's Reach", 'Asimov City', 'Tesla Lumina', 'Darwin Vortex',
- 'Newton Arcadia', 'Kipling Expanse'],num_entries)
+# Generate daily timestamps from start to end date
+start_date = datetime.utcfromtimestamp(1672527600)  # 2023-01-01
+end_date = datetime.utcfromtimestamp(1704063599)    # 2024-12-31
+date_range = [start_date + timedelta(days=i) for i in range((end_date - start_date).days + 1)]
 
-# Generate random UNIXTimestamps within the range
-timestamps = np.random.uniform(start_unix, end_unix, num_entries).astype(int)
+# Function to generate weather data with dependencies and extremes
+def generate_weather(koppen, day_of_year):
+    # Normalize day of the year for a sine wave (0 to 1)
+    seasonal_factor = np.sin(2 * np.pi * day_of_year / 365)
+    
+    if koppen in ["Af", "Am", "Aw"]:  # Tropical
+        temp_base = 28  # Average tropical temperature
+        temp_variation = 5 * seasonal_factor  # More extremes
+        temp = temp_base + temp_variation + np.random.uniform(-5, 5)  # Random fluctuation
+        
+        cloud_cover = np.random.uniform(50, 100)  # Higher average cloud cover
+        precipitation = np.random.uniform(0, cloud_cover / 10)  # Correlated to cloud cover
+        humidity = 70 + (cloud_cover / 3)  # Correlation: more clouds => higher humidity
+    elif koppen in ["Cfb", "Cfa", "Csb", "Csc"]:  # Temperate
+        temp_base = 10
+        temp_variation = 15 * seasonal_factor  # More extreme seasonal change
+        temp = temp_base + temp_variation + np.random.uniform(-10, 10)
+        
+        cloud_cover = np.random.uniform(20, 80)
+        precipitation = np.random.uniform(0, cloud_cover / 8)
+        humidity = 60 + (cloud_cover / 4)
+    elif koppen in ["Dfb", "Dfc", "ET"]:  # Cold
+        temp_base = -10
+        temp_variation = 20 * seasonal_factor
+        temp = temp_base + temp_variation + np.random.uniform(-15, 10)
+        
+        cloud_cover = np.random.uniform(10, 70)
+        precipitation = np.random.uniform(0, cloud_cover / 12)
+        humidity = 40 + (cloud_cover / 5)
+    
+    # Other variables with minor or no dependency
+    pressure = np.random.uniform(1000, 1030) - (temp / 20)  # Colder temps => higher pressure
+    wind_speed = np.random.uniform(5, 25)
+    wind_dir = np.random.uniform(0, 360)
+    
+    return temp, pressure, wind_speed, wind_dir, humidity, cloud_cover, precipitation
 
-# Convert UNIXTimestamps to day of year and hour for pattern generation
-day_of_year = np.array([(ts - 1672527600) // 86400 % 365 for ts in timestamps])
-hour_of_day = np.array([(ts // 3600) % 24 for ts in timestamps])
+# Generate the dataset
+data = []
 
-# Seasonal temperature pattern for Madrid (sinusoidal approximation)
-temperature_seasonal = 15 + 10 * np.sin(2 * np.pi * day_of_year / 365 - np.pi / 2)
+for location in locations:
+    koppen = location_koppen[location]
+    for date in date_range:
+        day_of_year = date.timetuple().tm_yday
+        temp, pressure, wind_speed, wind_dir, humidity, cloud_cover, precipitation = generate_weather(koppen, day_of_year)
+        data.append([int(date.timestamp()), location, koppen, temp, pressure, wind_speed, wind_dir, humidity, cloud_cover, precipitation])
 
-# Daily temperature fluctuations
-temperature_daily = 5 * np.sin(2 * np.pi * hour_of_day / 24 - np.pi / 4)
-
-# Combine seasonal and daily patterns with noise
-air_temperature = temperature_seasonal + temperature_daily + np.random.normal(0, 2, num_entries)
-
-# Air pressure with slight daily fluctuations
-air_pressure = 1015 + 5 * np.sin(2 * np.pi * hour_of_day / 24) + np.random.normal(0, 2, num_entries)
-
-# Wind speed is higher during the day and lower at night
-wind_speed = np.where(hour_of_day < 6, 
-                      np.random.uniform(0, 15, num_entries), 
-                      np.random.uniform(10, 40, num_entries))
-
-# Wind direction with gradual changes
-wind_direction = (180 + 20 * np.sin(2 * np.pi * day_of_year / 30) + 
-                  np.random.normal(0, 10, num_entries)) % 360
-
-# Humidity inversely correlated with temperature
-humidity = 90 - 0.5 * air_temperature + np.random.normal(0, 5, num_entries)
-
-# Cloud coverage, more common in cooler months
-cloud_coverage = np.where((day_of_year < 60) | (day_of_year > 300),  # Winter
-                          np.random.uniform(50, 100, num_entries),  # High clouds
-                          np.random.uniform(0, 50, num_entries))   # Low clouds in summer
-
-# Precipitation more likely with higher cloud coverage
-precipitation = np.where(cloud_coverage > 70, np.random.uniform(0, 10, num_entries), 0)
-
-test = pd.DataFrame({"location":locations})
-test.to_csv("debug_locations.csv", index=False)
-
-# Create DataFrame
-weather_data = pd.DataFrame({
-    "Location" : locations,
-    "UNIXTimestamp": timestamps,
-    "AirTemperatureCelsius": air_temperature,
-    "Air Pressure (hPa)": air_pressure,
-    "Wind Speed (km/h)": wind_speed,
-    "Wind Direction (°)": wind_direction,
-    "Humidity (%)": humidity,
-    "Cloud Coverage (%)": cloud_coverage,
-    "Precipitation (mm)": precipitation,
-})
-
-# Sort by UNIXTimestamp
-#double sorting, first on location then UNIXTimestamp
-#weather_data = weather_data.sort_values("Locations").reset_index(drop=True).sort_values("UNIXTimestamp").reset_index(drop=True)
-weather_data = weather_data.sort_values("UNIXTimestamp").reset_index(drop=True)
+# Create a DataFrame
+columns = [
+    "UNIXTimestamp", "Location", "LocationKoppenGeigerClassification",
+    "AirTemperatureCelsius", "AirPressure_hPa", "WindSpeed_kmh",
+    "WindDirection_deg", "Humidity_percent", "CloudCoverage_percent", "Precipitation_mm"
+]
+df = pd.DataFrame(data, columns=columns)
 
 # Save to CSV
-weather_data.to_csv("dataset_weather.csv", index=False)
+df.to_csv("dataset_weather.csv", index=False)
 
-print("Weather data resembling Madrid generated and saved to 'dataset_weather.csv'.")
-
-
-# reading the database
-data = pd.read_csv("dataset_weather.csv")
- 
-# Scatter plot with day against temp
-plt.scatter(data['UNIXTimestamp'], data['AirTemperatureCelsius'])
- 
-# Adding Title to the Plot
-plt.title("Scatter Plot")
- 
-# Setting the X and Y labels
-plt.xlabel('UNIXTimestamp')
-plt.ylabel('AirTemperatureCelsius')
- 
-#plt.show()
+# Confirm success
+print(f"Dataset with {len(df)} rows saved to 'dataset_weather.csv'.")
