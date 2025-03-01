@@ -6,6 +6,7 @@
   "types": "lib/src/index",
   "scripts": {
     "start": "node server.js",
+    "dev": "nodemon server.js & webpack --watch",
     "build": "tsc && webpack",
     "test": "echo \"No tests yet.\" && exit 0"
   },
@@ -25,6 +26,7 @@
   "license": "MIT",
   "homepage": "https://github.com/Bunkerbewohner/threejs-hex-map",
   "dependencies": {
+    "http-proxy-middleware": "^3.0.3",
     "three": "^0.84.0"
   },
   "devDependencies": {

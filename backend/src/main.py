@@ -1,12 +1,22 @@
 from typing import Union
 
 from fastapi import FastAPI, HTTPException
+# CORS
+from fastapi.middleware.cors import CORSMiddleware
 
 from .DataSetGenerators.Planter import *
 from .DataSetGenerators.Weather import WeatherDatasetGenerator
 from .DataSetGenerators.persons import PopulationManager
 
 app = FastAPI()
+# CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:8080", "http://127.0.0.1:8080", "http://localhost:3000"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"]
+)
 
 # Map locations to climate type (growth climate in plants)
 LOCATION_TO_CLIMATE = {
@@ -28,7 +38,7 @@ COMPATIBILITY_MATRIX = pd.read_csv('data/plants_weather_compatibilities.csv', in
 
 weather = WeatherDatasetGenerator()
 manager = PopulationManager()
-food_data = pd.read_csv('data/food.csv')
+# food_data = pd.read_csv('data/food.csv')
 
 
 @app.get("/")
@@ -95,6 +105,9 @@ def get_plants(location: str, limit: int = 50, q: Union[str, None] = None):
         plant_scores['Total_Score'] = (plant_scores['Total_Score'] - plant_scores['Total_Score'].min()) / (plant_scores['Total_Score'].max() - plant_scores['Total_Score'].min())
     else:
         plant_scores['Total_Score'] = 1
+
+    # Round all scores to 2 decimal places
+    plant_scores = plant_scores.round(2)
     
     # Sort and return top N plants based on 75% of limit
     top_plants = plant_scores.sort_values('Total_Score', ascending=False).head(int(limit * 0.76))
@@ -103,6 +116,7 @@ def get_plants(location: str, limit: int = 50, q: Union[str, None] = None):
     random_plants = plant_scores[~plant_scores['Name'].isin(top_plants['Name'])].sample(n=int(limit * 0.25))
     top_plants = pd.concat([top_plants, random_plants])
     results = pd.merge(top_plants, PLANTS_DF, on='Name', how='inner')
+    # Sort randomly
     top_plants = top_plants.sort_values('Total_Score', ascending=False).head(limit)
     
     # Return in JSON format

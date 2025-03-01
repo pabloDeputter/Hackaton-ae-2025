@@ -17,7 +17,7 @@ export declare enum GrowthStage {
 }
 export interface Plant {
     name: string;
-    latinName: string;
+    totalScore: number;
     growthClimate: string;
     wateringNeeds: string;
     timeToConsumable: number;
@@ -26,6 +26,10 @@ export interface Plant {
     proteinsPer100g: number;
     growthStage: GrowthStage;
     daysSincePlanted: number;
+    climateScore: number;
+    growthSpeed: number;
+    nutritionScore: number;
+    waterEfficiency: number;
 }
 export interface TileData {
     q: number;
@@ -41,7 +45,6 @@ export interface TileData {
     treeIndex?: number;
     location?: string;
     plant?: Plant;
-    locked: boolean;
 }
 export declare function isLand(height: Height): boolean;
 export declare function isWater(height: Height): boolean;
