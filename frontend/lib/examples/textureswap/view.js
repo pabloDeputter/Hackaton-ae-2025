@@ -236,7 +236,7 @@ define(["require", "exports", "../../src/MapView", "../../src/util", "../../src/
                                                 .querySelector("button")
                                                 .addEventListener("click", function () {
                                                 tile.plant = plant;
-                                                tile.terrain = "forest";
+                                                tile.terrain = "tundra";
                                                 mapView.updateTiles([tile]);
                                                 plantDialog.classList.add("hidden");
                                             });
