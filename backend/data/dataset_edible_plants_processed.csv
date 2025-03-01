@@ -1,0 +1,239 @@
+Name,Latin Name,Ideal growth Climate,Watering Needs,Time to Consumable (days),Weight when Full Grown (kg),Kcal per 100g,Proteins per 100g (g)
+Apple,Malum sapiens,Tropical,2,170,1,380,4
+Banana,Musa fixa,Polar,1,258,1,63,8
+Mango,Mangifera indica,Polar,2,279,2,113,0
+Orange,Citrus indica,Polar,2,357,0,175,9
+Peach,Prunus latifolia,Arid,0,95,1,359,8
+Pear,Pyrus vulgaris,Polar,2,161,4,45,3
+Papaya,Carica sapiens,Temperate,0,48,3,104,1
+Pineapple,Ananas sapiens,Polar,2,334,3,335,1
+Watermelon,Citrullus genuina,Temperate,1,335,3,142,2
+Cucumber,Cucumis fixa,Arid,1,228,2,101,6
+Tomato,Tomato latifolia,Mediterranean,2,129,4,160,5
+Avocado,Avocado major,Polar,2,183,3,285,9
+Spinach,Spinach major,Temperate,0,110,1,117,5
+Kale,Kale latifolia,Mediterranean,0,159,1,186,7
+Lettuce,Lettuce vulgaris,Polar,1,201,1,175,4
+Swiss Chard,Swiss chard indica,Polar,0,268,4,348,4
+Beet Greens,Beet greens indica,Arid,0,122,0,193,7
+Radish,Radish indica,Arid,2,198,0,135,3
+Carrot,Carrot indica,Mediterranean,2,206,2,365,6
+Broccoli,Broccoli genuina,Mediterranean,0,81,0,296,7
+Cauliflower,Cauliflower fixa,Mediterranean,2,30,0,22,6
+Cabbage,Cabbage fixa,Mediterranean,2,105,1,203,8
+Brussels Sprouts,Brussels sprouts genuina,Mediterranean,1,287,3,172,5
+Zucchini,Zucchini indica,Polar,2,178,3,283,7
+Squash,Squash sapiens,Mediterranean,1,303,2,29,4
+Pumpkin,Pumpkin fixa,Temperate,2,94,3,349,8
+Sweet Potato,Sweet potato vulgaris,Mediterranean,0,319,2,51,6
+Potato,Potato fixa,Arid,2,91,4,390,3
+Corn,Corn indica,Arid,2,195,2,75,9
+Rice,Rice indica,Mediterranean,0,317,2,184,7
+Wheat,Wheat minor,Mediterranean,2,49,3,18,3
+Barley,Barley indica,Temperate,1,93,1,230,8
+Oats,Oats sapiens,Arid,0,220,1,182,4
+Quinoa,Quinoa genuina,Mediterranean,2,115,2,208,1
+Lentils,Lentils major,Polar,1,61,4,236,5
+Chickpeas,Chickpeas indica,Polar,1,225,0,224,7
+Peas,Peas sapiens,Temperate,1,316,1,325,5
+Beans,Beans minor,Mediterranean,1,84,1,117,4
+Soybeans,Soybeans fixa,Tropical,0,31,2,223,1
+Almond,Almond major,Mediterranean,2,156,4,363,2
+Walnut,Walnut fixa,Mediterranean,1,315,0,315,2
+Pecan,Pecan minor,Tropical,1,69,2,158,0
+Hazelnut,Hazelnut sapiens,Mediterranean,0,116,0,120,2
+Chestnut,Chestnut minor,Mediterranean,2,145,2,233,8
+Sunflower Seeds,Sunflower seeds vulgaris,Arid,1,246,0,65,2
+Sesame Seeds,Sesame seeds fixa,Polar,0,35,4,104,2
+Flax Seeds,Flax seeds major,Temperate,1,62,1,355,6
+Chia Seeds,Chia seeds vulgaris,Tropical,1,76,3,22,6
+Basil,Basil indica,Arid,2,322,4,360,3
+Mint,Mint major,Mediterranean,1,91,0,319,5
+Parsley,Parsley genuina,Polar,1,140,1,299,0
+Cilantro,Cilantro major,Mediterranean,2,120,0,257,2
+Thyme,Thyme genuina,Temperate,2,228,4,114,6
+Rosemary,Rosemary indica,Tropical,1,127,4,109,8
+Sage,Sage major,Temperate,1,232,3,379,8
+Dill,Dill fixa,Temperate,2,316,2,173,8
+Tarragon,Tarragon major,Mediterranean,0,363,1,350,9
+Oregano,Oregano latifolia,Arid,0,327,2,106,6
+Lavender,Lavender sapiens,Polar,2,33,0,332,8
+Lemon Balm,Lemon balm major,Temperate,0,103,4,121,1
+Fennel,Fennel minor,Polar,2,183,4,380,3
+Celery,Celery sapiens,Tropical,2,140,3,314,8
+Bell Pepper,Bell pepper indica,Temperate,1,79,2,381,7
+Chili Pepper,Chili pepper major,Polar,2,228,4,294,9
+Okra,Okra major,Mediterranean,0,209,3,310,7
+Eggplant,Eggplant fixa,Arid,0,193,1,116,1
+Artichoke,Artichoke fixa,Arid,1,260,1,318,9
+Asparagus,Asparagus vulgaris,Tropical,1,91,0,164,1
+Bok Choy,Bok choy fixa,Mediterranean,0,360,4,261,4
+Mustard Greens,Mustard greens major,Tropical,0,349,1,348,8
+Collard Greens,Collard greens vulgaris,Polar,0,71,0,351,2
+Arugula,Arugula latifolia,Temperate,0,93,2,383,4
+Endive,Endive genuina,Temperate,2,273,4,238,4
+Escarole,Escarole sapiens,Mediterranean,0,334,2,288,8
+Green Onion,Green onion fixa,Mediterranean,0,221,3,188,6
+Garlic,Garlic genuina,Arid,2,108,1,275,5
+Leek,Leek minor,Temperate,2,257,4,245,8
+Shallot,Shallot fixa,Tropical,1,31,1,145,5
+Onion,Onion fixa,Temperate,0,143,3,150,7
+Ginger,Ginger fixa,Polar,2,358,0,65,2
+Turmeric,Turmeric sapiens,Temperate,0,124,4,255,0
+Horseradish,Horseradish minor,Polar,2,148,4,210,8
+Daikon,Daikon minor,Arid,2,268,2,329,6
+Turnip,Turnip vulgaris,Polar,2,335,1,111,3
+Rutabaga,Rutabaga indica,Tropical,1,58,4,110,8
+Yam,Yam indica,Tropical,0,170,2,373,7
+Parsnip,Parsnip indica,Arid,2,243,3,367,10
+Kohlrabi,Kohlrabi indica,Temperate,2,83,1,383,8
+Jerusalem Artichoke,Jerusalem artichoke minor,Temperate,1,150,2,333,4
+Malabar Spinach,Malabar spinach indica,Mediterranean,2,180,2,28,7
+Purslane,Purslane fixa,Temperate,1,139,0,56,9
+Dandelion Greens,Dandelion greens genuina,Mediterranean,0,127,1,362,9
+Nasturtium,Nasturtium fixa,Temperate,1,99,4,140,7
+Sorrel,Sorrel vulgaris,Polar,0,305,2,189,1
+Rhubarb,Rhubarb indica,Tropical,0,141,2,387,0
+Gooseberry,Gooseberry fixa,Temperate,2,288,1,328,1
+Currant,Currant fixa,Mediterranean,0,213,4,163,1
+Cranberry,Cranberry sapiens,Arid,1,196,1,388,6
+Blueberry,Blueberry minor,Temperate,2,320,2,246,2
+Blackberry,Blackberry vulgaris,Temperate,1,45,4,21,0
+Raspberry,Raspberry genuina,Arid,1,236,3,298,0
+Strawberry,Strawberry minor,Arid,2,321,3,344,7
+Mulberry,Mulberry indica,Polar,0,349,4,328,8
+Fig,Fig minor,Mediterranean,2,218,4,328,9
+Kiwi,Kiwi latifolia,Temperate,1,101,0,356,5
+Guava,Guava indica,Temperate,1,297,4,164,7
+Lychee,Lychee latifolia,Mediterranean,1,252,2,285,5
+Durian,Durian genuina,Polar,2,254,3,171,7
+Rambutan,Rambutan major,Mediterranean,0,68,4,398,5
+Passion Fruit,Passion fruit indica,Polar,0,95,3,178,1
+Jackfruit,Jackfruit latifolia,Polar,0,51,2,203,5
+Breadfruit,Breadfruit genuina,Polar,2,278,0,83,7
+Starfruit,Starfruit minor,Polar,2,297,4,298,8
+Dragonfruit,Dragonfruit major,Arid,0,203,1,296,9
+Tamarind,Tamarind indica,Temperate,1,215,4,247,9
+Pomegranate,Pomegranate latifolia,Polar,1,253,4,232,2
+Coconut,Coconut indica,Mediterranean,1,240,2,186,3
+Cashew,Cashew minor,Temperate,0,48,3,283,2
+Pistachio,Pistachio latifolia,Temperate,1,245,4,218,1
+Macadamia Nut,Macadamia nut vulgaris,Arid,1,179,4,297,7
+Brazil Nut,Brazil nut minor,Temperate,2,214,3,382,8
+Betel Nut,Betel nut sapiens,Tropical,0,344,4,313,6
+Carob,Carob sapiens,Mediterranean,2,160,0,166,2
+Cocoa Bean,Cocoa bean indica,Temperate,0,205,2,58,2
+Coffee Bean,Coffee bean latifolia,Mediterranean,2,129,1,335,1
+Vanilla,Vanilla genuina,Tropical,1,152,2,138,1
+Dates,Dates latifolia,Mediterranean,1,300,1,160,2
+Olives,Olives genuina,Polar,1,246,4,288,7
+Caper,Caper latifolia,Mediterranean,1,338,3,201,6
+Figs,Figs minor,Polar,0,139,3,158,5
+Chestnut,Chestnut vulgaris,Temperate,1,191,0,237,9
+Lotus Root,Lotus root fixa,Polar,0,198,3,273,9
+Arrowroot,Arrowroot fixa,Arid,2,144,3,143,1
+Taro,Taro latifolia,Mediterranean,0,160,0,321,0
+Cassava,Cassava vulgaris,Arid,0,115,3,208,2
+Seaweed,Seaweed minor,Polar,1,242,4,54,6
+Nori,Nori latifolia,Tropical,1,78,4,390,2
+Wakame,Wakame indica,Mediterranean,1,34,0,339,5
+Kombu,Kombu vulgaris,Temperate,1,153,4,243,9
+Alfalfa Sprouts,Alfalfa sprouts vulgaris,Mediterranean,2,138,2,379,4
+Mung Bean Sprouts,Mung bean sprouts fixa,Tropical,2,347,2,192,6
+Chickweed,Chickweed genuina,Arid,1,319,2,129,5
+Amaranth,Amaranth genuina,Tropical,0,246,4,38,9
+Quail Grass,Quail grass fixa,Polar,2,68,4,303,4
+Agave,Agave vulgaris,Polar,2,124,3,46,8
+Aloe Vera,Aloe vera vulgaris,Mediterranean,2,288,1,359,6
+Bamboo Shoots,Bamboo shoots vulgaris,Polar,0,294,1,105,2
+Burdock Root,Burdock root fixa,Mediterranean,1,272,1,20,1
+Cattail,Cattail vulgaris,Tropical,1,192,4,55,3
+Lamb's Quarters,Lamb's quarters genuina,Temperate,2,303,2,332,4
+Plantain,Plantain fixa,Temperate,0,223,4,357,8
+Prickly Pear Cactus,Prickly pear cactus vulgaris,Polar,2,233,1,30,0
+Watercress,Watercress major,Mediterranean,1,90,1,105,2
+Hibiscus,Hibiscus genuina,Mediterranean,0,120,4,17,0
+Rose Hips,Rose hips latifolia,Mediterranean,0,168,4,35,3
+Elderberry,Elderberry sapiens,Arid,1,216,2,340,1
+Mulberry,Mulberry latifolia,Temperate,0,334,2,104,7
+Jujube,Jujube indica,Polar,0,262,2,113,7
+Ackee,Ackee latifolia,Tropical,0,203,1,256,9
+Breadnut,Breadnut sapiens,Tropical,1,224,1,351,7
+Ackee,Ackee sapiens,Mediterranean,0,99,1,55,9
+Acerola,Acerola latifolia,Tropical,0,119,1,125,4
+Sapote,Sapote latifolia,Arid,1,359,3,369,9
+Loquat,Loquat genuina,Polar,2,352,0,298,9
+Santol,Santol latifolia,Temperate,0,293,0,285,3
+Longan,Longan major,Arid,2,288,1,316,8
+Mangosteen,Mangosteen vulgaris,Polar,1,302,4,353,3
+Salak,Salak major,Mediterranean,1,194,3,256,6
+Miracle Fruit,Miracle fruit genuina,Temperate,2,136,0,247,3
+Wolfberry,Wolfberry minor,Mediterranean,2,290,4,99,0
+Aronia,Aronia major,Arid,1,140,4,253,8
+Medlar,Medlar latifolia,Tropical,2,352,0,384,3
+Tamarillo,Tamarillo genuina,Temperate,2,148,3,375,7
+Pepino,Pepino fixa,Polar,0,198,3,348,6
+Chayote,Chayote major,Polar,2,207,2,321,7
+Bitter Melon,Bitter melon sapiens,Mediterranean,1,86,0,133,9
+Winter Melon,Winter melon indica,Tropical,2,74,2,210,7
+Snake Gourd,Snake gourd genuina,Tropical,0,90,0,260,3
+Sponge Gourd,Sponge gourd fixa,Polar,2,349,1,234,8
+Teff,Teff latifolia,Polar,0,269,2,317,7
+Einkorn,Einkorn major,Tropical,1,151,2,368,6
+Spelt,Spelt vulgaris,Arid,2,181,4,43,2
+Sorghum,Sorghum sapiens,Arid,1,289,0,317,7
+Millet,Millet genuina,Mediterranean,1,134,0,305,2
+Rye,Rye vulgaris,Arid,1,167,1,151,0
+Triticale,Triticale indica,Tropical,2,262,1,97,3
+Kamut,Kamut sapiens,Temperate,2,113,3,223,2
+Buckwheat,Buckwheat minor,Tropical,0,238,3,376,6
+Wild Rice,Wild rice indica,Mediterranean,1,78,4,344,9
+Fonio,Fonio major,Mediterranean,1,127,3,300,8
+Farro,Farro vulgaris,Temperate,2,33,3,275,5
+Adzuki Beans,Adzuki beans minor,Temperate,0,43,4,317,4
+Black Beans,Black beans major,Arid,2,100,1,243,2
+Kidney Beans,Kidney beans vulgaris,Polar,2,86,4,133,2
+Navy Beans,Navy beans latifolia,Tropical,0,136,0,247,5
+Pinto Beans,Pinto beans minor,Polar,0,354,4,110,3
+Cranberry Beans,Cranberry beans major,Tropical,1,90,2,62,7
+Lupin Beans,Lupin beans genuina,Mediterranean,1,36,1,277,3
+Black-Eyed Peas,Black-eyed peas latifolia,Tropical,1,278,2,262,3
+Lentils,Lentils latifolia,Temperate,0,110,0,37,8
+Split Peas,Split peas major,Arid,2,122,2,316,3
+Chickpea,Chickpea genuina,Polar,2,281,3,12,3
+Cannellini Bean,Cannellini bean vulgaris,Polar,2,345,0,40,3
+Fava Bean,Fava bean sapiens,Temperate,1,204,3,51,6
+Lima Bean,Lima bean minor,Polar,0,53,0,287,4
+Mung Bean,Mung bean minor,Arid,0,303,2,84,4
+Soybean,Soybean genuina,Tropical,0,226,1,258,9
+Winged Bean,Winged bean major,Mediterranean,1,50,3,175,8
+Hyacinth Bean,Hyacinth bean minor,Polar,2,315,3,276,7
+Peanuts,Peanuts minor,Mediterranean,1,266,1,235,2
+Pea Shoots,Pea shoots indica,Mediterranean,0,215,3,78,1
+Wasabi,Wasabi genuina,Tropical,2,90,0,333,8
+Sea Kale,Sea kale sapiens,Tropical,0,119,2,99,7
+Lovage,Lovage fixa,Temperate,1,147,0,289,4
+Tarragon,Tarragon minor,Temperate,2,200,4,16,5
+Lemon Thyme,Lemon thyme vulgaris,Temperate,2,55,3,34,2
+Wild Garlic,Wild garlic vulgaris,Tropical,2,295,2,257,3
+Ramsons,Ramsons major,Mediterranean,0,183,3,295,6
+Stinging Nettle,Stinging nettle major,Arid,2,164,1,111,8
+Pokeweed,Pokeweed latifolia,Temperate,0,210,3,39,9
+Marshmallow,Marshmallow minor,Tropical,0,119,1,385,1
+Sassafras,Sassafras vulgaris,Polar,2,350,1,212,5
+Hops,Hops latifolia,Tropical,2,306,3,335,2
+Sweet Violet,Sweet violet genuina,Tropical,1,46,0,353,8
+Blue Cornflower,Blue cornflower major,Polar,0,204,2,296,7
+Borage,Borage indica,Polar,1,285,0,66,6
+Calendula,Calendula fixa,Arid,0,59,2,156,5
+Chamomile,Chamomile fixa,Polar,2,352,2,60,4
+Carnation,Carnation indica,Arid,1,48,4,44,4
+Chrysanthemum,Chrysanthemum minor,Polar,1,92,0,204,5
+Lavender,Lavender indica,Polar,1,40,1,280,1
+Marigold,Marigold sapiens,Tropical,1,268,2,38,5
+Nasturtium,Nasturtium vulgaris,Temperate,2,136,0,380,7
+Pansy,Pansy indica,Temperate,2,200,3,45,1
+Rose,Rose vulgaris,Tropical,2,143,4,396,5
+Safflower,Safflower genuina,Arid,0,85,2,286,8
+Sunflower,Sunflower latifolia,Tropical,1,50,2,11,2
+Zucchini Blossoms,Zucchini blossoms fixa,Mediterranean,0,359,4,362,4
