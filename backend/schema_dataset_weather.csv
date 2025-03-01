@@ -1,0 +1,48 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+        "UNIXTimestamp": {
+            "type": "integer"
+        },
+        "Location": {
+            "type": "string"
+        },
+        "LocationKoppenGeigerClassification": {
+            "type": "string"
+        },
+        "AirTemperatureCelsius": {
+            "type": "number"
+        },
+        "AirPressure_hPa": {
+            "type": "number"
+        },
+        "WindSpeed_kmh": {
+            "type": "number"
+        },
+        "WindDirection_deg": {
+            "type": "number"
+        },
+        "Humidity_percent": {
+            "type": "number"
+        },
+        "CloudCoverage_percent": {
+            "type": "number"
+        },
+        "Precipitation_mm": {
+            "type": "number"
+        }
+    },
+    "required": [
+        "UNIXTimestamp",
+        "Location",
+        "LocationKoppenGeigerClassification",
+        "AirTemperatureCelsius",
+        "AirPressure_hPa",
+        "WindSpeed_kmh",
+        "WindDirection_deg",
+        "Humidity_percent",
+        "CloudCoverage_percent",
+        "Precipitation_mm"
+    ]
+}

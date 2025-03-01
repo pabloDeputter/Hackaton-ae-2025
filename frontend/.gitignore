@@ -1,0 +1,7 @@
+*.iml
+.idea/
+*.log
+node_modules
+build/
+.vscode/
+../.idea/

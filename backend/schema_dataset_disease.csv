@@ -1,0 +1,52 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+        "Disease": {
+            "type": "string"
+        },
+        "Fever": {
+            "type": "string"
+        },
+        "Heart Rate": {
+            "type": "string"
+        },
+        "Breath Rate": {
+            "type": "string"
+        },
+        "Blood Pressure": {
+            "type": "string"
+        },
+        "Symptoms": {
+            "type": "string"
+        },
+        "Type": {
+            "type": "string"
+        },
+        "Incubation Time (days)": {
+            "type": "integer"
+        },
+        "Period of Illness (days)": {
+            "type": "integer"
+        },
+        "Duration": {
+            "type": "string"
+        },
+        "Infectious": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "Disease",
+        "Fever",
+        "Heart Rate",
+        "Breath Rate",
+        "Blood Pressure",
+        "Symptoms",
+        "Type",
+        "Incubation Time (days)",
+        "Period of Illness (days)",
+        "Duration",
+        "Infectious"
+    ]
+}
