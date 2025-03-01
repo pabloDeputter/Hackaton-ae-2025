@@ -9,7 +9,7 @@ export class Simulator {
     start(){
         const interval = setInterval(()=>{
             this.nextStep();
-        }, 3600);
+        }, 1000);
     }
 
     nextStep(){

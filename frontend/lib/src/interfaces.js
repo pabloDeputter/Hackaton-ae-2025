@@ -1,6 +1,15 @@
 define(["require", "exports"], function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    var GrowthStage;
+    (function (GrowthStage) {
+        GrowthStage["Seed"] = "Seed";
+        GrowthStage["Sprout"] = "Sprout";
+        GrowthStage["Young"] = "Young";
+        GrowthStage["Mature"] = "Mature";
+        GrowthStage["Harvestable"] = "Harvestable";
+        GrowthStage["Dead"] = "Dead";
+    })(GrowthStage = exports.GrowthStage || (exports.GrowthStage = {}));
     function isLand(height) {
         return height >= 0.0 && height < 0.75;
     }

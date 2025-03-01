@@ -7,6 +7,26 @@
  * [+0.75,+1.00] == mountains
  */
 export declare type Height = number;
+export declare enum GrowthStage {
+    Seed = "Seed",
+    Sprout = "Sprout",
+    Young = "Young",
+    Mature = "Mature",
+    Harvestable = "Harvestable",
+    Dead = "Dead"
+}
+export interface Plant {
+    name: string;
+    latinName: string;
+    growthClimate: string;
+    wateringNeeds: string;
+    timeToConsumable: number;
+    weightWhenFullGrown: number;
+    kcalPer100g: number;
+    proteinsPer100g: number;
+    growthStage: GrowthStage;
+    daysSincePlanted: number;
+}
 export interface TileData {
     q: number;
     r: number;
@@ -20,6 +40,7 @@ export interface TileData {
     }[];
     treeIndex?: number;
     location?: string;
+    plant?: Plant;
 }
 export declare function isLand(height: Height): boolean;
 export declare function isWater(height: Height): boolean;
