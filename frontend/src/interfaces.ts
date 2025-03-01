@@ -21,7 +21,7 @@ export enum GrowthStage {
 
 export interface Plant {
     name: string;
-    latinName: string;
+    totalScore: number;
     growthClimate: string;
     wateringNeeds: string;
     timeToConsumable: number; // in days
@@ -30,6 +30,10 @@ export interface Plant {
     proteinsPer100g: number;
     growthStage: GrowthStage; // Current stage of the plant
     daysSincePlanted: number; // Track days since it was planted
+    climateScore: number;
+    growthSpeed: number;
+    nutritionScore: number;
+    waterEfficiency: number;
 }
 
 
@@ -44,6 +48,7 @@ export interface TileData {
     treeIndex?: number; // index of tree texture, optional
     location?: string; // Add location tag for 10 locations
     plant?: Plant; // Add plant data
+    locked: boolean;
 }
 
 
