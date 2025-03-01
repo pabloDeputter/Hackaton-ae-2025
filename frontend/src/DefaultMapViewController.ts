@@ -3,6 +3,7 @@ import { MapViewControls } from './MapViewController';
 import { screenToWorld, pickingRay, qrToWorld } from './coords';
 import { TileData, QR } from './interfaces';
 import { Vector3, Camera, Vector2 } from 'three';
+import {loadTileStats} from "./interfaceController";
 
 class Animation {
     /**
@@ -151,7 +152,10 @@ export default class Controller implements MapViewController {
             if (tile) {
                 this.controls.selectTile(tile)
                 this.selectedQR = tile
+
                 this.showDebugInfo()
+                tile.terrain = "water"
+                loadTileStats(tile)
             }        
         }
 

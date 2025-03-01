@@ -1,4 +1,4 @@
-define(["require", "exports", "./coords", "three"], function (require, exports, coords_1, three_1) {
+define(["require", "exports", "./coords", "three", "./interfaceController"], function (require, exports, coords_1, three_1, interfaceController_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var Animation = /** @class */ (function () {
@@ -104,6 +104,8 @@ define(["require", "exports", "./coords", "three"], function (require, exports, 
                         _this.controls.selectTile(tile);
                         _this.selectedQR = tile;
                         _this.showDebugInfo();
+                        tile.terrain = "water";
+                        interfaceController_1.loadTileStats(tile);
                     }
                 }
                 _this.mouseDownPos = null; // end drag

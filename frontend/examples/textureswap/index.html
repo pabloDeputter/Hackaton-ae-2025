@@ -5,6 +5,7 @@
     <title>Hex-Map</title>
     <meta name="viewport" content="width=device-width, user-scalable=no" />
     <script src="../../node_modules/three/build/three.min.js"></script>
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
     <style type="text/css">
         html, body {
             margin: 0;
@@ -42,18 +43,18 @@
             text-align: left;
         }
 
-        #textures {
+        #settings {
             max-width: 100%;
             display: flex;
             flex-direction: row;
         }
 
-        #textures > div {
+        #settings > div {
             flex: 1;
             margin: 10px;
         }
 
-        #textures img {
+        #settings img {
             border: 4px solid white;
             max-width: 100%;
             height: 200px;
@@ -65,18 +66,28 @@
 </head>
 <body>
 
-<div id="text">Drop new textures onto the ones shown at the bottom to replace them.</div>
+<div id="debug" class="p-10">
+    <div id="settings" class="bg-white" style="height: 30vh; width: 500px">
+        <ul role="list" class="divide-y divide-gray-100 p-5">
+            <li class="flex justify-between gap-x-6">
+                <div class="flex min-w-0 gap-x-4">
+                    <div class="min-w-0 flex-auto">
+                        <p class="text-sm/6 font-semibold text-gray-900" id="currentTile">Title</p>
+                        <p class="text-sm/6 font-semibold text-gray-900">Item 0</p>
+                        <p class="mt-1 truncate text-xs/5 text-gray-500">Value</p>
+                    </div>
+                </div>
+            </li>
 
-<div id="debug">
-    <div id="textures">
-        <div id="terrainAtlasTexture"><img src="../../assets/terrain.png"></div>
-        <div id="riverAtlasTexture"><img src="../../assets/river-diffuse.png"></div>
-        <div id="coastAtlasTexture"><img src="../../assets/coast-diffuse.png"></div>
-        <div id="undiscoveredTexture"><img src="../../assets/paper.jpg"></div>
+        </ul>
+
     </div>
 </div>
 
-<canvas></canvas>
+<div style="flex: auto">
+    <canvas style="width: 80%"></canvas>
+    <div style="width: 80%"></div>
+</div>
 
 <script>
     var require = {

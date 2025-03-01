@@ -1818,7 +1818,7 @@ define("threejs-hex-map", ["three"], function(__WEBPACK_EXTERNAL_MODULE_4__) { r
 /* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(5), __webpack_require__(4)], __WEBPACK_AMD_DEFINE_RESULT__ = function (require, exports, coords_1, three_1) {
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(5), __webpack_require__(4), __webpack_require__(18)], __WEBPACK_AMD_DEFINE_RESULT__ = function (require, exports, coords_1, three_1, interfaceController_1) {
 	    "use strict";
 	    Object.defineProperty(exports, "__esModule", { value: true });
 	    var Animation = /** @class */ (function () {
@@ -1924,6 +1924,8 @@ define("threejs-hex-map", ["three"], function(__WEBPACK_EXTERNAL_MODULE_4__) { r
 	                        _this.controls.selectTile(tile);
 	                        _this.selectedQR = tile;
 	                        _this.showDebugInfo();
+	                        tile.terrain = "water";
+	                        interfaceController_1.loadTileStats(tile);
 	                    }
 	                }
 	                _this.mouseDownPos = null; // end drag
@@ -1988,6 +1990,20 @@ define("threejs-hex-map", ["three"], function(__WEBPACK_EXTERNAL_MODULE_4__) { r
 	    exports.default = Controller;
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	//# sourceMappingURL=DefaultMapViewController.js.map
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports], __WEBPACK_AMD_DEFINE_RESULT__ = function (require, exports) {
+	    "use strict";
+	    Object.defineProperty(exports, "__esModule", { value: true });
+	    function loadTileStats(tile) {
+	        document.getElementById("currentTile").innerHTML = "Tile data " + tile.r + " " + tile.q;
+	    }
+	    exports.loadTileStats = loadTileStats;
+	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	//# sourceMappingURL=interfaceController.js.map
 
 /***/ })
 /******/ ])});;
