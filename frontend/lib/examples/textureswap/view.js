@@ -106,11 +106,6 @@ define(["require", "exports", "../../src/MapView", "../../src/util", "../../src/
                             }, { passive: false });
                         }
                         mapView.onTileSelected = function (tile) {
-                            var newTile = {
-                                clouds: false, fog: false, height: 0, q: tile.q, r: tile.r, terrain: "water", locked: true
-                            };
-                            mapView.updateTiles([newTile]);
-                            return;
                             // If tile has plant already, show plant data
                             if (tile.plant) {
                                 var plantDialog_1 = document.getElementById("plantDialog");
@@ -145,8 +140,8 @@ define(["require", "exports", "../../src/MapView", "../../src/util", "../../src/
                                         // Logic for harvesting
                                         alert("Harvested " + tile.plant.name + "!");
                                         delete tile.plant;
-                                        // TODO - update game state with harvested plant
-                                        tile.terrain = "grass";
+                                        // TODO - gamelogic
+                                        tile.terrain = "plains";
                                         mapView.updateTiles([tile]);
                                         plantDialog_1.classList.add("hidden");
                                     });
@@ -157,18 +152,18 @@ define(["require", "exports", "../../src/MapView", "../../src/util", "../../src/
                                 "Tile data " + tile.r + " " + tile.q;
                             // If the tile has a location, show the plant selection dialog
                             if (tile.location) {
-                                var plantDialog_2 = document.getElementById("plantDialog");
+                                var plantDialog = document.getElementById("plantDialog");
                                 var plantDialogLocation = document.getElementById("plantDialogLocation");
                                 var plantsList_1 = document.getElementById("plantsList");
                                 var loadingPlants_1 = document.getElementById("loadingPlants");
                                 // Show the dialog with blurred backdrop
-                                plantDialog_2.classList.remove("hidden");
-                                plantDialog_2.classList.add("backdrop-blur-[2px]");
+                                plantDialog.classList.remove("hidden");
+                                plantDialog.classList.add("backdrop-blur-[2px]");
                                 plantDialogLocation.textContent = "Location: " + tile.location;
                                 plantsList_1.innerHTML = "";
                                 loadingPlants_1.classList.remove("hidden");
                                 // Make dialog wider
-                                var dialogContent = plantDialog_2.querySelector("div");
+                                var dialogContent = plantDialog.querySelector("div");
                                 dialogContent.className =
                                     "bg-gray-100 rounded-lg p-6 max-w-4xl w-full max-h-[80vh] flex flex-col shadow-xl";
                                 // Fetch available plants for this location
@@ -195,7 +190,7 @@ define(["require", "exports", "../../src/MapView", "../../src/util", "../../src/
                                     // Add table with headers and descriptions
                                     var tableContainer = document.createElement("div");
                                     tableContainer.className = "overflow-x-auto";
-                                    tableContainer.innerHTML = "\n                    <table class=\"w-full text-sm text-left\">\n                        <thead class=\"text-xs text-gray-700 uppercase bg-gray-50\">\n                            <tr>\n                                <th class=\"px-4 py-2\" title=\"Common name of the plant\">Name</th>\n                                <th class=\"px-4 py-2\" title=\"Optimal climate for growth\">Growth Climate</th>\n                                <th class=\"px-4 py-2\" title=\"How much water the plant needs\">Watering Needs</th>\n                                <th class=\"px-4 py-2\" title=\"Days until harvest is possible\">Time To Harvest</th>\n                                <th class=\"px-4 py-2\" title=\"Calories per 100g\">Calories per 100g (kcal)</th>\n                                <th class=\"px-4 py-2\" title=\"Protein content per 100g\">Protein per 100g (g)</th>\n                                <th class=\"px-4 py-2\" title=\"Match with this area's climate (higher is better)\">Climate Score</th>\n                                <th class=\"px-4 py-2\" title=\"How fast this plant grows (higher is better)\">Growth Speed</th>\n                                <th class=\"px-4 py-2\" title=\"Nutritional value (higher is better)\">Nutrition</th>\n                                <th class=\"px-4 py-2\" title=\"Water efficiency (higher is better)\">Water Efficiency</th>\n                                <th class=\"px-4 py-2\" title=\"Total score (higher is better)\">Total Score</th>\n                                <th class=\"px-4 py-2\">Action</th>\n                            </tr>\n                        </thead>\n                        <tbody id=\"plantsTableBody\">\n                        </tbody>\n                    </table>\n                ";
+                                    tableContainer.innerHTML = "\n                    <table class=\"w-full text-sm text-left\">\n                        <thead class=\"text-xs text-gray-700 uppercase bg-gray-50\">\n                            <tr>\n                                <th class=\"px-4 py-2\" title=\"Common name of the plant\">Name</th>\n                                <th class=\"px-4 py-2\" title=\"Optimal climate for growth\">Growth Climate</th>\n                                <th class=\"px-4 py-2\" title=\"How much water the plant needs\">Watering Needs</th>\n                                <th class=\"px-4 py-2\" title=\"Days until harvest is possible\">Time To Harvest</th>\n                                <th class=\"px-4 py-2\" title=\"Calories per 100g\">Calories per 100g (kcal)</th>\n                                <th class=\"px-4 py-2\" title=\"Protein content per 100g\">Protein per 100g (g)</th>\n                                <th class=\"px-4 py-2\" title=\"Match with this area's climate (higher is better)\">Climate Score</th>\n                                <th class=\"px-4 py-2\" title=\"How fast this plant grows (higher is better)\">Growth Speed</th>\n                                <th class=\"px-4 py-2\" title=\"Nutritional value (higher is better)\">Nutrition</th>\n                                <th class=\"px-4 py-2\" title=\"Water efficiency (higher is better)\">Water Efficiency</th>\n                                <th class=\"px-4 py-2\" title=\"Total score (higher is better)\">Total Score</th>\n                            </tr>\n                        </thead>\n                        <tbody id=\"plantsTableBody\">\n                        </tbody>\n                    </table>\n                ";
                                     plantsList_1.appendChild(tableContainer);
                                     var tableBody = document.getElementById("plantsTableBody");
                                     plants.forEach(function (plant) {
@@ -229,15 +224,22 @@ define(["require", "exports", "../../src/MapView", "../../src/util", "../../src/
                                             ? "bg-green-100 text-green-800"
                                             : "bg-yellow-100 text-yellow-800") + "\">" + plant.waterEfficiency + "</span></td>\n                        <td class=\"px-4 py-2\"><span class=\"px-2 py-1 rounded " + (plant.totalScore >= 0.7
                                             ? "bg-green-100 text-green-800"
-                                            : "bg-yellow-100 text-yellow-800") + "\">" + plant.totalScore + "</span></td>\n                        <td class=\"px-4 py-2\">\n                            <button class=\"bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-xs\">Plant</button>\n                        </td>\n                    ";
-                                        row.querySelector("button").addEventListener("click", function () {
-                                            // Update the tile with the selected plant
-                                            tile.plant = plant;
-                                            // Update terrain to show it's planted
-                                            tile.terrain = "tree";
-                                            mapView.updateTiles([tile]);
-                                            // Close the dialog
-                                            plantDialog_2.classList.add("hidden");
+                                            : "bg-yellow-100 text-yellow-800") + "\">" + plant.totalScore + "</span></td>\n                    ";
+                                        // Make the entire row clickable to show plant info
+                                        row.addEventListener("click", function () {
+                                            var plantDialog = document.getElementById("plantDialog");
+                                            var plantsList = document.getElementById("plantsList");
+                                            // Create and show detailed plant info
+                                            plantsList.innerHTML = "\n                    <div class=\"bg-white p-4 rounded-lg shadow\">\n                        <h3 class=\"text-xl font-bold text-gray-800 mb-4\">" + plant.name + "</h3>\n                        <div class=\"grid grid-cols-2 gap-4\">\n                            <div>\n                                <p><span class=\"font-medium\">Latin Name:</span> " + plant.latinName + "</p>\n                                <p><span class=\"font-medium\">Growth Climate:</span> " + plant.growthClimate + "</p>\n                                <p><span class=\"font-medium\">Watering Needs:</span> " + plant.wateringNeeds + "</p>\n                                <p><span class=\"font-medium\">Time to Harvest:</span> " + plant.timeToConsumable + " days</p>\n                            </div>\n                            <div>\n                                <p><span class=\"font-medium\">Weight when Grown:</span> " + plant.weightWhenFullGrown + " kg</p>\n                                <p><span class=\"font-medium\">Calories:</span> " + plant.kcalPer100g + " kcal/100g</p>\n                                <p><span class=\"font-medium\">Protein:</span> " + plant.proteinsPer100g + "g/100g</p>\n                            </div>\n                        </div>\n                        <button class=\"mt-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded\">Plant</button>\n                    </div>\n                ";
+                                            // Add click handler to the new plant button
+                                            plantsList
+                                                .querySelector("button")
+                                                .addEventListener("click", function () {
+                                                tile.plant = plant;
+                                                tile.terrain = "forest";
+                                                mapView.updateTiles([tile]);
+                                                plantDialog.classList.add("hidden");
+                                            });
                                         });
                                         tableBody.appendChild(row);
                                     });

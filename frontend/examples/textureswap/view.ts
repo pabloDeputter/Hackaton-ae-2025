@@ -110,12 +110,6 @@ export async function initView(
   }
 
   mapView.onTileSelected = (tile: TileData) => {
-
-    let newTile: TileData = {
-      clouds: false, fog: false, height: 0, q: tile.q, r: tile.r, terrain: "water", locked: true
-    }
-    mapView.updateTiles([newTile])
-    return
     // If tile has plant already, show plant data
     if (tile.plant) {
       const plantDialog = document.getElementById("plantDialog");
@@ -226,8 +220,8 @@ export async function initView(
           // Logic for harvesting
           alert(`Harvested ${tile.plant.name}!`);
           delete tile.plant;
-          // TODO - update game state with harvested plant
-          tile.terrain = "grass";
+          // TODO - gamelogic
+          tile.terrain = "plains";
           mapView.updateTiles([tile]);
           plantDialog.classList.add("hidden");
         });
@@ -374,11 +368,11 @@ export async function initView(
 
             // Make the entire row clickable to show plant info
             row.addEventListener("click", () => {
-                const plantDialog = document.getElementById("plantDialog");
-                const plantsList = document.getElementById("plantsList");
-                
-                // Create and show detailed plant info
-                plantsList.innerHTML = `
+              const plantDialog = document.getElementById("plantDialog");
+              const plantsList = document.getElementById("plantsList");
+
+              // Create and show detailed plant info
+              plantsList.innerHTML = `
                     <div class="bg-white p-4 rounded-lg shadow">
                         <h3 class="text-xl font-bold text-gray-800 mb-4">${plant.name}</h3>
                         <div class="grid grid-cols-2 gap-4">
@@ -398,12 +392,14 @@ export async function initView(
                     </div>
                 `;
 
-                // Add click handler to the new plant button
-                plantsList.querySelector("button").addEventListener("click", () => {
-                    tile.plant = plant;
-                    tile.terrain = "tree";
-                    mapView.updateTiles([tile]);
-                    plantDialog.classList.add("hidden");
+              // Add click handler to the new plant button
+              plantsList
+                .querySelector("button")
+                .addEventListener("click", () => {
+                  tile.plant = plant;
+                  tile.terrain = "tundra";
+                  mapView.updateTiles([tile]);
+                  plantDialog.classList.add("hidden");
                 });
             });
 
