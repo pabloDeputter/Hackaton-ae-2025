@@ -1,113 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Hex-Map</title>
     <meta name="viewport" content="width=device-width, user-scalable=no" />
     <script src="../../node_modules/three/build/three.min.js"></script>
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
     <style type="text/css">
-        html, body {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            overflow: hidden;
-        }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden;
+      }
 
-        canvas {
-            display: block;
-            height: 100%;
-            background-color: cornflowerblue;
-        }
+      canvas {
+        display: block;
+        height: 100%;
+        background-color: cornflowerblue;
+      }
 
-        #text {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            padding: 10px 20px;
-            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-            font-size: 1.5em;
-            text-align: center;
-            pointer-events: none;
-            color: white;
-            text-shadow: 0 0 1px black;
-            box-sizing: border-box;
-        }
+      #text {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 10px 20px;
+        font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+          "Lucida Sans", Arial, sans-serif;
+        font-size: 1.5em;
+        text-align: center;
+        pointer-events: none;
+        color: white;
+        text-shadow: 0 0 1px black;
+        box-sizing: border-box;
+      }
 
-        #debug {
-            position: absolute;
-            left: 0;
-            top: auto;
-            bottom: 0;
-            text-align: left;
-        }
+      #debug {
+        position: absolute;
+        left: 0;
+        top: auto;
+        bottom: 0;
+        text-align: left;
+      }
 
-        #clock{
-            position: absolute;
-            right: 10px;
-            top: 10px;
-            text-align: left;
-        }
+      #clock {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        text-align: left;
+      }
 
-        #settings {
-            max-width: 100%;
-            display: flex;
-            flex-direction: row;
-        }
+      #settings {
+        max-width: 100%;
+        display: flex;
+        flex-direction: row;
+      }
 
-        #settings > div {
-            flex: 1;
-            margin: 10px;
-        }
+      #settings > div {
+        flex: 1;
+        margin: 10px;
+      }
 
-        #settings img {
-            border: 4px solid white;
-            max-width: 100%;
-            height: 200px;
-            height: 15vh;
-            width: auto;
-            pointer-events: none;
-        }
+      #settings img {
+        border: 4px solid white;
+        max-width: 100%;
+        height: 200px;
+        height: 15vh;
+        width: auto;
+        pointer-events: none;
+      }
     </style>
-</head>
-<body>
-
-<div id="debug" class="p-10">
-    <div id="settings" class="bg-white" style="height: 30vh; width: 500px">
-        <ul role="list" class="divide-y divide-gray-100 p-5">
-            <li class="flex justify-between gap-x-6">
-                <div class="flex min-w-0 gap-x-4">
-                    <div class="min-w-0 flex-auto">
-                        <p class="text-sm/6 font-semibold text-gray-900" id="currentTile">Title</p>
-                        <p class="text-sm/6 font-semibold text-gray-900" id="location">Location</p>
-                        <p class="mt-1 truncate text-xs/5 text-gray-500" id="plantInfo">Value</p>
-                    </div>
-                </div>
-            </li>
-        </ul>
+  </head>
+  <body>
+    <div id="debug" class="fixed bottom-0 left-0 p-2">
+      <div
+        id="settings"
+        class="bg-gray-100 rounded-lg shadow-xl"
+        style="width: 500px"
+      >
+        <div class="bg-white p-4 rounded-lg shadow">
+          <div class="flex flex-col gap-2">
+            <div>
+              <h4 class="font-medium text-gray-700">Location Details</h4>
+              <p id="currentTile" class="text-gray-600">No tile selected</p>
+              <p id="location" class="text-gray-600">No location</p>
+            </div>
+            <div>
+              <h4 class="font-medium text-gray-700">Plant Information</h4>
+              <p id="plantInfo" class="text-gray-600">No plant data</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-</div>
 
+    <div id="clock" class="bg-white rounded-xl p-2">1/03/2025</div>
 
-<div id="clock" class="bg-white rounded-xl p-2">
-    1/03/2025
-</div>
+    <div style="flex: auto">
+      <canvas style="width: 80%"></canvas>
+      <div style="width: 80%"></div>
+    </div>
 
-<div style="flex: auto">
-    <canvas style="width: 80%"></canvas>
-    <div style="width: 80%"></div>
-</div>
-
-<script>
-    var require = {
+    <script>
+      var require = {
         baseUrl: "../../lib/examples/textureswap",
         paths: {
-            "three": "../../../node_modules/three/build/three"
-        }
-    }
-</script>
-<script data-main="main" src="../../node_modules/requirejs/require.js"></script>
-
-</body>
+          three: "../../../node_modules/three/build/three",
+        },
+      };
+    </script>
+    <script
+      data-main="main"
+      src="../../node_modules/requirejs/require.js"
+    ></script>
+  </body>
 </html>

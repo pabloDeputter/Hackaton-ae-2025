@@ -12,7 +12,6 @@ import { TextureLoader, Texture } from "three";
 import * as THREE from "three";
 import { MapMeshOptions } from "../../src/MapMesh";
 
-
 function asset(relativePath: string): string {
   return "../../assets/" + relativePath;
 }
@@ -112,122 +111,67 @@ export async function initView(
   }
 
   mapView.onTileSelected = (tile: TileData) => {
-    // If tile has plant already, show plant data
+    // Update debug information for all tiles
+    document.getElementById("currentTile").innerHTML =
+      "Tile data " + tile.r + " " + tile.q;
+    document.getElementById("location").textContent = `Location: ${
+      tile.location || "Unknown"
+    }`;
+
+    // Clear plant info
+    document.getElementById("plantInfo").innerHTML = "";
+
+    // If tile has plant already, show comprehensive plant data in debug panel
     if (tile.plant) {
-      const plantDialog = document.getElementById("plantDialog");
-      const plantDialogLocation = document.getElementById(
-        "plantDialogLocation"
-      );
-      const plantsList = document.getElementById("plantsList");
-      const loadingPlants = document.getElementById("loadingPlants");
-
-      // Show the dialog with blurred backdrop
-      plantDialog.classList.remove("hidden");
-      plantDialog.classList.add("backdrop-blur-[2px]");
-      plantDialogLocation.textContent = `Location: ${
-        tile.location || "Unknown"
-      } - Planted: ${tile.plant.name}`;
-      plantsList.innerHTML = "";
-      loadingPlants.classList.add("hidden");
-
-      // Make dialog wider
-      const dialogContent = plantDialog.querySelector("div");
-      dialogContent.className =
-        "bg-gray-100 rounded-lg p-6 max-w-4xl w-full max-h-[80vh] flex flex-col shadow-xl";
-
-      // Create plant stats display
-      const plantStats = document.createElement("div");
-      plantStats.className = "bg-white p-4 rounded-lg shadow";
-
-      tile.plant.daysSincePlanted = tile.plant.timeToConsumable;
-
-      // Calculate days until harvest
+      // Calculate days until harvest and growth percentage
       const daysLeft =
         tile.plant.timeToConsumable - tile.plant.daysSincePlanted;
       const growthPercentage =
         (tile.plant.daysSincePlanted / tile.plant.timeToConsumable) * 100;
-      plantStats.innerHTML = `
-          <div class="flex flex-col gap-4">
-            <div class="flex justify-between items-center">
-              <h3 class="text-xl font-bold text-gray-800">${
-                tile.plant.name
-              }</h3>
-            </div>
-            
-            <div class="grid grid-cols-2 gap-4">
-              <div>
-                <h4 class="font-medium text-gray-700">Growth Information</h4>
-                <ul class="mt-2 space-y-1">
-                  <li><span class="font-medium">Growth Stage:</span> ${
-                    tile.plant.growthStage
-                  }</li>
-                  <li><span class="font-medium">Days Since Planted:</span> ${
-                    tile.plant.daysSincePlanted
-                  }</li>
-                  <li><span class="font-medium">Days Until Harvest:</span> ${
-                    daysLeft > 0 ? daysLeft : "Ready to harvest!"
-                  }</li>
-                </ul>
-              </div>
-              
-              <div>
-                <h4 class="font-medium text-gray-700">Nutritional Information</h4>
-                <ul class="mt-2 space-y-1">
-                  <li><span class="font-medium">Expected Weight:</span> ${
-                    tile.plant.weightWhenFullGrown
-                  } kg</li>
-                  <li><span class="font-medium">Calories:</span> ${
-                    tile.plant.kcalPer100g
-                  } kcal per 100g</li>
-                  <li><span class="font-medium">Protein:</span> ${
-                    tile.plant.proteinsPer100g
-                  } g per 100g</li>
-                </ul>
-              </div>
-            </div>
-            
-            <div>
-              <h4 class="font-medium text-gray-700">Growth Progress</h4>
-              <div class="w-full bg-gray-200 rounded-full h-2.5 mt-2">
-                <div class="bg-green-600 h-2.5 rounded-full" style="width: ${Math.min(
-                  growthPercentage,
-                  100
-                )}%"></div>
-              </div>
-              <p class="text-sm text-gray-600 mt-1">${growthPercentage.toFixed(
-                1
-              )}% complete</p>
-            </div>
-            
-            <div class="flex justify-end gap-2 mt-2">
-              ${
-                daysLeft <= 0
-                  ? `
-              <button id="harvestPlant" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">
-                Harvest Plant
-              </button>
-              `
-                  : ""
-              }
-            </div>
-          </div>
-        `;
 
-      plantsList.appendChild(plantStats);
-
-      // Add event listener for harvest button if it exists
-      const harvestBtn = document.getElementById("harvestPlant");
-      if (harvestBtn) {
-        harvestBtn.addEventListener("click", () => {
-          // Logic for harvesting
-          alert(`Harvested ${tile.plant.name}!`);
-          delete tile.plant;
-          // TODO - gamelogic
-          tile.terrain = "plains";
-          mapView.updateTiles([tile]);
-          plantDialog.classList.add("hidden");
-        });
-      }
+      // Update debug panel with comprehensive plant information
+      document.getElementById("plantInfo").innerHTML = `
+    <div class="bg-white p-3 rounded border border-gray-200">
+      <h5 class="font-bold text-green-800">${tile.plant.name}</h5>
+      <div class="grid grid-cols-2 gap-2 text-sm mt-2">
+        <div>
+          <p><span class="font-medium">Growth Stage:</span> ${
+            tile.plant.growthStage
+          }</p>
+          <p><span class="font-medium">Days Planted:</span> ${
+            tile.plant.daysSincePlanted
+          }</p>
+          <p><span class="font-medium">Days Until Harvest:</span> ${
+            daysLeft > 0 ? daysLeft : "Ready!"
+          }</p>
+          <p><span class="font-medium">Latin Name:</span> ${
+            tile.plant.latinName || "N/A"
+          }</p>
+        </div>
+        <div>
+          <p><span class="font-medium">Expected Weight:</span> ${
+            tile.plant.weightWhenFullGrown
+          } kg</p>
+          <p><span class="font-medium">Calories:</span> ${
+            tile.plant.kcalPer100g
+          } kcal/100g</p>
+          <p><span class="font-medium">Protein:</span> ${
+            tile.plant.proteinsPer100g
+          }g/100g</p>
+        </div>
+      </div>
+      <div class="mt-2">
+        <p><span class="font-medium">Growth Progress:</span></p>
+        <div class="w-full bg-gray-200 rounded-full h-2 mt-1">
+          <div class="bg-green-600 h-2 rounded-full" style="width: ${Math.min(
+            growthPercentage,
+            100
+          )}%"></div>
+        </div>
+        <p class="text-xs text-right mt-0.5">${growthPercentage.toFixed(1)}%</p>
+      </div>
+    </div>
+  `;
 
       return; // Exit early - don't proceed to the location-based plant selection
     }
