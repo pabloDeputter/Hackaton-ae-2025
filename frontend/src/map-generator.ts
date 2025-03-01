@@ -5,7 +5,8 @@ import Grid from './Grid';
 import {Vector3, Scene} from "three";
 import {randomPointInHexagonEx} from "./hexagon";
 import {varying} from "../examples/textureswap/util";
-const scene = new Scene();
+
+const global_seed = 7
 
 const locations = [
     "Airstrip One", "Victory Mansions", "Ministry of Truth",
@@ -14,8 +15,28 @@ const locations = [
     "Prole District"
 ];
 
-export function assignLocationZones(grid: Grid<TileData>) {
-    const allTiles = shuffle(grid.toArray());  // Randomize order
+// Simple seedable random number generator
+class SeededRandom {
+    private seed: number;
+
+    constructor(seed: number) {
+        this.seed = seed;
+    }
+
+    next() {
+        // Implementing a simple linear congruential generator (LCG)
+        this.seed = (this.seed * 1664525 + 1013904223) & 0xFFFFFFFF;
+        return (this.seed >>> 16) / 0xFFFF;
+    }
+
+    nextInt(min: number, max: number) {
+        return Math.floor(this.next() * (max - min + 1)) + min;
+    }
+}
+
+export function assignLocationZones(grid: Grid<TileData>, seed: number) {
+    const rng = new SeededRandom(seed);  // Create a deterministic RNG based on the seed
+    const allTiles = seededShuffle(grid.toArray(), rng);  // Randomize order with seed
     const occupiedTiles: Record<string, boolean> = {};  // Use a plain object for occupied tracking
 
     const locationCount = locations.length;
@@ -31,7 +52,7 @@ export function assignLocationZones(grid: Grid<TileData>) {
         const location = locations[assigned];
 
         // Set the center tile and surrounding tiles (randomly expanding the area)
-        expandLocationArea(centerTile, location, occupiedTiles, grid);
+        expandLocationArea(centerTile, location, occupiedTiles, grid, rng);
 
         assigned++;
     }
@@ -42,9 +63,9 @@ export function assignLocationZones(grid: Grid<TileData>) {
 }
 
 // Expands the location area with a random number of tiles
-function expandLocationArea(centerTile: TileData, location: string, occupied: Record<string, boolean>, grid: Grid<TileData>) {
+function expandLocationArea(centerTile: TileData, location: string, occupied: Record<string, boolean>, grid: Grid<TileData>, rng: SeededRandom) {
     // Create a random size for the location area (e.g., between 7 and 15 tiles)
-    const areaSize = Math.floor(Math.random() * 9) + 7;  // Random size between 7 and 15
+    const areaSize = rng.nextInt(7, 22);  // Random size between 7 and 15 using the seeded RNG
 
     // Start with the center and its direct neighbors
     const toAssign: TileData[] = [centerTile];
@@ -56,8 +77,8 @@ function expandLocationArea(centerTile: TileData, location: string, occupied: Re
         const currentTile = toAssign[tileIndex];
         const neighbors = grid.neighbors(currentTile.q, currentTile.r);
 
-        // Shuffle neighbors to add a random selection of them
-        shuffle(neighbors).forEach(neighbor => {
+        // Shuffle neighbors to add a random selection of them using the seeded RNG
+        seededShuffle(neighbors, rng).forEach(neighbor => {
             if (toAssign.length < areaSize) {
                 toAssign.push(neighbor);
                 markTileOccupied(neighbor.q, neighbor.r, occupied);
@@ -102,6 +123,16 @@ function markTileOccupied(q: number, r: number, occupied: Record<string, boolean
     }
 }
 
+// Helper to shuffle an array using a seeded random number generator
+function seededShuffle<T>(array: T[], rng: SeededRandom): T[] {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(rng.next() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];  // Swap elements
+    }
+    return array;
+}
+
+
 
 
 function randomHeight(q: number, r: number) {
@@ -121,7 +152,7 @@ function randomHeight(q: number, r: number) {
  */
 export async function generateMap(size: number, tile: (q: number, r: number) => TileData): Promise<Grid<TileData>> {
     const grid = new Grid<TileData>(size, size).mapQR((q, r) => tile(q, r))
-    assignLocationZones(grid)
+    assignLocationZones(grid, global_seed)
     const withRivers = generateRivers(grid)
     return withRivers
 }
