@@ -44,8 +44,8 @@ export interface TileData {
     }[];
     treeIndex?: number;
     location?: string;
-    plant?: Plant;
     locked: boolean;
+    plant?: Plant;
 }
 export declare function isLand(height: Height): boolean;
 export declare function isWater(height: Height): boolean;
