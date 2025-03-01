@@ -1,5 +1,6 @@
-import pandas as pd
 import random
+
+import pandas as pd
 
 # List of fictional diseases
 disease_list = [

@@ -1,5 +1,7 @@
 import random
+
 import pandas as pd
+
 
 # Generate a fictional Latin-Japanese sounding name
 def generate_name(existing_names):
