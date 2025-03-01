@@ -6,7 +6,6 @@ import {Vector3, Scene} from "three";
 import {randomPointInHexagonEx} from "./hexagon";
 import {varying} from "../examples/textureswap/util";
 
-const global_seed = 7
 
 const locations = [
     "Airstrip One", "Victory Mansions", "Ministry of Truth",
@@ -143,6 +142,10 @@ function randomHeight(q: number, r: number) {
 
     return noise / 3.0 * 2.0
 }
+
+
+const urlParams = new URLSearchParams(window.location.search);
+const global_seed = parseInt(urlParams.get('seed'), 10);  // Get seed as an integer
 
 /**
  * Generates are square map of the given size centered at (0,0).

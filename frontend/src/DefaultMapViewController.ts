@@ -150,7 +150,9 @@ export default class Controller implements MapViewController {
             const mousePos = screenToWorld(e.clientX, e.clientY, this.controls.getCamera())
             const tile = this.controls.pickTile(mousePos)
             if (tile) {
-                this.controls.selectTile(tile)
+                if(tile.location){
+                    this.controls.selectTile(tile)
+                }
                 this.selectedQR = tile
 
                 this.showDebugInfo()
