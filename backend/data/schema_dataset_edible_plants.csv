@@ -1,0 +1,40 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+        "Name": {
+            "type": "string"
+        },
+        "Latin Name": {
+            "type": "string"
+        },
+        "Growth Climate": {
+            "type": "string"
+        },
+        "Watering Needs": {
+            "type": "string"
+        },
+        "Time to Consumable (days)": {
+            "type": "integer"
+        },
+        "Weight when Full Grown (kg)": {
+            "type": "number"
+        },
+        "Kcal per 100g": {
+            "type": "number"
+        },
+        "Proteins per 100g (g)": {
+            "type": "number"
+        }
+    },
+    "required": [
+        "Name",
+        "Latin Name",
+        "Growth Climate",
+        "Watering Needs",
+        "Time to Consumable (days)",
+        "Weight when Full Grown (kg)",
+        "Kcal per 100g",
+        "Proteins per 100g (g)"
+    ]
+}

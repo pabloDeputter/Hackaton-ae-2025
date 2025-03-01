@@ -1,0 +1,28 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+        "Name": {
+            "type": "string"
+        },
+        "Type": {
+            "type": "string"
+        },
+        "Days of Treatment": {
+            "type": "integer"
+        },
+        "Dosage": {
+            "type": "number"
+        },
+        "Treatment": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "Name",
+        "Type",
+        "Days of Treatment",
+        "Dosage",
+        "Treatment"
+    ]
+}
