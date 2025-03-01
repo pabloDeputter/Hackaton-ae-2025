@@ -23,7 +23,6 @@ async function init() {
         container.addEventListener("dragover", noop, false)
         container.addEventListener("drop", (e: DragEvent) => {
             e.preventDefault()
-            replaceTexture(mapView, name, e.dataTransfer.files[0])
         }, false)
     }
 
@@ -34,22 +33,6 @@ async function init() {
 
 function noop(e: DragEvent) {
     e.preventDefault()
-}
-
-function replaceTexture(mapView: MapView, name: string, image: File) {
-    const img = document.createElement("img")
-    img.onload = () => {
-        console.log("Replacing texture " + name + "...")
-        const texture = new THREE.Texture(img)
-        mapView.mapMesh.replaceTextures({[name]: texture})
-    }
-
-    const reader = new FileReader()
-    reader.onload = (e: any) => {
-        img.src = e.target.result
-    }
-
-    reader.readAsDataURL(image)
 }
 
 init()

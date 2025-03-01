@@ -40,7 +40,7 @@ define(["require", "exports", "view", "input", "./util", "../../src/Simulator"],
     var zoom = util_1.paramFloat("zoom", 50);
     function init() {
         return __awaiter(this, void 0, void 0, function () {
-            var mapView, containers, _loop_1, i, simulator;
+            var mapView, containers, i, container, name_1, simulator;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, view_1.initView(mapSize, zoom)];
@@ -49,19 +49,15 @@ define(["require", "exports", "view", "input", "./util", "../../src/Simulator"],
                         input_1.initInput(mapView);
                         containers = document.querySelectorAll("#textures div");
                         console.log(containers);
-                        _loop_1 = function (i) {
-                            var container = containers.item(i);
-                            var name_1 = container.id;
+                        for (i = 0; i < containers.length; i++) {
+                            container = containers.item(i);
+                            name_1 = container.id;
                             container.addEventListener("dragenter", noop, false);
                             container.addEventListener("dragexit", noop, false);
                             container.addEventListener("dragover", noop, false);
                             container.addEventListener("drop", function (e) {
                                 e.preventDefault();
-                                replaceTexture(mapView, name_1, e.dataTransfer.files[0]);
                             }, false);
-                        };
-                        for (i = 0; i < containers.length; i++) {
-                            _loop_1(i);
                         }
                         simulator = new Simulator_1.Simulator(mapView);
                         simulator.start();
@@ -72,20 +68,6 @@ define(["require", "exports", "view", "input", "./util", "../../src/Simulator"],
     }
     function noop(e) {
         e.preventDefault();
-    }
-    function replaceTexture(mapView, name, image) {
-        var img = document.createElement("img");
-        img.onload = function () {
-            var _a;
-            console.log("Replacing texture " + name + "...");
-            var texture = new THREE.Texture(img);
-            mapView.mapMesh.replaceTextures((_a = {}, _a[name] = texture, _a));
-        };
-        var reader = new FileReader();
-        reader.onload = function (e) {
-            img.src = e.target.result;
-        };
-        reader.readAsDataURL(image);
     }
     init();
 });

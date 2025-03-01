@@ -193,6 +193,7 @@ define("threejs-hex-map", ["three"], function(__WEBPACK_EXTERNAL_MODULE_4__) { r
 	            var landStyleAttr = landGeometry.getAttribute("style");
 	            var mountainsGeometry = this.mountains.geometry;
 	            var mountainsStyleAttr = mountainsGeometry.getAttribute("style");
+	            var texture = new THREE.MeshBasicMaterial();
 	            tiles.forEach(function (updated) {
 	                var old = _this.localGrid.get(updated.q, updated.r);
 	                if (!old)
@@ -1088,6 +1089,22 @@ define("threejs-hex-map", ["three"], function(__WEBPACK_EXTERNAL_MODULE_4__) { r
 	        return [].concat.apply([], items);
 	    }
 	    exports.flatten = flatten;
+	    /**
+	     * Convert hex color string to an RGB object.
+	     */
+	    function hexToRGB(hex) {
+	        hex = hex.replace("#", "");
+	        if (hex.length === 3) {
+	            hex = hex.split("").map(function (char) { return char + char; }).join(""); // Convert #RGB to #RRGGBB
+	        }
+	        var num = parseInt(hex, 16);
+	        return {
+	            r: ((num >> 16) & 255) / 255,
+	            g: ((num >> 8) & 255) / 255,
+	            b: (num & 255) / 255
+	        };
+	    }
+	    exports.hexToRGB = hexToRGB;
 	}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	//# sourceMappingURL=util.js.map
 

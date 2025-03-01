@@ -343,7 +343,7 @@ export async function initView(
                 .querySelector("button")
                 .addEventListener("click", () => {
                   tile.plant = plant;
-                  tile.terrain = "tundra";
+                  tile.terrain = "green_plant";
                   mapView.updateTiles([tile]);
                   plantDialog.classList.add("hidden");
                 });

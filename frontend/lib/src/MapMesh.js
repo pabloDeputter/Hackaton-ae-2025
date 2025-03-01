@@ -134,6 +134,7 @@ define(["require", "exports", "./interfaces", "./hexagon", "three", "./coords", 
             var landStyleAttr = landGeometry.getAttribute("style");
             var mountainsGeometry = this.mountains.geometry;
             var mountainsStyleAttr = mountainsGeometry.getAttribute("style");
+            var texture = new THREE.MeshBasicMaterial();
             tiles.forEach(function (updated) {
                 var old = _this.localGrid.get(updated.q, updated.r);
                 if (!old)

@@ -132,9 +132,6 @@ function seededShuffle<T>(array: T[], rng: SeededRandom): T[] {
     return array;
 }
 
-
-
-
 function randomHeight(q: number, r: number) {
     var noise1 = simplex2(q / 10, r / 10)
     var noise2 = perlin2(q / 5, r / 5)

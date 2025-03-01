@@ -284,12 +284,16 @@ export default class MapMesh extends Group implements TileDataSource {
 
         const landGeometry = this.land.geometry as InstancedBufferGeometry;
         const landStyleAttr = landGeometry.getAttribute("style") as InstancedBufferAttribute;
+
         const mountainsGeometry = this.mountains.geometry as InstancedBufferGeometry;
         const mountainsStyleAttr = mountainsGeometry.getAttribute("style") as InstancedBufferAttribute;
+
+        const texture = new THREE.MeshBasicMaterial();
 
         tiles.forEach(updated => {
             const old = this.localGrid.get(updated.q, updated.r);
             if (!old) return;
+
 
             if (updated.terrain !== old.terrain) {
                 // Update tile terrain
@@ -310,6 +314,7 @@ export default class MapMesh extends Group implements TileDataSource {
                 attribute.setX(old.bufferIndex, newCellIndex);
             }
         });
+
 
         landStyleAttr.needsUpdate = true;
         mountainsStyleAttr.needsUpdate = true;
