@@ -1,7 +1,6 @@
-import { initView } from "view"
-import { initInput } from "input"
-import { paramInt, paramFloat } from './util';
-import { qrRange, range } from '../../src/util';
+import {initView} from "view"
+import {initInput} from "input"
+import {paramFloat, paramInt} from './util';
 import MapView from "../../src/MapView";
 
 const mapSize = paramInt("size", 20)
@@ -50,4 +49,3 @@ function replaceTexture(mapView: MapView, name: string, image: File) {
 }
 
 init()
-

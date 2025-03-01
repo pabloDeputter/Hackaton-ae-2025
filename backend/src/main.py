@@ -1,14 +1,10 @@
 from typing import Union
 
-import pandas as pd
 from fastapi import FastAPI, HTTPException
 
 from .DataSetGenerators.Planter import *
 from .DataSetGenerators.Weather import WeatherDatasetGenerator
 from .DataSetGenerators.persons import PopulationManager
-from .DataSetGenerators.Weather import WeatherDatasetGenerator
-from .DataSetGenerators.Planter import *
-
 
 app = FastAPI()
 
@@ -56,6 +52,7 @@ def get_weather(location: str, day: int, q: Union[str, None] = None):
         return weather_data
     except ValueError as e:
         raise HTTPException(status_code=400, detail=str(e))
+
 
 @app.get("/getPlants/{location}")
 def get_plants(location: str, limit: int = 50, q: Union[str, None] = None):
