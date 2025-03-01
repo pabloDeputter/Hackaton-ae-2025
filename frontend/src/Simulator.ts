@@ -1,5 +1,5 @@
 import MapView from "./MapView";
-import { GrowthStage, Plant } from "./interfaces";
+import {GrowthStage, Plant} from "./interfaces";
 
 export class Simulator {
   currentPopulation: number = 0;
@@ -51,9 +51,11 @@ export class Simulator {
       }
 
       if (tile.plant.growthStage == GrowthStage.Harvestable) {
-        this.currentFood +=
-          tile.plant.kcalPer100g * tile.plant.weightWhenFullGrown;
+        console.log("Growth stage", tile.plant);
+        this.currentFood += tile.plant.kcalPer100g * tile.plant.weightWhenFullGrown;
         tile.plant.growthStage = GrowthStage.Seed;
+        tile.plant.daysSincePlanted = 0;
+      }
       }
     });
 

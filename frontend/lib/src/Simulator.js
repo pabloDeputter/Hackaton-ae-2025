@@ -42,10 +42,14 @@ define(["require", "exports", "./interfaces"], function (require, exports, inter
             this.updateInterface();
             var tiles = this.mapView.getTileGrid();
             tiles.forEachQR(function (q, r, tile) {
-                tile.plant = _this.progressPlantGrowth(tile.plant);
-                if (tile.plant.growthStage == interfaces_1.GrowthStage.Harvestable) {
-                    _this.currentFood += tile.plant.kcalPer100g * tile.plant.weightWhenFullGrown;
-                    tile.plant.growthStage = interfaces_1.GrowthStage.Seed;
+                if (tile.plant) {
+                    tile.plant = _this.progressPlantGrowth(tile.plant);
+                    if (tile.plant.growthStage == interfaces_1.GrowthStage.Harvestable) {
+                        console.log("Growth stage", tile.plant);
+                        _this.currentFood += tile.plant.kcalPer100g * tile.plant.weightWhenFullGrown;
+                        tile.plant.growthStage = interfaces_1.GrowthStage.Seed;
+                        tile.plant.daysSincePlanted = 0;
+                    }
                 }
             });
             this.currentFood -= this.currentPopulation * 10;
