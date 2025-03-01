@@ -6,18 +6,21 @@ import pandas as pd
 # Generate a fictional Latin-Japanese sounding name
 def generate_name(existing_names):
     prefixes = ["Med", "Neo", "Ther", "Vita", "Pharma"]
-    mid = ["ondi","fentra","domo","ilex","umio","cris","hul","vri", "clam","nix", "yam","tyl"]
+    mid = ["ondi", "fentra", "domo", "ilex", "umio", "cris", "hul", "vri", "clam", "nix", "yam", "tyl"]
     suffixes = ["saki", "mono", "yaku", "zine", "trol", "nex"]
-    
+
     while True:
         name = random.choice(prefixes) + random.choice(mid) + random.choice(suffixes)
         if name not in existing_names:
             existing_names.add(name)  # Add the name to the set of existing names
             return name
 
+
 # Possible values for attributes
 types = ["antipyretics", "painkiller", "tranquilizer", "stimulant", "antiseptic", "antibiotic", "statin", "stabilizer"]
-treatments = ["Inherited", "Congenital", "Degenerative", "Nutritional deficiency", "Endocrine", "Neoplastic", "Idiopathic"]
+treatments = ["Inherited", "Congenital", "Degenerative", "Nutritional deficiency", "Endocrine", "Neoplastic",
+              "Idiopathic"]
+
 
 # Generate random dataset
 def generate_medicine_data(num_records):
@@ -29,8 +32,10 @@ def generate_medicine_data(num_records):
         days_of_treatment = random.randint(1, 21)
         dosage = round(random.uniform(0.5, 10), 1)
         treatment = random.choice(treatments)
-        data.append({"Name": name, "Type": med_type, "Days of Treatment": days_of_treatment, "Dosage": dosage, "Treatment": treatment})
+        data.append({"Name": name, "Type": med_type, "Days of Treatment": days_of_treatment, "Dosage": dosage,
+                     "Treatment": treatment})
     return data
+
 
 # Generate a dataset of 100 fictional medicines
 num_records = 100

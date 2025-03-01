@@ -22,7 +22,8 @@ class WeatherDatasetGenerator:
         # Generate daily timestamps
         self.start_date = datetime.utcfromtimestamp(start_timestamp)
         self.end_date = datetime.utcfromtimestamp(end_timestamp)
-        self.date_range = [self.start_date + timedelta(days=i) for i in range((self.end_date - self.start_date).days + 1)]
+        self.date_range = [self.start_date + timedelta(days=i) for i in
+                           range((self.end_date - self.start_date).days + 1)]
 
         # Placeholder for generated dataset
         self.data = None
@@ -97,7 +98,6 @@ class WeatherDatasetGenerator:
             raise ValueError("Dataset has not been generated yet. Call generate_dataset() first.")
         self.data.to_csv(filename, index=False)
         print(f"Dataset with {len(self.data)} rows saved to '{filename}'.")
-
 
 # Usage example:
 # generator = WeatherDatasetGenerator()

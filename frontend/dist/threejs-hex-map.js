@@ -2006,4 +2006,4 @@ define("threejs-hex-map", ["three"], function(__WEBPACK_EXTERNAL_MODULE_4__) { r
 	//# sourceMappingURL=interfaceController.js.map
 
 /***/ })
-/******/ ])});;
+/******/ ])});
