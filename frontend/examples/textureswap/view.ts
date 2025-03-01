@@ -8,8 +8,10 @@ import {
 } from "../../src/interfaces";
 import { generateIsland, generateRandomMap } from "../../src/map-generator";
 import { varying } from "./util";
-import { TextureLoader } from "three";
+import { TextureLoader, Texture } from "three";
+import * as THREE from "three";
 import { MapMeshOptions } from "../../src/MapMesh";
+
 
 function asset(relativePath: string): string {
   return "../../assets/" + relativePath;
