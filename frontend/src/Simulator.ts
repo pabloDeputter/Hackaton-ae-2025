@@ -54,6 +54,10 @@ export class Simulator {
             this.currentPopulation += 1;
             this.currentFood -= 100;
         }
+
+        if (this.currentFood < 0) {
+            this.currentPopulation -= 1;
+        }
     }
 
     updateInterface(){
