@@ -101,7 +101,9 @@ define(["require", "exports", "./coords", "three", "./interfaceController"], fun
                     var mousePos = coords_1.screenToWorld(e.clientX, e.clientY, _this.controls.getCamera());
                     var tile = _this.controls.pickTile(mousePos);
                     if (tile) {
-                        _this.controls.selectTile(tile);
+                        if (tile.location) {
+                            _this.controls.selectTile(tile);
+                        }
                         _this.selectedQR = tile;
                         _this.showDebugInfo();
                         tile.terrain = "water";

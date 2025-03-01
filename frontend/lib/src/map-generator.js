@@ -36,7 +36,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 define(["require", "exports", "./perlin", "./interfaces", "./util", "./Grid", "./hexagon"], function (require, exports, perlin_1, interfaces_1, util_1, Grid_1, hexagon_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var global_seed = 7;
     var locations = [
         "Airstrip One", "Victory Mansions", "Ministry of Truth",
         "Ministry of Love", "Ministry of Peace", "Ministry of Plenty",
@@ -150,6 +149,8 @@ define(["require", "exports", "./perlin", "./interfaces", "./util", "./Grid", ".
         var noise = noise1 + noise2 + noise3;
         return noise / 3.0 * 2.0;
     }
+    var urlParams = new URLSearchParams(window.location.search);
+    var global_seed = parseInt(urlParams.get('seed'), 10); // Get seed as an integer
     /**
      * Generates are square map of the given size centered at (0,0).
      * @param size

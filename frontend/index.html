@@ -2,16 +2,38 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Hex-Map</title>
-    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-    <script src="node_modules/three/build/three.min.js"></script>
-    <style type="text/css">
-
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Texture Swap</title>
 </head>
 <body>
-<ul>
-    <li><a href="examples/textureswap/">Interface</a></li>
-</ul>
+<h1>Welcome to the Texture Swap Game</h1>
+
+<!-- Form for entering the seed -->
+<form id="playForm" action="examples/textureswap/" method="get">
+    <label for="seed">Enter Seed (Optional):</label>
+    <input type="number" id="seed" name="seed" min="0" />
+    <button type="submit">Play</button>
+</form>
+
+<script>
+    // When the form is submitted, check if the seed is provided
+    const form = document.getElementById("playForm");
+    form.addEventListener("submit", function (event) {
+        const seedInput = document.getElementById("seed");
+        let seedValue = seedInput.value;
+
+        // If no seed is provided, generate a random seed
+        if (!seedValue) {
+            seedValue = Math.floor(Math.random() * 1000000);  // Random seed between 0 and 999999
+        }
+
+        // Set the seed as a query parameter
+        const url = new URL(form.action);
+        url.searchParams.set('seed', seedValue);  // Add seed parameter to the URL
+
+        // Change the form action to include the seed and allow submission
+        form.action = url.toString();
+    });
+</script>
 </body>
 </html>

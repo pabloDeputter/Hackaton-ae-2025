@@ -81,7 +81,8 @@ define(["require", "exports", "../../src/MapView", "../../src/util", "../../src/
                         mapView.load(map, options);
                         mapView.onTileSelected = function (tile) {
                             document.getElementById("currentTile").innerHTML = "Tile data " + tile.r + " " + tile.q;
-                            tile.terrain = "plains";
+                            document.getElementById("location").innerHTML = tile.location;
+                            document.getElementById("plantInfo").innerHTML = "todo Apple, great watering, dunno";
                             mapView.updateTiles([tile]);
                         };
                         return [2 /*return*/, mapView];

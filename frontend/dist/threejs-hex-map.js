@@ -1323,7 +1323,6 @@ define("threejs-hex-map", ["three"], function(__WEBPACK_EXTERNAL_MODULE_4__) { r
 	!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__, exports, __webpack_require__(16), __webpack_require__(2), __webpack_require__(7), __webpack_require__(6), __webpack_require__(3)], __WEBPACK_AMD_DEFINE_RESULT__ = function (require, exports, perlin_1, interfaces_1, util_1, Grid_1, hexagon_1) {
 	    "use strict";
 	    Object.defineProperty(exports, "__esModule", { value: true });
-	    var global_seed = 7;
 	    var locations = [
 	        "Airstrip One", "Victory Mansions", "Ministry of Truth",
 	        "Ministry of Love", "Ministry of Peace", "Ministry of Plenty",
@@ -1437,6 +1436,8 @@ define("threejs-hex-map", ["three"], function(__WEBPACK_EXTERNAL_MODULE_4__) { r
 	        var noise = noise1 + noise2 + noise3;
 	        return noise / 3.0 * 2.0;
 	    }
+	    var urlParams = new URLSearchParams(window.location.search);
+	    var global_seed = parseInt(urlParams.get('seed'), 10); // Get seed as an integer
 	    /**
 	     * Generates are square map of the given size centered at (0,0).
 	     * @param size
@@ -2038,7 +2039,9 @@ define("threejs-hex-map", ["three"], function(__WEBPACK_EXTERNAL_MODULE_4__) { r
 	                    var mousePos = coords_1.screenToWorld(e.clientX, e.clientY, _this.controls.getCamera());
 	                    var tile = _this.controls.pickTile(mousePos);
 	                    if (tile) {
-	                        _this.controls.selectTile(tile);
+	                        if (tile.location) {
+	                            _this.controls.selectTile(tile);
+	                        }
 	                        _this.selectedQR = tile;
 	                        _this.showDebugInfo();
 	                        tile.terrain = "water";
