@@ -59,14 +59,13 @@ export class Simulator {
     tiles.forEachQR((q, r, tile) => {
       if (tile.plant) {
         tile.plant = this.progressPlantGrowth(tile.plant);
-      }
 
-      if (tile.plant.growthStage == GrowthStage.Harvestable) {
-        console.log("Growth stage", tile.plant);
-        this.currentFood += tile.plant.kcalPer100g * tile.plant.weightWhenFullGrown;
-        tile.plant.growthStage = GrowthStage.Seed;
-        tile.plant.daysSincePlanted = 0;
-      }
+        if (tile.plant.growthStage == GrowthStage.Harvestable) {
+          console.log("Growth stage", tile.plant);
+          this.currentFood += tile.plant.kcalPer100g * tile.plant.weightWhenFullGrown;
+          tile.plant.growthStage = GrowthStage.Seed;
+          tile.plant.daysSincePlanted = 0;
+        }
       }
     });
 
