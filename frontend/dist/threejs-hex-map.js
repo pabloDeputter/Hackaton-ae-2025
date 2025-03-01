@@ -1990,4 +1990,4 @@ define("threejs-hex-map", ["three"], function(__WEBPACK_EXTERNAL_MODULE_4__) { r
 	//# sourceMappingURL=DefaultMapViewController.js.map
 
 /***/ })
-/******/ ])});;
+/******/ ])});

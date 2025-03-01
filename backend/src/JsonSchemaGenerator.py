@@ -2,6 +2,7 @@ import csv
 import json
 from typing import Any, Dict
 
+
 def infer_type(value: str) -> str:
     """
     Infer the JSON schema type of a value.
@@ -19,6 +20,7 @@ def infer_type(value: str) -> str:
     if value.lower() in ["true", "false"]:
         return "boolean"
     return "string"
+
 
 def generate_json_schema(csv_file: str) -> Dict[str, Any]:
     """
@@ -53,6 +55,7 @@ def generate_json_schema(csv_file: str) -> Dict[str, Any]:
 
     return schema
 
+
 def save_json_schema(schema: Dict[str, Any], output_file: str):
     """
     Save the JSON schema to a file.
@@ -60,15 +63,17 @@ def save_json_schema(schema: Dict[str, Any], output_file: str):
     with open(output_file, 'w', encoding='utf-8') as file:
         json.dump(schema, file, indent=4)
 
+
 # GENERATING
 
-inputfiles = ["dataset_edible_plants.csv","dataset_disease.csv","dataset_medicines.csv","dataset_weather.csv", "person_dataset.csv", "debug_locations.csv"]
+inputfiles = ["dataset_edible_plants.csv", "dataset_disease.csv", "dataset_medicines.csv", "dataset_weather.csv",
+              "person_dataset.csv", "debug_locations.csv"]
 
-#csv_input = 'edible_plants_dataset.csv'  # Replace with your CSV file path
-#json_output = 'edible_plants.json'  # Replace with desired JSON schema file path
+# csv_input = 'edible_plants_dataset.csv'  # Replace with your CSV file path
+# json_output = 'edible_plants.json'  # Replace with desired JSON schema file path
 
 for file in inputfiles:
     schema = generate_json_schema(file)
     print(file)
-    save_json_schema(schema, "schema_"+file)
-    print(f"JSON schema saved to {file}"+".json")
+    save_json_schema(schema, "schema_" + file)
+    print(f"JSON schema saved to {file}" + ".json")
