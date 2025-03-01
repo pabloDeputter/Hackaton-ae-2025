@@ -279,9 +279,42 @@ export default class MapMesh extends Group implements TileDataSource {
     }
 
     updateTiles(tiles: TileData[]) {
-        this.updateFogAndClouds(tiles)
-        this.trees.updateTiles(tiles)
+        this.updateFogAndClouds(tiles);
+        this.trees.updateTiles(tiles);
+
+        const landGeometry = this.land.geometry as InstancedBufferGeometry;
+        const landStyleAttr = landGeometry.getAttribute("style") as InstancedBufferAttribute;
+        const mountainsGeometry = this.mountains.geometry as InstancedBufferGeometry;
+        const mountainsStyleAttr = mountainsGeometry.getAttribute("style") as InstancedBufferAttribute;
+
+        tiles.forEach(updated => {
+            const old = this.localGrid.get(updated.q, updated.r);
+            if (!old) return;
+
+            if (updated.terrain !== old.terrain) {
+                // Update tile terrain
+                old.terrain = updated.terrain;
+                old.isMountain = isMountain(updated.height);
+
+                // Determine which geometry and attribute to update
+                const attribute = old.isMountain ? mountainsStyleAttr : landStyleAttr;
+
+                // Recalculate terrain style index
+                const atlas = this.options.terrainAtlas;
+                const newCellIndex = atlas.textures[updated.terrain]
+                    ? atlas.textures[updated.terrain].cellY * (atlas.width / atlas.cellSize) +
+                    atlas.textures[updated.terrain].cellX
+                    : 0;
+
+                // Update the buffer attribute
+                attribute.setX(old.bufferIndex, newCellIndex);
+            }
+        });
+
+        landStyleAttr.needsUpdate = true;
+        mountainsStyleAttr.needsUpdate = true;
     }
+
 
     getTile(q: number, r: number): TileData {
         return this.localGrid.get(q, r)

@@ -49,7 +49,12 @@ export async function initView(mapSize: number, initialZoom: number): Promise<Ma
         document.getElementById("currentTile").innerHTML = "Tile data " + tile.r + " " + tile.q;
         document.getElementById("location").innerHTML = tile.location;
         document.getElementById("plantInfo").innerHTML = "todo Apple, great watering, dunno";
-        mapView.updateTiles([tile])
+        tile.terrain = "water";
+
+        let newTile: TileData = {
+            clouds: false, fog: false, height: 0, q: tile.q, r: tile.r, terrain: "water", locked: true
+        }
+        mapView.updateTiles([newTile])
     }
 
     return mapView

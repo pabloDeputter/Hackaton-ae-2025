@@ -18,7 +18,7 @@ export class Simulator {
         let tiles = this.mapView.getTileGrid();
         tiles.forEachQR((q,r, tile) => {
             if(this.lockedLocations.indexOf(tile.location) !== -1){
-                tile.fog = true;
+                tile.locked = true;
             }
 
         })
