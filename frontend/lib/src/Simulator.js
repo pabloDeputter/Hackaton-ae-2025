@@ -12,16 +12,16 @@ define(["require", "exports", "./interfaces", "./util"], function (require, expo
     var Simulator = /** @class */ (function () {
         function Simulator() {
             this.currentPopulation = 10;
-            this.currentFood = 1000;
+            this.currentFood = 5000;
             this.currentProtein = 0;
             this.currentCalories = 0;
             this.currentTime = 1672524000 * 1000;
             // Add demographic variables
-            this.birthRate = 0.5; // 1% chance of new birth per step
+            this.birthRate = 0.005; // 1% chance of new birth per step
             this.deathRate = 0.005; // 0.5% natural death rate per step
-            this.foodPerPersonPerDay = 40; // Base food requirement
+            this.foodPerPersonPerDay = 5; // Base food requirement
             this.starvationThreshold = 0.7; // Below 70% of required food causes starvation
-            this.starvationDeathRate = 0.2; // 5% death rate during starvation
+            this.starvationDeathRate = 0.1; // 5% death rate during starvation
             // New properties for simulation control
             this.isPaused = false;
             this.simulationSpeed = 1; // Default speed multiplier
@@ -73,7 +73,7 @@ define(["require", "exports", "./interfaces", "./util"], function (require, expo
                 clearInterval(this.intervalId);
             }
             // Calculate interval based on speed (smaller interval = faster simulation)
-            var intervalTime = Math.floor(1500 / this.simulationSpeed);
+            var intervalTime = Math.floor(1000 / this.simulationSpeed);
             this.intervalId = setInterval(function () {
                 if (!_this.isPaused) {
                     _this.nextStep();
@@ -178,11 +178,11 @@ define(["require", "exports", "./interfaces", "./util"], function (require, expo
             // Add harvested nutrients to stockpile
             this.currentCalories += newCalories;
             this.currentProtein += newProtein;
+            this.currentFood += (newCalories * 2) + (newProtein * 8); // Convert protein to energy
             // Calculate food consumption based on population
             var foodRequired = this.currentPopulation * this.foodPerPersonPerDay;
             console.log("Food required: " + foodRequired + " kcal");
             // Update food supply (calories + protein converted to energy)
-            this.currentFood += this.currentCalories + this.currentProtein * 4;
             // Consume food
             var foodAvailableRatio = Math.min(1, this.currentFood / foodRequired);
             this.currentFood -= foodRequired * foodAvailableRatio;
@@ -193,14 +193,14 @@ define(["require", "exports", "./interfaces", "./util"], function (require, expo
             // Calculate births and deaths
             if (foodAvailableRatio >= this.starvationThreshold) {
                 // Normal conditions - births and natural deaths
-                newBirths = Math.floor(this.currentPopulation *
-                    this.birthRate *
-                    (foodAvailableRatio > 0.9 ? 1.2 : 1));
+                // Add new births randomly
+                newBirths = Math.round(this.currentPopulation * this.birthRate) + Math.round(Math.random() * 0.8);
+                console.log(newBirths);
                 naturalDeaths = Math.floor(this.currentPopulation * this.deathRate);
             }
             else {
                 // Starvation conditions - reduced births, increased deaths
-                newBirths = Math.floor(this.currentPopulation * this.birthRate * 0.5);
+                newBirths = Math.round(this.currentPopulation * this.birthRate * 0.5);
                 naturalDeaths = Math.floor(this.currentPopulation * this.deathRate);
                 starvationDeaths = Math.floor(this.currentPopulation *
                     this.starvationDeathRate *

@@ -4,18 +4,18 @@ import {loadWeatherJSON} from "./util"
 
 export class Simulator {
   currentPopulation: number = 10;
+  currentFood: number = 5000;
   activeTile: TileData;
-  currentFood: number = 1000;
   currentProtein: number = 0;
   currentCalories: number = 0;
   currentTime: number = 1672524000 * 1000;
 
   // Add demographic variables
-  birthRate: number = 0.5; // 1% chance of new birth per step
+  birthRate: number = 0.005; // 1% chance of new birth per step
   deathRate: number = 0.005; // 0.5% natural death rate per step
-  foodPerPersonPerDay: number = 40; // Base food requirement
+  foodPerPersonPerDay: number = 5; // Base food requirement
   starvationThreshold: number = 0.7; // Below 70% of required food causes starvation
-  starvationDeathRate: number = 0.2; // 5% death rate during starvation
+  starvationDeathRate: number = 0.1; // 5% death rate during starvation
 
   // New properties for simulation control
   isPaused: boolean = false;
@@ -75,7 +75,7 @@ export class Simulator {
     }
 
     // Calculate interval based on speed (smaller interval = faster simulation)
-    const intervalTime = Math.floor(1500 / this.simulationSpeed);
+    const intervalTime = Math.floor(1000 / this.simulationSpeed);
 
     this.intervalId = setInterval(() => {
       if (!this.isPaused) {
@@ -211,13 +211,13 @@ export class Simulator {
     // Add harvested nutrients to stockpile
     this.currentCalories += newCalories;
     this.currentProtein += newProtein;
+    this.currentFood += (newCalories * 2) + (newProtein * 8); // Convert protein to energy
 
     // Calculate food consumption based on population
     const foodRequired = this.currentPopulation * this.foodPerPersonPerDay;
     console.log(`Food required: ${foodRequired} kcal`);
 
     // Update food supply (calories + protein converted to energy)
-    this.currentFood += this.currentCalories + this.currentProtein * 4;
 
     // Consume food
     const foodAvailableRatio = Math.min(1, this.currentFood / foodRequired);
@@ -231,15 +231,13 @@ export class Simulator {
     // Calculate births and deaths
     if (foodAvailableRatio >= this.starvationThreshold) {
       // Normal conditions - births and natural deaths
-      newBirths = Math.floor(
-        this.currentPopulation *
-          this.birthRate *
-          (foodAvailableRatio > 0.9 ? 1.2 : 1)
-      );
+      // Add new births randomly
+      newBirths = Math.round(this.currentPopulation * this.birthRate) + Math.round(Math.random() * 0.8);
+      console.log(newBirths);
       naturalDeaths = Math.floor(this.currentPopulation * this.deathRate);
     } else {
       // Starvation conditions - reduced births, increased deaths
-      newBirths = Math.floor(this.currentPopulation * this.birthRate * 0.5);
+      newBirths = Math.round(this.currentPopulation * this.birthRate * 0.5);
       naturalDeaths = Math.floor(this.currentPopulation * this.deathRate);
       starvationDeaths = Math.floor(
         this.currentPopulation *

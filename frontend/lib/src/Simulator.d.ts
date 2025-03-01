@@ -2,8 +2,8 @@ import MapView from "./MapView";
 import { Plant, Weather, TileData } from "./interfaces";
 export declare class Simulator {
     currentPopulation: number;
-    activeTile: TileData;
     currentFood: number;
+    activeTile: TileData;
     currentProtein: number;
     currentCalories: number;
     currentTime: number;
