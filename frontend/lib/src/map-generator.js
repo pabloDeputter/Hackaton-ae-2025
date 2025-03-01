@@ -33,18 +33,34 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-define(["require", "exports", "./perlin", "./interfaces", "./util", "./Grid", "three", "./hexagon"], function (require, exports, perlin_1, interfaces_1, util_1, Grid_1, three_1, hexagon_1) {
+define(["require", "exports", "./perlin", "./interfaces", "./util", "./Grid", "./hexagon"], function (require, exports, perlin_1, interfaces_1, util_1, Grid_1, hexagon_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
-    var scene = new three_1.Scene();
+    var global_seed = 7;
     var locations = [
         "Airstrip One", "Victory Mansions", "Ministry of Truth",
         "Ministry of Love", "Ministry of Peace", "Ministry of Plenty",
         "Chestnut Tree Café", "Golden Country", "Outer Party Sector",
         "Prole District"
     ];
-    function assignLocationZones(grid) {
-        var allTiles = util_1.shuffle(grid.toArray()); // Randomize order
+    // Simple seedable random number generator
+    var SeededRandom = /** @class */ (function () {
+        function SeededRandom(seed) {
+            this.seed = seed;
+        }
+        SeededRandom.prototype.next = function () {
+            // Implementing a simple linear congruential generator (LCG)
+            this.seed = (this.seed * 1664525 + 1013904223) & 0xFFFFFFFF;
+            return (this.seed >>> 16) / 0xFFFF;
+        };
+        SeededRandom.prototype.nextInt = function (min, max) {
+            return Math.floor(this.next() * (max - min + 1)) + min;
+        };
+        return SeededRandom;
+    }());
+    function assignLocationZones(grid, seed) {
+        var rng = new SeededRandom(seed); // Create a deterministic RNG based on the seed
+        var allTiles = seededShuffle(grid.toArray(), rng); // Randomize order with seed
         var occupiedTiles = {}; // Use a plain object for occupied tracking
         var locationCount = locations.length;
         var assigned = 0;
@@ -57,7 +73,7 @@ define(["require", "exports", "./perlin", "./interfaces", "./util", "./Grid", "t
             }
             var location_1 = locations[assigned];
             // Set the center tile and surrounding tiles (randomly expanding the area)
-            expandLocationArea(centerTile, location_1, occupiedTiles, grid);
+            expandLocationArea(centerTile, location_1, occupiedTiles, grid, rng);
             assigned++;
         }
         if (assigned < locationCount) {
@@ -66,9 +82,9 @@ define(["require", "exports", "./perlin", "./interfaces", "./util", "./Grid", "t
     }
     exports.assignLocationZones = assignLocationZones;
     // Expands the location area with a random number of tiles
-    function expandLocationArea(centerTile, location, occupied, grid) {
+    function expandLocationArea(centerTile, location, occupied, grid, rng) {
         // Create a random size for the location area (e.g., between 7 and 15 tiles)
-        var areaSize = Math.floor(Math.random() * 9) + 7; // Random size between 7 and 15
+        var areaSize = rng.nextInt(7, 22); // Random size between 7 and 15 using the seeded RNG
         // Start with the center and its direct neighbors
         var toAssign = [centerTile];
         markTileOccupied(centerTile.q, centerTile.r, occupied);
@@ -77,8 +93,8 @@ define(["require", "exports", "./perlin", "./interfaces", "./util", "./Grid", "t
         while (toAssign.length < areaSize && tileIndex < toAssign.length) {
             var currentTile = toAssign[tileIndex];
             var neighbors = grid.neighbors(currentTile.q, currentTile.r);
-            // Shuffle neighbors to add a random selection of them
-            util_1.shuffle(neighbors).forEach(function (neighbor) {
+            // Shuffle neighbors to add a random selection of them using the seeded RNG
+            seededShuffle(neighbors, rng).forEach(function (neighbor) {
                 if (toAssign.length < areaSize) {
                     toAssign.push(neighbor);
                     markTileOccupied(neighbor.q, neighbor.r, occupied);
@@ -118,6 +134,15 @@ define(["require", "exports", "./perlin", "./interfaces", "./util", "./Grid", "t
             occupied[q + dq + "," + (r + dr)] = true;
         }
     }
+    // Helper to shuffle an array using a seeded random number generator
+    function seededShuffle(array, rng) {
+        var _a;
+        for (var i = array.length - 1; i > 0; i--) {
+            var j = Math.floor(rng.next() * (i + 1));
+            _a = [array[j], array[i]], array[i] = _a[0], array[j] = _a[1]; // Swap elements
+        }
+        return array;
+    }
     function randomHeight(q, r) {
         var noise1 = perlin_1.simplex2(q / 10, r / 10);
         var noise2 = perlin_1.perlin2(q / 5, r / 5);
@@ -136,7 +161,7 @@ define(["require", "exports", "./perlin", "./interfaces", "./util", "./Grid", "t
             var grid, withRivers;
             return __generator(this, function (_a) {
                 grid = new Grid_1.default(size, size).mapQR(function (q, r) { return tile(q, r); });
-                assignLocationZones(grid);
+                assignLocationZones(grid, global_seed);
                 withRivers = generateRivers(grid);
                 return [2 /*return*/, withRivers];
             });
