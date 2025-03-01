@@ -35,6 +35,11 @@ export interface Plant {
   latinName: string;
 }
 
+export interface Weather {
+  temperature: number;
+  Precipitation_mm: number;
+}
+
 export interface TileData {
   q: number;
   r: number;
@@ -42,6 +47,7 @@ export interface TileData {
   fog: boolean;
   clouds: boolean;
   terrain: string;
+  Weather?: Weather;
   rivers?: { riverIndex: number; riverTileIndex: number }[];
   treeIndex?: number; // index of tree texture, optional
   location?: string; // Add location tag for 10 locations

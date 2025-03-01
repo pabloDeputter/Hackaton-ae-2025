@@ -1,12 +1,13 @@
 import MapView from "./MapView";
-import { GrowthStage, Plant } from "./interfaces";
+import { GrowthStage, Plant , Weather} from "./interfaces";
+import {loadWeatherJSON} from "./util"
 
 export class Simulator {
   currentPopulation: number = 10;
   currentFood: number = 1000;
   currentProtein: number = 0;
   currentCalories: number = 0;
-  currentTime: number = new Date().getTime();
+  currentTime: number = 1672524000 * 1000;
 
   // Add demographic variables
   birthRate: number = 0.5; // 1% chance of new birth per step
@@ -19,7 +20,6 @@ export class Simulator {
   isPaused: boolean = false;
   simulationSpeed: number = 1; // Default speed multiplier
   private intervalId: NodeJS.Timeout | null = null;
-
   mapView: MapView;
   lockedLocations: Array<{ name: string; value: number }> = [
     { name: "Victory Mansions", value: 100 },
@@ -32,9 +32,13 @@ export class Simulator {
     { name: "Outer Party Sector", value: 30000 },
     { name: "Prole District", value: 100000 },
   ];
+  weather_data: Array<any>;
 
   constructor(mapview: MapView) {
     this.mapView = mapview;
+    loadWeatherJSON().then(data => {
+      this.weather_data = data
+    });
   }
 
   lockTiles() {
@@ -52,6 +56,7 @@ export class Simulator {
   }
 
   start() {
+
     this.lockTiles();
     this.setupControls();
     this.startInterval();
@@ -285,5 +290,23 @@ export class Simulator {
       daysSincePlanted: plant.daysSincePlanted + 1, // Increment growth time
       growthStage: newGrowthStage, // Update growth stage
     };
+  }
+
+  getWeather(timestamp: number, location: string): Weather | null {
+    try {
+      const result = this.weather_data.find(entry =>
+          entry.UNIXTimestamp === timestamp && entry.Location === location
+      );
+
+      if (!result) return null; // Handle case when no matching entry is found
+
+      return {
+        temperature: result.AirTemperatureCelsius,
+        Precipitation_mm: result.Precipitation_mm
+      };
+    } catch (error) {
+      console.error("Error loading weather data:", error);
+      return null;
+    }
   }
 }

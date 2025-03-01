@@ -1,4 +1,4 @@
-import {XHRLoader, TextureLoader, Texture} from "three"
+import {Texture, TextureLoader, XHRLoader} from "three"
 import {QR} from "./interfaces"
 
 const fileLoader = new XHRLoader()
@@ -114,6 +114,19 @@ export function isInteger(value: number): boolean {
 
 export function flatten<T>(items: T[][]): T[] {
     return [].concat.apply([], items)
+}
+
+export async function loadWeatherJSON() {
+    try {
+        const response = await fetch('/assets/dataset_weather.json'); // Adjust path if necessary
+        if (!response.ok) throw new Error('Failed to fetch JSON');
+
+        // Parse JSON response
+        return await response.json();
+    } catch (error) {
+        console.error('Error loading JSON:', error);
+        throw error; // Re-throw error for handling in caller function
+    }
 }
 
 /**
