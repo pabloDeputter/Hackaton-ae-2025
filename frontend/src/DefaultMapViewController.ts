@@ -156,7 +156,6 @@ export default class Controller implements MapViewController {
                 this.selectedQR = tile
 
                 this.showDebugInfo()
-                tile.terrain = "water"
                 loadTileStats(tile)
             }        
         }

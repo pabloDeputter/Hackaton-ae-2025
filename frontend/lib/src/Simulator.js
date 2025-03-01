@@ -11,7 +11,7 @@ define(["require", "exports", "./interfaces"], function (require, exports, inter
     Object.defineProperty(exports, "__esModule", { value: true });
     var Simulator = /** @class */ (function () {
         function Simulator(mapview) {
-            this.currentPopulation = 0;
+            this.currentPopulation = 2;
             this.currentFood = 1000;
             this.currentTime = new Date().getTime();
             this.lockedLocations = [
@@ -62,12 +62,12 @@ define(["require", "exports", "./interfaces"], function (require, exports, inter
             tiles.forEachQR(function (q, r, tile) {
                 if (tile.plant) {
                     tile.plant = _this.progressPlantGrowth(tile.plant);
-                }
-                if (tile.plant.growthStage == interfaces_1.GrowthStage.Harvestable) {
-                    console.log("Growth stage", tile.plant);
-                    _this.currentFood += tile.plant.kcalPer100g * tile.plant.weightWhenFullGrown;
-                    tile.plant.growthStage = interfaces_1.GrowthStage.Seed;
-                    tile.plant.daysSincePlanted = 0;
+                    if (tile.plant.growthStage == interfaces_1.GrowthStage.Harvestable) {
+                        console.log("Growth stage", tile.plant);
+                        _this.currentFood += tile.plant.kcalPer100g * tile.plant.weightWhenFullGrown;
+                        tile.plant.growthStage = interfaces_1.GrowthStage.Seed;
+                        tile.plant.daysSincePlanted = 0;
+                    }
                 }
             });
             this.currentFood -= this.currentPopulation * 10;

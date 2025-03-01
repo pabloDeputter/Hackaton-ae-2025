@@ -106,7 +106,6 @@ define(["require", "exports", "./coords", "three", "./interfaceController"], fun
                         }
                         _this.selectedQR = tile;
                         _this.showDebugInfo();
-                        tile.terrain = "water";
                         interfaceController_1.loadTileStats(tile);
                     }
                 }

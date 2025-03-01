@@ -1492,7 +1492,7 @@ define("threejs-hex-map", ["three"], function(__WEBPACK_EXTERNAL_MODULE_4__) { r
 	                    case 0:
 	                        tile = function (q, r) {
 	                            return {
-	                                clouds: false, fog: false, height: 0, q: q, r: r, terrain: "grass", locked: true
+	                                clouds: false, fog: true, height: 0, q: q, r: r, terrain: "grass", locked: true
 	                            };
 	                        };
 	                        map = new Grid_1.default(size, size);
@@ -2072,7 +2072,6 @@ define("threejs-hex-map", ["three"], function(__WEBPACK_EXTERNAL_MODULE_4__) { r
 	                        }
 	                        _this.selectedQR = tile;
 	                        _this.showDebugInfo();
-	                        tile.terrain = "water";
 	                        interfaceController_1.loadTileStats(tile);
 	                    }
 	                }

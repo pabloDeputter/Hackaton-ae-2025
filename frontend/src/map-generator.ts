@@ -164,7 +164,7 @@ export async function generateMap(size: number, tile: (q: number, r: number) => 
 export async function generateIsland(size: number): Promise<Grid<TileData>> {
     let tile = (q: number, r: number): TileData => {
         return {
-            clouds: false, fog: false, height: 0, q: q, r: r, terrain: "grass", locked: true
+            clouds: false, fog: true, height: 0, q: q, r: r, terrain: "grass", locked: true
         }
     }
 

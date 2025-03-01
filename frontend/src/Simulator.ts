@@ -2,7 +2,7 @@ import MapView from "./MapView";
 import {GrowthStage, Plant} from "./interfaces";
 
 export class Simulator {
-  currentPopulation: number = 0;
+  currentPopulation: number = 2;
   currentFood: number = 1000;
   currentTime: number = new Date().getTime();
   mapView: MapView;
