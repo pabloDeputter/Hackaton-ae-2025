@@ -46,7 +46,9 @@ export async function initView(mapSize: number, initialZoom: number): Promise<Ma
     mapView.load(map, options)
 
     mapView.onTileSelected = (tile: TileData) => {
-
+        document.getElementById("currentTile").innerHTML = "Tile data " + tile.r + " " + tile.q;
+        tile.terrain = "plains"
+        mapView.updateTiles([tile])
     }
 
     return mapView

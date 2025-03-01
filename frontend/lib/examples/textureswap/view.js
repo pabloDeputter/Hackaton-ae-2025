@@ -80,6 +80,9 @@ define(["require", "exports", "../../src/MapView", "../../src/util", "../../src/
                         mapView.zoom = initialZoom;
                         mapView.load(map, options);
                         mapView.onTileSelected = function (tile) {
+                            document.getElementById("currentTile").innerHTML = "Tile data " + tile.r + " " + tile.q;
+                            tile.terrain = "plains";
+                            mapView.updateTiles([tile]);
                         };
                         return [2 /*return*/, mapView];
                 }
