@@ -119,6 +119,26 @@ define(["require", "exports", "../../src/MapView", "../../src/util", "../../src/
                                 var growthPercentage = (tile.plant.daysSincePlanted / tile.plant.timeToConsumable) * 100;
                                 // Update debug panel with comprehensive plant information
                                 document.getElementById("plantInfo").innerHTML = "\n    <div class=\"bg-white p-3 rounded border border-gray-200\">\n      <h5 class=\"font-bold text-green-800\">" + tile.plant.name + "</h5>\n      <div class=\"grid grid-cols-2 gap-2 text-sm mt-2\">\n        <div>\n          <p><span class=\"font-medium\">Growth Stage:</span> " + tile.plant.growthStage + "</p>\n          <p><span class=\"font-medium\">Days Planted:</span> " + tile.plant.daysSincePlanted + "</p>\n          <p><span class=\"font-medium\">Days Until Harvest:</span> " + (daysLeft > 0 ? daysLeft : "Ready!") + "</p>\n          <p><span class=\"font-medium\">Latin Name:</span> " + (tile.plant.latinName || "N/A") + "</p>\n        </div>\n        <div>\n          <p><span class=\"font-medium\">Expected Weight:</span> " + tile.plant.weightWhenFullGrown + " kg</p>\n          <p><span class=\"font-medium\">Calories:</span> " + tile.plant.kcalPer100g + " kcal/100g</p>\n          <p><span class=\"font-medium\">Protein:</span> " + tile.plant.proteinsPer100g + "g/100g</p>\n        </div>\n      </div>\n      <div class=\"mt-2\">\n        <p><span class=\"font-medium\">Growth Progress:</span></p>\n        <div class=\"w-full bg-gray-200 rounded-full h-2 mt-1\">\n          <div class=\"bg-green-600 h-2 rounded-full\" style=\"width: " + Math.min(growthPercentage, 100) + "%\"></div>\n        </div>\n        <p class=\"text-xs text-right mt-0.5\">" + growthPercentage.toFixed(1) + "%</p>\n      </div>\n    </div>\n  ";
+                                // Add delete button for the plant
+                                var deleteButton = document.createElement('button');
+                                deleteButton.textContent = 'Delete Plant';
+                                deleteButton.className = 'bg-red-500 text-white px-4 py-2 rounded mt-2 hover:bg-red-600';
+                                // Add unique data attribute to link button with the specific tile
+                                deleteButton.dataset.tileId = tile.q + "-" + tile.r;
+                                // Handle delete button click
+                                deleteButton.addEventListener('click', function () {
+                                    // Remove plant from the tile
+                                    tile.plant = null; // Remove the plant
+                                    tile.terrain = "plains"; // Optionally reset terrain or leave as is
+                                    // Update the map view
+                                    mapView.updateTiles([tile]);
+                                    // Close the dialog if it's open
+                                    document.getElementById("plantDialog").classList.add("hidden");
+                                    // Optionally clear the plant info display
+                                    document.getElementById("plantInfo").innerHTML = '';
+                                });
+                                // Add the delete button to the plant info container
+                                document.getElementById("plantInfo").appendChild(deleteButton);
                                 return; // Exit early - don't proceed to the location-based plant selection
                             }
                             document.getElementById("currentTile").innerHTML =
