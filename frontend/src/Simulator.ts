@@ -15,6 +15,13 @@ export class Simulator {
 
 
     start(){
+        let tiles = this.mapView.getTileGrid();
+        tiles.forEachQR((q,r, tile) => {
+            tile.fog = true;
+        })
+
+        this.mapView.updateTiles(tiles.toArray());
+
         const interval = setInterval(()=>{
             this.nextStep();
         }, 1000);

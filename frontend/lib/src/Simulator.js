@@ -13,6 +13,11 @@ define(["require", "exports"], function (require, exports) {
         }
         Simulator.prototype.start = function () {
             var _this = this;
+            var tiles = this.mapView.getTileGrid();
+            tiles.forEachQR(function (q, r, tile) {
+                tile.fog = true;
+            });
+            this.mapView.updateTiles(tiles.toArray());
             var interval = setInterval(function () {
                 _this.nextStep();
             }, 1000);
