@@ -33,9 +33,91 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-define(["require", "exports", "./perlin", "./interfaces", "./util", "./Grid", "./hexagon"], function (require, exports, perlin_1, interfaces_1, util_1, Grid_1, hexagon_1) {
+define(["require", "exports", "./perlin", "./interfaces", "./util", "./Grid", "three", "./hexagon"], function (require, exports, perlin_1, interfaces_1, util_1, Grid_1, three_1, hexagon_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
+    var scene = new three_1.Scene();
+    var locations = [
+        "Airstrip One", "Victory Mansions", "Ministry of Truth",
+        "Ministry of Love", "Ministry of Peace", "Ministry of Plenty",
+        "Chestnut Tree Café", "Golden Country", "Outer Party Sector",
+        "Prole District"
+    ];
+    function assignLocationZones(grid) {
+        var allTiles = util_1.shuffle(grid.toArray()); // Randomize order
+        var occupiedTiles = {}; // Use a plain object for occupied tracking
+        var locationCount = locations.length;
+        var assigned = 0;
+        for (var _i = 0, allTiles_1 = allTiles; _i < allTiles_1.length; _i++) {
+            var centerTile = allTiles_1[_i];
+            if (assigned >= locationCount)
+                break; // Stop when all locations are placed
+            if (isTileOccupied(centerTile.q, centerTile.r, occupiedTiles, grid)) {
+                continue; // Skip if this tile or its neighbors are occupied
+            }
+            var location_1 = locations[assigned];
+            // Set the center tile and surrounding tiles (randomly expanding the area)
+            expandLocationArea(centerTile, location_1, occupiedTiles, grid);
+            assigned++;
+        }
+        if (assigned < locationCount) {
+            console.warn("Only placed " + assigned + " locations out of " + locationCount + ". Not enough space.");
+        }
+    }
+    exports.assignLocationZones = assignLocationZones;
+    // Expands the location area with a random number of tiles
+    function expandLocationArea(centerTile, location, occupied, grid) {
+        // Create a random size for the location area (e.g., between 7 and 15 tiles)
+        var areaSize = Math.floor(Math.random() * 9) + 7; // Random size between 7 and 15
+        // Start with the center and its direct neighbors
+        var toAssign = [centerTile];
+        markTileOccupied(centerTile.q, centerTile.r, occupied);
+        // Assign neighbors and expand the area randomly
+        var tileIndex = 0;
+        while (toAssign.length < areaSize && tileIndex < toAssign.length) {
+            var currentTile = toAssign[tileIndex];
+            var neighbors = grid.neighbors(currentTile.q, currentTile.r);
+            // Shuffle neighbors to add a random selection of them
+            util_1.shuffle(neighbors).forEach(function (neighbor) {
+                if (toAssign.length < areaSize) {
+                    toAssign.push(neighbor);
+                    markTileOccupied(neighbor.q, neighbor.r, occupied);
+                }
+            });
+            tileIndex++;
+        }
+        // Now assign all the selected tiles the current location and terrain type
+        toAssign.forEach(function (tile) {
+            tile.location = location;
+            tile.terrain = "plains"; // Adjust as necessary
+        });
+    }
+    // Helper to check if a tile and its neighbors are occupied
+    function isTileOccupied(q, r, occupied, grid) {
+        if (occupied[q + "," + r])
+            return true;
+        var neighbors = grid.neighbors(q, r);
+        for (var _i = 0, neighbors_1 = neighbors; _i < neighbors_1.length; _i++) {
+            var neighbor = neighbors_1[_i];
+            if (occupied[neighbor.q + "," + neighbor.r]) {
+                return true; // One of the neighbors is already occupied
+            }
+        }
+        return false;
+    }
+    // Helper to mark a tile as occupied (center + optional buffer)
+    function markTileOccupied(q, r, occupied) {
+        occupied[q + "," + r] = true;
+        // Optional buffer - mark adjacent tiles to avoid tight clustering
+        var bufferOffsets = [
+            [1, 0], [-1, 0], [0, 1], [0, -1],
+            [1, -1], [-1, 1]
+        ];
+        for (var _i = 0, bufferOffsets_1 = bufferOffsets; _i < bufferOffsets_1.length; _i++) {
+            var _a = bufferOffsets_1[_i], dq = _a[0], dr = _a[1];
+            occupied[q + dq + "," + (r + dr)] = true;
+        }
+    }
     function randomHeight(q, r) {
         var noise1 = perlin_1.simplex2(q / 10, r / 10);
         var noise2 = perlin_1.perlin2(q / 5, r / 5);
@@ -54,6 +136,7 @@ define(["require", "exports", "./perlin", "./interfaces", "./util", "./Grid", ".
             var grid, withRivers;
             return __generator(this, function (_a) {
                 grid = new Grid_1.default(size, size).mapQR(function (q, r) { return tile(q, r); });
+                assignLocationZones(grid);
                 withRivers = generateRivers(grid);
                 return [2 /*return*/, withRivers];
             });

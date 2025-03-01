@@ -2,9 +2,107 @@ import {simplex2, perlin2, seed} from "./perlin"
 import {Height, TileData, isLand, isWater, isMountain, isHill} from "./interfaces"
 import {shuffle, qrRange} from "./util";
 import Grid from './Grid';
-import {Vector3} from "three";
+import {Vector3, Scene} from "three";
 import {randomPointInHexagonEx} from "./hexagon";
 import {varying} from "../examples/textureswap/util";
+const scene = new Scene();
+
+const locations = [
+    "Airstrip One", "Victory Mansions", "Ministry of Truth",
+    "Ministry of Love", "Ministry of Peace", "Ministry of Plenty",
+    "Chestnut Tree Café", "Golden Country", "Outer Party Sector",
+    "Prole District"
+];
+
+export function assignLocationZones(grid: Grid<TileData>) {
+    const allTiles = shuffle(grid.toArray());  // Randomize order
+    const occupiedTiles: Record<string, boolean> = {};  // Use a plain object for occupied tracking
+
+    const locationCount = locations.length;
+    let assigned = 0;
+
+    for (const centerTile of allTiles) {
+        if (assigned >= locationCount) break;  // Stop when all locations are placed
+
+        if (isTileOccupied(centerTile.q, centerTile.r, occupiedTiles, grid)) {
+            continue;  // Skip if this tile or its neighbors are occupied
+        }
+
+        const location = locations[assigned];
+
+        // Set the center tile and surrounding tiles (randomly expanding the area)
+        expandLocationArea(centerTile, location, occupiedTiles, grid);
+
+        assigned++;
+    }
+
+    if (assigned < locationCount) {
+        console.warn(`Only placed ${assigned} locations out of ${locationCount}. Not enough space.`);
+    }
+}
+
+// Expands the location area with a random number of tiles
+function expandLocationArea(centerTile: TileData, location: string, occupied: Record<string, boolean>, grid: Grid<TileData>) {
+    // Create a random size for the location area (e.g., between 7 and 15 tiles)
+    const areaSize = Math.floor(Math.random() * 9) + 7;  // Random size between 7 and 15
+
+    // Start with the center and its direct neighbors
+    const toAssign: TileData[] = [centerTile];
+    markTileOccupied(centerTile.q, centerTile.r, occupied);
+
+    // Assign neighbors and expand the area randomly
+    let tileIndex = 0;
+    while (toAssign.length < areaSize && tileIndex < toAssign.length) {
+        const currentTile = toAssign[tileIndex];
+        const neighbors = grid.neighbors(currentTile.q, currentTile.r);
+
+        // Shuffle neighbors to add a random selection of them
+        shuffle(neighbors).forEach(neighbor => {
+            if (toAssign.length < areaSize) {
+                toAssign.push(neighbor);
+                markTileOccupied(neighbor.q, neighbor.r, occupied);
+            }
+        });
+
+        tileIndex++;
+    }
+
+    // Now assign all the selected tiles the current location and terrain type
+    toAssign.forEach(tile => {
+        tile.location = location;
+        tile.terrain = "plains";  // Adjust as necessary
+    });
+}
+
+// Helper to check if a tile and its neighbors are occupied
+function isTileOccupied(q: number, r: number, occupied: Record<string, boolean>, grid: Grid<TileData>): boolean {
+    if (occupied[`${q},${r}`]) return true;
+
+    const neighbors = grid.neighbors(q, r);
+    for (const neighbor of neighbors) {
+        if (occupied[`${neighbor.q},${neighbor.r}`]) {
+            return true;  // One of the neighbors is already occupied
+        }
+    }
+
+    return false;
+}
+
+// Helper to mark a tile as occupied (center + optional buffer)
+function markTileOccupied(q: number, r: number, occupied: Record<string, boolean>) {
+    occupied[`${q},${r}`] = true;
+
+    // Optional buffer - mark adjacent tiles to avoid tight clustering
+    const bufferOffsets = [
+        [1, 0], [-1, 0], [0, 1], [0, -1],
+        [1, -1], [-1, 1]
+    ];
+    for (const [dq, dr] of bufferOffsets) {
+        occupied[`${q + dq},${r + dr}`] = true;
+    }
+}
+
+
 
 function randomHeight(q: number, r: number) {
     var noise1 = simplex2(q / 10, r / 10)
@@ -23,6 +121,7 @@ function randomHeight(q: number, r: number) {
  */
 export async function generateMap(size: number, tile: (q: number, r: number) => TileData): Promise<Grid<TileData>> {
     const grid = new Grid<TileData>(size, size).mapQR((q, r) => tile(q, r))
+    assignLocationZones(grid)
     const withRivers = generateRivers(grid)
     return withRivers
 }
@@ -36,7 +135,6 @@ export async function generateIsland(size: number): Promise<Grid<TileData>> {
 
 
    const map = new Grid<TileData>(size,size);
-
 
     await seed(Date.now() + Math.random())
     return generateMap(size, (q, r) => tile(q, r))

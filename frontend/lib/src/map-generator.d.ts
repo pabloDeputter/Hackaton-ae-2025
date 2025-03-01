@@ -1,6 +1,7 @@
 import { Height, TileData } from "./interfaces";
 import Grid from './Grid';
 import { Vector3 } from "three";
+export declare function assignLocationZones(grid: Grid<TileData>): void;
 /**
  * Generates are square map of the given size centered at (0,0).
  * @param size

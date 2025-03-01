@@ -18,7 +18,10 @@ export interface TileData {
     terrain: string;
     rivers?: {riverIndex: number; riverTileIndex: number}[];
     treeIndex?: number; // index of tree texture, optional
+    location?: string; // Add location tag for 10 locations
+
 }
+
 
 export function isLand(height: Height) {
     return height >= 0.0 && height < 0.75
