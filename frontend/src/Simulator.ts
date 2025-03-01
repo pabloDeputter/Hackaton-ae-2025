@@ -29,7 +29,7 @@ export class Simulator {
         tile.locked = true;
         tile.fog = true;
       }
-      else{
+      else if(tile.location){
         tile.locked = false;
         tile.fog = false;
       }
