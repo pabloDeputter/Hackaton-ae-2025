@@ -9,11 +9,11 @@ export class Simulator {
   currentTime: number = new Date().getTime();
 
   // Add demographic variables
-  birthRate: number = 0.01; // 1% chance of new birth per step
+  birthRate: number = 0.5; // 1% chance of new birth per step
   deathRate: number = 0.005; // 0.5% natural death rate per step
-  foodPerPersonPerDay: number = 8; // Base food requirement
+  foodPerPersonPerDay: number = 40; // Base food requirement
   starvationThreshold: number = 0.7; // Below 70% of required food causes starvation
-  starvationDeathRate: number = 0.05; // 5% death rate during starvation
+  starvationDeathRate: number = 0.2; // 5% death rate during starvation
 
   // New properties for simulation control
   isPaused: boolean = false;
@@ -146,8 +146,10 @@ export class Simulator {
     this.currentTime += 24 * 60 * 60 * 1000; // Add one day
 
     // Unlock new locations if population threshold is reached
-    if (this.lockedLocations.length > 0 &&
-        this.currentPopulation >= this.lockedLocations[0].value) {
+    if (
+      this.lockedLocations.length > 0 &&
+      this.currentPopulation >= this.lockedLocations[0].value
+    ) {
       this.lockedLocations.shift();
       this.lockTiles();
     }
@@ -160,12 +162,15 @@ export class Simulator {
     tiles.forEachQR((q, r, tile) => {
       if (tile.plant) {
         tile.plant = this.progressPlantGrowth(tile.plant);
-
+        
+        console.log(tile.plant);
         // Harvest plants when ready
-        if (tile.plant.growthStage >= GrowthStage.Harvestable) {
+        if (tile.plant.daysSincePlanted >= tile.plant.timeToConsumable) {
           // Calculate nutritional yield from harvest
-          newCalories += tile.plant.kcalPer100g * tile.plant.weightWhenFullGrown;
-          newProtein += tile.plant.proteinsPer100g * tile.plant.weightWhenFullGrown;
+          newCalories +=
+            tile.plant.kcalPer100g * tile.plant.weightWhenFullGrown;
+          newProtein +=
+            tile.plant.proteinsPer100g * tile.plant.weightWhenFullGrown;
 
           // Reset plant to seed stage
           tile.plant.growthStage = GrowthStage.Seed;
@@ -180,9 +185,10 @@ export class Simulator {
 
     // Calculate food consumption based on population
     const foodRequired = this.currentPopulation * this.foodPerPersonPerDay;
+    console.log(`Food required: ${foodRequired} kcal`);
 
     // Update food supply (calories + protein converted to energy)
-    this.currentFood = this.currentCalories + (this.currentProtein * 4);
+    this.currentFood += this.currentCalories + this.currentProtein * 4;
 
     // Consume food
     const foodAvailableRatio = Math.min(1, this.currentFood / foodRequired);
@@ -196,14 +202,21 @@ export class Simulator {
     // Calculate births and deaths
     if (foodAvailableRatio >= this.starvationThreshold) {
       // Normal conditions - births and natural deaths
-      newBirths = Math.floor(this.currentPopulation * this.birthRate * (foodAvailableRatio > 0.9 ? 1.2 : 1));
+      newBirths = Math.floor(
+        this.currentPopulation *
+          this.birthRate *
+          (foodAvailableRatio > 0.9 ? 1.2 : 1)
+      );
       naturalDeaths = Math.floor(this.currentPopulation * this.deathRate);
     } else {
       // Starvation conditions - reduced births, increased deaths
       newBirths = Math.floor(this.currentPopulation * this.birthRate * 0.5);
       naturalDeaths = Math.floor(this.currentPopulation * this.deathRate);
-      starvationDeaths = Math.floor(this.currentPopulation * this.starvationDeathRate *
-                         (1 - foodAvailableRatio / this.starvationThreshold));
+      starvationDeaths = Math.floor(
+        this.currentPopulation *
+          this.starvationDeathRate *
+          (1 - foodAvailableRatio / this.starvationThreshold)
+      );
     }
 
     // Update population
@@ -216,7 +229,9 @@ export class Simulator {
 
     // Log important events
     if (starvationDeaths > 0) {
-      console.log(`Starvation: ${starvationDeaths} deaths due to food shortage`);
+      console.log(
+        `Starvation: ${starvationDeaths} deaths due to food shortage`
+      );
     }
     if (newBirths > 5) {
       console.log(`Population boom: ${newBirths} new citizens`);
