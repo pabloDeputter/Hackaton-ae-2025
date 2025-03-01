@@ -47,9 +47,8 @@ export interface TileData {
     rivers?: { riverIndex: number; riverTileIndex: number }[];
     treeIndex?: number; // index of tree texture, optional
     location?: string; // Add location tag for 10 locations
-    locked?: boolean
+    locked: boolean
     plant?: Plant; // Add plant data
-    locked: boolean;
 }
 
 

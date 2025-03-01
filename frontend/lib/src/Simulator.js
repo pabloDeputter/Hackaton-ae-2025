@@ -15,7 +15,9 @@ define(["require", "exports"], function (require, exports) {
             var _this = this;
             var tiles = this.mapView.getTileGrid();
             tiles.forEachQR(function (q, r, tile) {
+                console.log("tile", tile);
                 if (_this.lockedLocations.indexOf(tile.location) !== -1) {
+                    tile.locked = true;
                     tile.fog = true;
                 }
             });
