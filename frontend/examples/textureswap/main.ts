@@ -27,7 +27,7 @@ async function init() {
         }, false)
     }
 
-    let simulator = new Simulator();
+    let simulator = new Simulator(mapView);
     simulator.start();
 }
 

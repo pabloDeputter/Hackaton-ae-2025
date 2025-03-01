@@ -2,13 +2,14 @@ define(["require", "exports"], function (require, exports) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var Simulator = /** @class */ (function () {
-        function Simulator() {
+        function Simulator(mapview) {
             this.currentPopulation = 0;
-            this.currentTime = new Date().getTime() + 86400000;
+            this.currentTime = new Date().getTime();
             this.lockedLocations = ["Victory Mansions", "Ministry of Truth",
                 "Ministry of Love", "Ministry of Peace", "Ministry of Plenty",
                 "Chestnut Tree Café", "Golden Country", "Outer Party Sector",
                 "Prole District"];
+            this.mapView = mapview;
         }
         Simulator.prototype.start = function () {
             var _this = this;

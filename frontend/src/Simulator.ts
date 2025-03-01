@@ -1,10 +1,18 @@
+import MapView from "./MapView";
+
 export class Simulator {
     currentPopulation: number = 0;
-    currentTime: number = new Date().getTime() + 86400000;
+    currentTime: number = new Date().getTime();
+    mapView: MapView;
     lockedLocations: string[] = ["Victory Mansions", "Ministry of Truth",
         "Ministry of Love", "Ministry of Peace", "Ministry of Plenty",
         "Chestnut Tree Café", "Golden Country", "Outer Party Sector",
         "Prole District"];
+
+    constructor(mapview:MapView) {
+        this.mapView = mapview;
+    }
+
 
     start(){
         const interval = setInterval(()=>{
@@ -21,6 +29,4 @@ export class Simulator {
     updateInterface(){
         document.getElementById("clock").innerHTML = new Date(this.currentTime).toISOString()
     }
-
-
 }

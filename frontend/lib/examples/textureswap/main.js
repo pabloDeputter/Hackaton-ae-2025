@@ -63,7 +63,7 @@ define(["require", "exports", "view", "input", "./util", "../../src/Simulator"],
                         for (i = 0; i < containers.length; i++) {
                             _loop_1(i);
                         }
-                        simulator = new Simulator_1.Simulator();
+                        simulator = new Simulator_1.Simulator(mapView);
                         simulator.start();
                         return [2 /*return*/];
                 }
