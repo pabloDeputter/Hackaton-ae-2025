@@ -19,7 +19,7 @@ define(["require", "exports", "./interfaces", "./util"], function (require, expo
             // Add demographic variables
             this.birthRate = 0.005; // 1% chance of new birth per step
             this.deathRate = 0.005; // 0.5% natural death rate per step
-            this.foodPerPersonPerDay = 5; // Base food requirement
+            this.foodPerPersonPerDay = 3.5; // Base food requirement
             this.starvationThreshold = 0.7; // Below 70% of required food causes starvation
             this.starvationDeathRate = 0.1; // 5% death rate during starvation
             // New properties for simulation control
@@ -178,7 +178,7 @@ define(["require", "exports", "./interfaces", "./util"], function (require, expo
             // Add harvested nutrients to stockpile
             this.currentCalories += newCalories;
             this.currentProtein += newProtein;
-            this.currentFood += (newCalories * 2) + (newProtein * 8); // Convert protein to energy
+            this.currentFood += (newCalories * 8) + (newProtein * 24); // Convert protein to energy
             // Calculate food consumption based on population
             var foodRequired = this.currentPopulation * this.foodPerPersonPerDay;
             console.log("Food required: " + foodRequired + " kcal");

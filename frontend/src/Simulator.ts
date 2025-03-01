@@ -13,7 +13,7 @@ export class Simulator {
   // Add demographic variables
   birthRate: number = 0.005; // 1% chance of new birth per step
   deathRate: number = 0.005; // 0.5% natural death rate per step
-  foodPerPersonPerDay: number = 5; // Base food requirement
+  foodPerPersonPerDay: number = 3.5; // Base food requirement
   starvationThreshold: number = 0.7; // Below 70% of required food causes starvation
   starvationDeathRate: number = 0.1; // 5% death rate during starvation
 
@@ -209,9 +209,9 @@ export class Simulator {
     });
 
     // Add harvested nutrients to stockpile
-    this.currentCalories += newCalories;
-    this.currentProtein += newProtein;
-    this.currentFood += (newCalories * 2) + (newProtein * 8); // Convert protein to energy
+    this.currentCalories += newCalories * 8;
+    this.currentProtein += newProtein * 24;
+    this.currentFood += (newCalories * 8) + (newProtein * 24); // Convert protein to energy
 
     // Calculate food consumption based on population
     const foodRequired = this.currentPopulation * this.foodPerPersonPerDay;
