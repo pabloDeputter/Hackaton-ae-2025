@@ -15,7 +15,9 @@ define(["require", "exports"], function (require, exports) {
             var _this = this;
             var tiles = this.mapView.getTileGrid();
             tiles.forEachQR(function (q, r, tile) {
-                tile.fog = true;
+                if (_this.lockedLocations.indexOf(tile.location) !== -1) {
+                    tile.fog = true;
+                }
             });
             this.mapView.updateTiles(tiles.toArray());
             var interval = setInterval(function () {

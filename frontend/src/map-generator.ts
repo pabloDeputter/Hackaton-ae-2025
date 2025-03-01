@@ -91,6 +91,7 @@ function expandLocationArea(centerTile: TileData, location: string, occupied: Re
     toAssign.forEach(tile => {
         tile.location = location;
         tile.terrain = "plains";  // Adjust as necessary
+        tile.locked = false;
     });
 }
 
@@ -163,7 +164,7 @@ export async function generateMap(size: number, tile: (q: number, r: number) => 
 export async function generateIsland(size: number): Promise<Grid<TileData>> {
     let tile = (q: number, r: number): TileData => {
         return {
-            clouds: false, fog: false, height: 0, q: q, r: r, terrain: "grass"
+            clouds: false, fog: false, height: 0, q: q, r: r, terrain: "grass", locked: true
         }
     }
 

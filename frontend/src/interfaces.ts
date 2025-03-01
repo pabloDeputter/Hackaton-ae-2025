@@ -44,6 +44,7 @@ export interface TileData {
     treeIndex?: number; // index of tree texture, optional
     location?: string; // Add location tag for 10 locations
     plant?: Plant; // Add plant data
+    locked: boolean;
 }
 
 

@@ -4,7 +4,7 @@ export class Simulator {
     currentPopulation: number = 0;
     currentTime: number = new Date().getTime();
     mapView: MapView;
-    lockedLocations: string[] = ["Victory Mansions", "Ministry of Truth",
+    lockedLocations: Array<string> = ["Victory Mansions", "Ministry of Truth",
         "Ministry of Love", "Ministry of Peace", "Ministry of Plenty",
         "Chestnut Tree Café", "Golden Country", "Outer Party Sector",
         "Prole District"];
@@ -17,7 +17,10 @@ export class Simulator {
     start(){
         let tiles = this.mapView.getTileGrid();
         tiles.forEachQR((q,r, tile) => {
-            tile.fog = true;
+            if(this.lockedLocations.indexOf(tile.location) !== -1){
+                tile.fog = true;
+            }
+
         })
 
         this.mapView.updateTiles(tiles.toArray());

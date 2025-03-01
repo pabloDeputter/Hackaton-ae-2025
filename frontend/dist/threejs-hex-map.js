@@ -1392,6 +1392,7 @@ define("threejs-hex-map", ["three"], function(__WEBPACK_EXTERNAL_MODULE_4__) { r
 	        toAssign.forEach(function (tile) {
 	            tile.location = location;
 	            tile.terrain = "plains"; // Adjust as necessary
+	            tile.locked = false;
 	        });
 	    }
 	    // Helper to check if a tile and its neighbors are occupied
@@ -1464,7 +1465,7 @@ define("threejs-hex-map", ["three"], function(__WEBPACK_EXTERNAL_MODULE_4__) { r
 	                    case 0:
 	                        tile = function (q, r) {
 	                            return {
-	                                clouds: false, fog: false, height: 0, q: q, r: r, terrain: "grass"
+	                                clouds: false, fog: false, height: 0, q: q, r: r, terrain: "grass", locked: true
 	                            };
 	                        };
 	                        map = new Grid_1.default(size, size);

@@ -3,7 +3,7 @@ export declare class Simulator {
     currentPopulation: number;
     currentTime: number;
     mapView: MapView;
-    lockedLocations: string[];
+    lockedLocations: Array<string>;
     constructor(mapview: MapView);
     start(): void;
     nextStep(): void;
