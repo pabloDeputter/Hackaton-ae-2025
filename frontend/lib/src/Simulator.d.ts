@@ -5,8 +5,12 @@ export declare class Simulator {
     currentFood: number;
     currentTime: number;
     mapView: MapView;
-    lockedLocations: Array<string>;
+    lockedLocations: Array<{
+        name: string;
+        value: number;
+    }>;
     constructor(mapview: MapView);
+    lockTiles(): void;
     start(): void;
     nextStep(): void;
     updateInterface(): void;

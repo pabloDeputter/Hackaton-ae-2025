@@ -1,38 +1,45 @@
 import MapView from "./MapView";
-import { GrowthStage, Plant } from "./interfaces";
+import {GrowthStage, Plant} from "./interfaces";
 
 export class Simulator {
   currentPopulation: number = 0;
   currentFood: number = 1000;
   currentTime: number = new Date().getTime();
   mapView: MapView;
-  lockedLocations: Array<string> = [
-    "Victory Mansions",
-    "Ministry of Truth",
-    "Ministry of Love",
-    "Ministry of Peace",
-    "Ministry of Plenty",
-    "Chestnut Tree Café",
-    "Golden Country",
-    "Outer Party Sector",
-    "Prole District",
+  lockedLocations: Array<{ name: string; value: number }> = [
+    { name: "Victory Mansions", value: 100 },
+    { name: "Ministry of Truth", value: 200 },
+    { name: "Ministry of Love", value: 400 },
+    { name: "Ministry of Peace", value: 800 },
+    { name: "Ministry of Plenty", value: 2000 },
+    { name: "Chestnut Tree Café", value: 5000 },
+    { name: "Golden Country", value: 10000 },
+    { name: "Outer Party Sector", value: 30000 },
+    { name: "Prole District", value: 100000 }
   ];
 
   constructor(mapview: MapView) {
     this.mapView = mapview;
   }
 
-  start() {
+  lockTiles(){
     let tiles = this.mapView.getTileGrid();
     tiles.forEachQR((q, r, tile) => {
-      console.log("tile", tile);
-      if (this.lockedLocations.indexOf(tile.location) !== -1) {
+      if(this.lockedLocations.some(loc => loc.name === tile.location)){
         tile.locked = true;
         tile.fog = true;
       }
+      else{
+        tile.locked = false;
+        tile.fog = false;
+      }
     });
-
     this.mapView.updateTiles(tiles.toArray());
+
+  }
+
+  start() {
+    this.lockTiles();
 
     const interval = setInterval(() => {
       this.nextStep();
@@ -40,8 +47,12 @@ export class Simulator {
   }
 
   nextStep() {
-    this.currentTime += 3600;
-    this.currentPopulation = Math.random();
+    this.currentTime += 24 * 60 * 60 * 1000;
+    this.currentPopulation += 10;
+    if(this.currentPopulation >= this.lockedLocations[0].value){
+      this.lockedLocations.shift();
+      this.lockTiles()
+    }
     this.updateInterface();
     let tiles = this.mapView.getTileGrid();
 
@@ -51,9 +62,11 @@ export class Simulator {
       }
 
       if (tile.plant.growthStage == GrowthStage.Harvestable) {
-        this.currentFood +=
-          tile.plant.kcalPer100g * tile.plant.weightWhenFullGrown;
+        console.log("Growth stage", tile.plant);
+        this.currentFood += tile.plant.kcalPer100g * tile.plant.weightWhenFullGrown;
         tile.plant.growthStage = GrowthStage.Seed;
+        tile.plant.daysSincePlanted = 0;
+      }
       }
     });
 
@@ -71,7 +84,7 @@ export class Simulator {
   updateInterface() {
     document.getElementById("clock").innerHTML = new Date(
       this.currentTime
-    ).toISOString();
+    ).toDateString();
   }
 
   progressPlantGrowth(plant: Plant): Plant {

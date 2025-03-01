@@ -177,16 +177,8 @@ define(["require", "exports", "./perlin", "./interfaces", "./util", "./Grid", ".
                 switch (_a.label) {
                     case 0:
                         tile = function (q, r) {
-                            var isBorder = q === -4 || r === -4 || q === 4 || r === 4;
-                            var terrain = isBorder ? ("ocean") : "grass";
                             return {
-                                clouds: false,
-                                fog: false,
-                                height: 0,
-                                q: q,
-                                r: r,
-                                terrain: terrain,
-                                locked: true
+                                clouds: false, fog: false, height: 0, q: q, r: r, terrain: "grass", locked: true
                             };
                         };
                         map = new Grid_1.default(size, size);
