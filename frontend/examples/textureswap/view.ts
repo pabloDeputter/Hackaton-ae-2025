@@ -110,6 +110,12 @@ export async function initView(
   }
 
   mapView.onTileSelected = (tile: TileData) => {
+
+    let newTile: TileData = {
+      clouds: false, fog: false, height: 0, q: tile.q, r: tile.r, terrain: "water", locked: true
+    }
+    mapView.updateTiles([newTile])
+    return
     // If tile has plant already, show plant data
     if (tile.plant) {
       const plantDialog = document.getElementById("plantDialog");
