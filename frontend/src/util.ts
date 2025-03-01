@@ -115,3 +115,19 @@ export function isInteger(value: number): boolean {
 export function flatten<T>(items: T[][]): T[] {
     return [].concat.apply([], items)
 }
+
+/**
+ * Convert hex color string to an RGB object.
+ */
+export function hexToRGB(hex: string): { r: number, g: number, b: number } {
+    hex = hex.replace("#", "");
+    if (hex.length === 3) {
+        hex = hex.split("").map(char => char + char).join(""); // Convert #RGB to #RRGGBB
+    }
+    const num = parseInt(hex, 16);
+    return {
+        r: ((num >> 16) & 255) / 255,
+        g: ((num >> 8) & 255) / 255,
+        b: (num & 255) / 255
+    };
+}

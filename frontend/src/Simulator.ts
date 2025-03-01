@@ -144,14 +144,14 @@ export class Simulator {
 
   nextStep() {
     this.currentTime += 24 * 60 * 60 * 1000; // Add one day
-    
+
     // Unlock new locations if population threshold is reached
-    if (this.lockedLocations.length > 0 && 
+    if (this.lockedLocations.length > 0 &&
         this.currentPopulation >= this.lockedLocations[0].value) {
       this.lockedLocations.shift();
       this.lockTiles();
     }
-    
+
     // Process plant growth and harvests
     let tiles = this.mapView.getTileGrid();
     let newCalories = 0;
@@ -166,54 +166,54 @@ export class Simulator {
           // Calculate nutritional yield from harvest
           newCalories += tile.plant.kcalPer100g * tile.plant.weightWhenFullGrown;
           newProtein += tile.plant.proteinsPer100g * tile.plant.weightWhenFullGrown;
-          
+
           // Reset plant to seed stage
           tile.plant.growthStage = GrowthStage.Seed;
           tile.plant.daysSincePlanted = 0;
         }
       }
     });
-    
+
     // Add harvested nutrients to stockpile
     this.currentCalories += newCalories;
     this.currentProtein += newProtein;
-    
+
     // Calculate food consumption based on population
     const foodRequired = this.currentPopulation * this.foodPerPersonPerDay;
-    
+
     // Update food supply (calories + protein converted to energy)
     this.currentFood = this.currentCalories + (this.currentProtein * 4);
-    
+
     // Consume food
     const foodAvailableRatio = Math.min(1, this.currentFood / foodRequired);
     this.currentFood -= foodRequired * foodAvailableRatio;
-    
+
     // Population dynamics
     let newBirths = 0;
     let naturalDeaths = 0;
     let starvationDeaths = 0;
-    
+
     // Calculate births and deaths
     if (foodAvailableRatio >= this.starvationThreshold) {
       // Normal conditions - births and natural deaths
-      newBirths = Math.floor(this.currentPopulation * this.birthRate * (foodAvailableRatio > 0.9 ? 1.2 : 1)); 
+      newBirths = Math.floor(this.currentPopulation * this.birthRate * (foodAvailableRatio > 0.9 ? 1.2 : 1));
       naturalDeaths = Math.floor(this.currentPopulation * this.deathRate);
     } else {
       // Starvation conditions - reduced births, increased deaths
       newBirths = Math.floor(this.currentPopulation * this.birthRate * 0.5);
       naturalDeaths = Math.floor(this.currentPopulation * this.deathRate);
-      starvationDeaths = Math.floor(this.currentPopulation * this.starvationDeathRate * 
+      starvationDeaths = Math.floor(this.currentPopulation * this.starvationDeathRate *
                          (1 - foodAvailableRatio / this.starvationThreshold));
     }
-    
+
     // Update population
     this.currentPopulation += newBirths - naturalDeaths - starvationDeaths;
     this.currentPopulation = Math.max(1, Math.round(this.currentPopulation)); // Prevent extinction
-    
+
     // Update UI and map
     this.updateInterface();
     this.mapView.updateTiles(tiles.toArray());
-    
+
     // Log important events
     if (starvationDeaths > 0) {
       console.log(`Starvation: ${starvationDeaths} deaths due to food shortage`);

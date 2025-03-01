@@ -132,9 +132,6 @@ function seededShuffle<T>(array: T[], rng: SeededRandom): T[] {
     return array;
 }
 
-
-
-
 function randomHeight(q: number, r: number) {
     var noise1 = simplex2(q / 10, r / 10)
     var noise2 = perlin2(q / 5, r / 5)
@@ -164,7 +161,7 @@ export async function generateMap(size: number, tile: (q: number, r: number) => 
 export async function generateIsland(size: number): Promise<Grid<TileData>> {
     let tile = (q: number, r: number): TileData => {
         return {
-            clouds: false, fog: false, height: 0, q: q, r: r, terrain: "grass", locked: true
+            clouds: false, fog: true, height: 0, q: q, r: r, terrain: "grass", locked: true
         }
     }
 

@@ -178,7 +178,7 @@ define(["require", "exports", "./perlin", "./interfaces", "./util", "./Grid", ".
                     case 0:
                         tile = function (q, r) {
                             return {
-                                clouds: false, fog: false, height: 0, q: q, r: r, terrain: "grass", locked: true
+                                clouds: false, fog: true, height: 0, q: q, r: r, terrain: "grass", locked: true
                             };
                         };
                         map = new Grid_1.default(size, size);

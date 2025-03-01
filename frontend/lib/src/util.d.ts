@@ -13,3 +13,11 @@ export declare function qrEquals(a: QR, b: QR): boolean;
 export declare function minBy<T>(items: T[], by: (item: T) => number): T | null;
 export declare function isInteger(value: number): boolean;
 export declare function flatten<T>(items: T[][]): T[];
+/**
+ * Convert hex color string to an RGB object.
+ */
+export declare function hexToRGB(hex: string): {
+    r: number;
+    g: number;
+    b: number;
+};
