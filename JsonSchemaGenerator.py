@@ -62,7 +62,7 @@ def save_json_schema(schema: Dict[str, Any], output_file: str):
 
 # GENERATING
 
-inputfiles = ["dataset_edible_plants.csv","dataset_disease.csv","dataset_medicines.csv","dataset_weather.csv"]
+inputfiles = ["dataset_edible_plants.csv","dataset_disease.csv","dataset_medicines.csv","dataset_weather.csv", "person_dataset.csv", "debug_locations.csv"]
 
 #csv_input = 'edible_plants_dataset.csv'  # Replace with your CSV file path
 #json_output = 'edible_plants.json'  # Replace with desired JSON schema file path

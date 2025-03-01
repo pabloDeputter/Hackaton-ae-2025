@@ -1,0 +1,51 @@
+Hackaton-ae-2025/home.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Three.js Farming Simulator</title>
+    <style>
+      body {
+        margin: 0;
+        overflow: hidden;
+      }
+      canvas {
+        display: block;
+      }
+      #info {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        color: white;
+        background-color: rgba(0, 0, 0, 0.5);
+        padding: 10px;
+        font-family: Arial, sans-serif;
+      }
+      .city-label {
+        pointer-events: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="info">
+      Three.js Farming Simulator<br />
+      Click: Plant/Harvest<br />
+      Scroll: Zoom In/Out<br />
+      Money: $<span id="money">100</span><br/>
+      <br/>
+      <strong>Cities:</strong><br/>
+      - Wheatville: Wheat crops ($10/$20)<br/>
+      - Banana Bay: Banana crops ($10/$30)
+    </div>
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+        }
+      }
+    </script>
+    <script type="module" src="game.js"></script>
+  </body>
+</html>
