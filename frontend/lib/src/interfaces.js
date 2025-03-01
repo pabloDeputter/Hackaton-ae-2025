@@ -8,7 +8,6 @@ define(["require", "exports"], function (require, exports) {
         GrowthStage["Young"] = "Young";
         GrowthStage["Mature"] = "Mature";
         GrowthStage["Harvestable"] = "Harvestable";
-        GrowthStage["Dead"] = "Dead";
     })(GrowthStage = exports.GrowthStage || (exports.GrowthStage = {}));
     function isLand(height) {
         return height >= 0.0 && height < 0.75;

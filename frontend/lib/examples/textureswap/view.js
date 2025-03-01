@@ -106,23 +106,63 @@ define(["require", "exports", "../../src/MapView", "../../src/util", "../../src/
                             }, { passive: false });
                         }
                         mapView.onTileSelected = function (tile) {
+                            // If tile has plant already, show plant data
+                            if (tile.plant) {
+                                var plantDialog_1 = document.getElementById("plantDialog");
+                                var plantDialogLocation = document.getElementById("plantDialogLocation");
+                                var plantsList = document.getElementById("plantsList");
+                                var loadingPlants = document.getElementById("loadingPlants");
+                                // Show the dialog with blurred backdrop
+                                plantDialog_1.classList.remove("hidden");
+                                plantDialog_1.classList.add("backdrop-blur-[2px]");
+                                plantDialogLocation.textContent = "Location: " + (tile.location || "Unknown") + " - Planted: " + tile.plant.name;
+                                plantsList.innerHTML = "";
+                                loadingPlants.classList.add("hidden");
+                                // Make dialog wider
+                                var dialogContent = plantDialog_1.querySelector("div");
+                                dialogContent.className =
+                                    "bg-gray-100 rounded-lg p-6 max-w-4xl w-full max-h-[80vh] flex flex-col shadow-xl";
+                                // Create plant stats display
+                                var plantStats = document.createElement("div");
+                                plantStats.className = "bg-white p-4 rounded-lg shadow";
+                                tile.plant.daysSincePlanted = tile.plant.timeToConsumable;
+                                // Calculate days until harvest
+                                var daysLeft = tile.plant.timeToConsumable - tile.plant.daysSincePlanted;
+                                var growthPercentage = (tile.plant.daysSincePlanted / tile.plant.timeToConsumable) * 100;
+                                plantStats.innerHTML = "\n          <div class=\"flex flex-col gap-4\">\n            <div class=\"flex justify-between items-center\">\n              <h3 class=\"text-xl font-bold text-gray-800\">" + tile.plant.name + "</h3>\n            </div>\n            \n            <div class=\"grid grid-cols-2 gap-4\">\n              <div>\n                <h4 class=\"font-medium text-gray-700\">Growth Information</h4>\n                <ul class=\"mt-2 space-y-1\">\n                  <li><span class=\"font-medium\">Growth Stage:</span> " + tile.plant.growthStage + "</li>\n                  <li><span class=\"font-medium\">Days Since Planted:</span> " + tile.plant.daysSincePlanted + "</li>\n                  <li><span class=\"font-medium\">Days Until Harvest:</span> " + (daysLeft > 0 ? daysLeft : "Ready to harvest!") + "</li>\n                  <li><span class=\"font-medium\">Watering Needs:</span> " + tile.plant.wateringNeeds + "</li>\n                </ul>\n              </div>\n              \n              <div>\n                <h4 class=\"font-medium text-gray-700\">Nutritional Information</h4>\n                <ul class=\"mt-2 space-y-1\">\n                  <li><span class=\"font-medium\">Expected Weight:</span> " + tile.plant.weightWhenFullGrown + " kg</li>\n                  <li><span class=\"font-medium\">Calories:</span> " + tile.plant.kcalPer100g + " kcal per 100g</li>\n                  <li><span class=\"font-medium\">Protein:</span> " + tile.plant.proteinsPer100g + " g per 100g</li>\n                </ul>\n              </div>\n            </div>\n            \n            <div>\n              <h4 class=\"font-medium text-gray-700\">Growth Progress</h4>\n              <div class=\"w-full bg-gray-200 rounded-full h-2.5 mt-2\">\n                <div class=\"bg-green-600 h-2.5 rounded-full\" style=\"width: " + Math.min(growthPercentage, 100) + "%\"></div>\n              </div>\n              <p class=\"text-sm text-gray-600 mt-1\">" + growthPercentage.toFixed(1) + "% complete</p>\n            </div>\n            \n            <div class=\"flex justify-end gap-2 mt-2\">\n              " + (daysLeft <= 0
+                                    ? "\n              <button id=\"harvestPlant\" class=\"bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded\">\n                Harvest Plant\n              </button>\n              "
+                                    : "") + "\n            </div>\n          </div>\n        ";
+                                plantsList.appendChild(plantStats);
+                                // Add event listener for harvest button if it exists
+                                var harvestBtn = document.getElementById("harvestPlant");
+                                if (harvestBtn) {
+                                    harvestBtn.addEventListener("click", function () {
+                                        // Logic for harvesting
+                                        alert("Harvested " + tile.plant.name + "!");
+                                        delete tile.plant;
+                                        tile.terrain = "grass";
+                                        mapView.updateTiles([tile]);
+                                        plantDialog_1.classList.add("hidden");
+                                    });
+                                }
+                                return; // Exit early - don't proceed to the location-based plant selection
+                            }
                             document.getElementById("currentTile").innerHTML =
                                 "Tile data " + tile.r + " " + tile.q;
                             // If the tile has a location, show the plant selection dialog
                             if (tile.location) {
-                                var plantDialog_1 = document.getElementById("plantDialog");
+                                var plantDialog_2 = document.getElementById("plantDialog");
                                 var plantDialogLocation = document.getElementById("plantDialogLocation");
                                 var plantsList_1 = document.getElementById("plantsList");
                                 var loadingPlants_1 = document.getElementById("loadingPlants");
                                 // Show the dialog with blurred backdrop
-                                plantDialog_1.classList.remove("hidden");
-                                plantDialog_1.classList.add("backdrop-blur-[2px]");
+                                plantDialog_2.classList.remove("hidden");
+                                plantDialog_2.classList.add("backdrop-blur-[2px]");
                                 plantDialogLocation.textContent = "Location: " + tile.location;
                                 plantsList_1.innerHTML = "";
                                 loadingPlants_1.classList.remove("hidden");
-                                console.log("Tile location:", tile.location);
                                 // Make dialog wider
-                                var dialogContent = plantDialog_1.querySelector("div");
+                                var dialogContent = plantDialog_2.querySelector("div");
                                 dialogContent.className =
                                     "bg-gray-100 rounded-lg p-6 max-w-4xl w-full max-h-[80vh] flex flex-col shadow-xl";
                                 // Fetch available plants for this location
@@ -171,7 +211,6 @@ define(["require", "exports", "../../src/MapView", "../../src/util", "../../src/
                                             waterEfficiency: plant["Water_Efficiency"],
                                             totalScore: plant["Total_Score"],
                                         };
-                                        console.log("Plant:", plant);
                                         var row = document.createElement("tr");
                                         row.className = "bg-white border-b hover:bg-gray-50 cursor-pointer";
                                         row.innerHTML = "\n                        <td class=\"px-4 py-2 font-medium text-gray-800\">" + plant.name + "</td>\n                        <td class=\"px-4 py-2\">" + plant.growthClimate + "</td>\n                        <td class=\"px-4 py-2\">" + plant.wateringNeeds + "</td>\n                        <td class=\"px-4 py-2\">" + plant.timeToConsumable + " days</td>\n                        <td class=\"px-4 py-2\">" + plant.kcalPer100g + "</td>\n                        <td class=\"px-4 py-2\">" + plant.proteinsPer100g + "</td>\n                        <td class=\"px-4 py-2\"><span class=\"px-2 py-1 rounded " + (plant.climateScore >= 0.7
@@ -191,8 +230,10 @@ define(["require", "exports", "../../src/MapView", "../../src/util", "../../src/
                                             // Update terrain to show it's planted
                                             tile.terrain = "water";
                                             mapView.updateTiles([tile]);
+                                            tile.clouds = true;
+                                            tile.fog = true;
                                             // Close the dialog
-                                            plantDialog_1.classList.add("hidden");
+                                            plantDialog_2.classList.add("hidden");
                                         });
                                         tableBody.appendChild(row);
                                     });
@@ -205,6 +246,7 @@ define(["require", "exports", "../../src/MapView", "../../src/util", "../../src/
                             }
                             else {
                                 // If no location, just update the terrain as before
+                                console.log("no location");
                                 tile.terrain = "plains";
                             }
                             mapView.updateTiles([tile]);

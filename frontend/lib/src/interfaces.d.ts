@@ -12,8 +12,7 @@ export declare enum GrowthStage {
     Sprout = "Sprout",
     Young = "Young",
     Mature = "Mature",
-    Harvestable = "Harvestable",
-    Dead = "Dead"
+    Harvestable = "Harvestable"
 }
 export interface Plant {
     name: string;
@@ -45,6 +44,7 @@ export interface TileData {
     treeIndex?: number;
     location?: string;
     plant?: Plant;
+    locked: boolean;
 }
 export declare function isLand(height: Height): boolean;
 export declare function isWater(height: Height): boolean;

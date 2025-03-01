@@ -110,6 +110,126 @@ export async function initView(
   }
 
   mapView.onTileSelected = (tile: TileData) => {
+    // If tile has plant already, show plant data
+    if (tile.plant) {
+      const plantDialog = document.getElementById("plantDialog");
+      const plantDialogLocation = document.getElementById(
+        "plantDialogLocation"
+      );
+      const plantsList = document.getElementById("plantsList");
+      const loadingPlants = document.getElementById("loadingPlants");
+
+      // Show the dialog with blurred backdrop
+      plantDialog.classList.remove("hidden");
+      plantDialog.classList.add("backdrop-blur-[2px]");
+      plantDialogLocation.textContent = `Location: ${
+        tile.location || "Unknown"
+      } - Planted: ${tile.plant.name}`;
+      plantsList.innerHTML = "";
+      loadingPlants.classList.add("hidden");
+
+      // Make dialog wider
+      const dialogContent = plantDialog.querySelector("div");
+      dialogContent.className =
+        "bg-gray-100 rounded-lg p-6 max-w-4xl w-full max-h-[80vh] flex flex-col shadow-xl";
+
+      // Create plant stats display
+      const plantStats = document.createElement("div");
+      plantStats.className = "bg-white p-4 rounded-lg shadow";
+
+      tile.plant.daysSincePlanted = tile.plant.timeToConsumable;
+
+      // Calculate days until harvest
+      const daysLeft =
+        tile.plant.timeToConsumable - tile.plant.daysSincePlanted;
+      const growthPercentage =
+        (tile.plant.daysSincePlanted / tile.plant.timeToConsumable) * 100;
+      plantStats.innerHTML = `
+          <div class="flex flex-col gap-4">
+            <div class="flex justify-between items-center">
+              <h3 class="text-xl font-bold text-gray-800">${
+                tile.plant.name
+              }</h3>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <h4 class="font-medium text-gray-700">Growth Information</h4>
+                <ul class="mt-2 space-y-1">
+                  <li><span class="font-medium">Growth Stage:</span> ${
+                    tile.plant.growthStage
+                  }</li>
+                  <li><span class="font-medium">Days Since Planted:</span> ${
+                    tile.plant.daysSincePlanted
+                  }</li>
+                  <li><span class="font-medium">Days Until Harvest:</span> ${
+                    daysLeft > 0 ? daysLeft : "Ready to harvest!"
+                  }</li>
+                </ul>
+              </div>
+              
+              <div>
+                <h4 class="font-medium text-gray-700">Nutritional Information</h4>
+                <ul class="mt-2 space-y-1">
+                  <li><span class="font-medium">Expected Weight:</span> ${
+                    tile.plant.weightWhenFullGrown
+                  } kg</li>
+                  <li><span class="font-medium">Calories:</span> ${
+                    tile.plant.kcalPer100g
+                  } kcal per 100g</li>
+                  <li><span class="font-medium">Protein:</span> ${
+                    tile.plant.proteinsPer100g
+                  } g per 100g</li>
+                </ul>
+              </div>
+            </div>
+            
+            <div>
+              <h4 class="font-medium text-gray-700">Growth Progress</h4>
+              <div class="w-full bg-gray-200 rounded-full h-2.5 mt-2">
+                <div class="bg-green-600 h-2.5 rounded-full" style="width: ${Math.min(
+                  growthPercentage,
+                  100
+                )}%"></div>
+              </div>
+              <p class="text-sm text-gray-600 mt-1">${growthPercentage.toFixed(
+                1
+              )}% complete</p>
+            </div>
+            
+            <div class="flex justify-end gap-2 mt-2">
+              ${
+                daysLeft <= 0
+                  ? `
+              <button id="harvestPlant" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">
+                Harvest Plant
+              </button>
+              `
+                  : ""
+              }
+            </div>
+          </div>
+        `;
+
+      plantsList.appendChild(plantStats);
+
+      // Add event listener for harvest button if it exists
+      const harvestBtn = document.getElementById("harvestPlant");
+      if (harvestBtn) {
+        harvestBtn.addEventListener("click", () => {
+          // Logic for harvesting
+          alert(`Harvested ${tile.plant.name}!`);
+          delete tile.plant;
+          // TODO - update game state with harvested plant
+          tile.terrain = "grass";
+          mapView.updateTiles([tile]);
+          plantDialog.classList.add("hidden");
+        });
+      }
+
+      return; // Exit early - don't proceed to the location-based plant selection
+    }
+
     document.getElementById("currentTile").innerHTML =
       "Tile data " + tile.r + " " + tile.q;
 
@@ -128,7 +248,6 @@ export async function initView(
       plantDialogLocation.textContent = `Location: ${tile.location}`;
       plantsList.innerHTML = "";
       loadingPlants.classList.remove("hidden");
-      console.log("Tile location:", tile.location);
 
       // Make dialog wider
       const dialogContent = plantDialog.querySelector("div");
@@ -187,7 +306,7 @@ export async function initView(
 
           const tableBody = document.getElementById("plantsTableBody");
 
-          plants.forEach((plant) => {
+          plants.forEach((plant: any) => {
             // Init. Plant object according to interface
             plant = {
               name: plant["Name"],
@@ -207,7 +326,6 @@ export async function initView(
               totalScore: plant["Total_Score"],
             };
 
-            console.log("Plant:", plant);
             const row = document.createElement("tr");
             row.className = "bg-white border-b hover:bg-gray-50 cursor-pointer";
 
@@ -256,7 +374,7 @@ export async function initView(
               // Update the tile with the selected plant
               tile.plant = plant;
               // Update terrain to show it's planted
-              tile.terrain = "water";
+              tile.terrain = "tree";
               mapView.updateTiles([tile]);
               // Close the dialog
               plantDialog.classList.add("hidden");
@@ -272,6 +390,7 @@ export async function initView(
         });
     } else {
       // If no location, just update the terrain as before
+      console.log("no location");
       tile.terrain = "plains";
     }
 
