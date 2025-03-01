@@ -14,6 +14,7 @@ export enum GrowthStage {
   Young = "Young",
   Mature = "Mature",
   Harvestable = "Harvestable",
+  Dead = "Dead",
 }
 
 export interface Plant {

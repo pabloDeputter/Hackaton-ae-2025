@@ -106,6 +106,11 @@ define(["require", "exports", "../../src/MapView", "../../src/util", "../../src/
                             }, { passive: false });
                         }
                         mapView.onTileSelected = function (tile) {
+                            var newTile = {
+                                clouds: false, fog: false, height: 0, q: tile.q, r: tile.r, terrain: "water", locked: true
+                            };
+                            mapView.updateTiles([newTile]);
+                            return;
                             // If tile has plant already, show plant data
                             if (tile.plant) {
                                 var plantDialog_1 = document.getElementById("plantDialog");
@@ -129,7 +134,7 @@ define(["require", "exports", "../../src/MapView", "../../src/util", "../../src/
                                 // Calculate days until harvest
                                 var daysLeft = tile.plant.timeToConsumable - tile.plant.daysSincePlanted;
                                 var growthPercentage = (tile.plant.daysSincePlanted / tile.plant.timeToConsumable) * 100;
-                                plantStats.innerHTML = "\n          <div class=\"flex flex-col gap-4\">\n            <div class=\"flex justify-between items-center\">\n              <h3 class=\"text-xl font-bold text-gray-800\">" + tile.plant.name + "</h3>\n            </div>\n            \n            <div class=\"grid grid-cols-2 gap-4\">\n              <div>\n                <h4 class=\"font-medium text-gray-700\">Growth Information</h4>\n                <ul class=\"mt-2 space-y-1\">\n                  <li><span class=\"font-medium\">Growth Stage:</span> " + tile.plant.growthStage + "</li>\n                  <li><span class=\"font-medium\">Days Since Planted:</span> " + tile.plant.daysSincePlanted + "</li>\n                  <li><span class=\"font-medium\">Days Until Harvest:</span> " + (daysLeft > 0 ? daysLeft : "Ready to harvest!") + "</li>\n                  <li><span class=\"font-medium\">Watering Needs:</span> " + tile.plant.wateringNeeds + "</li>\n                </ul>\n              </div>\n              \n              <div>\n                <h4 class=\"font-medium text-gray-700\">Nutritional Information</h4>\n                <ul class=\"mt-2 space-y-1\">\n                  <li><span class=\"font-medium\">Expected Weight:</span> " + tile.plant.weightWhenFullGrown + " kg</li>\n                  <li><span class=\"font-medium\">Calories:</span> " + tile.plant.kcalPer100g + " kcal per 100g</li>\n                  <li><span class=\"font-medium\">Protein:</span> " + tile.plant.proteinsPer100g + " g per 100g</li>\n                </ul>\n              </div>\n            </div>\n            \n            <div>\n              <h4 class=\"font-medium text-gray-700\">Growth Progress</h4>\n              <div class=\"w-full bg-gray-200 rounded-full h-2.5 mt-2\">\n                <div class=\"bg-green-600 h-2.5 rounded-full\" style=\"width: " + Math.min(growthPercentage, 100) + "%\"></div>\n              </div>\n              <p class=\"text-sm text-gray-600 mt-1\">" + growthPercentage.toFixed(1) + "% complete</p>\n            </div>\n            \n            <div class=\"flex justify-end gap-2 mt-2\">\n              " + (daysLeft <= 0
+                                plantStats.innerHTML = "\n          <div class=\"flex flex-col gap-4\">\n            <div class=\"flex justify-between items-center\">\n              <h3 class=\"text-xl font-bold text-gray-800\">" + tile.plant.name + "</h3>\n            </div>\n            \n            <div class=\"grid grid-cols-2 gap-4\">\n              <div>\n                <h4 class=\"font-medium text-gray-700\">Growth Information</h4>\n                <ul class=\"mt-2 space-y-1\">\n                  <li><span class=\"font-medium\">Growth Stage:</span> " + tile.plant.growthStage + "</li>\n                  <li><span class=\"font-medium\">Days Since Planted:</span> " + tile.plant.daysSincePlanted + "</li>\n                  <li><span class=\"font-medium\">Days Until Harvest:</span> " + (daysLeft > 0 ? daysLeft : "Ready to harvest!") + "</li>\n                </ul>\n              </div>\n              \n              <div>\n                <h4 class=\"font-medium text-gray-700\">Nutritional Information</h4>\n                <ul class=\"mt-2 space-y-1\">\n                  <li><span class=\"font-medium\">Expected Weight:</span> " + tile.plant.weightWhenFullGrown + " kg</li>\n                  <li><span class=\"font-medium\">Calories:</span> " + tile.plant.kcalPer100g + " kcal per 100g</li>\n                  <li><span class=\"font-medium\">Protein:</span> " + tile.plant.proteinsPer100g + " g per 100g</li>\n                </ul>\n              </div>\n            </div>\n            \n            <div>\n              <h4 class=\"font-medium text-gray-700\">Growth Progress</h4>\n              <div class=\"w-full bg-gray-200 rounded-full h-2.5 mt-2\">\n                <div class=\"bg-green-600 h-2.5 rounded-full\" style=\"width: " + Math.min(growthPercentage, 100) + "%\"></div>\n              </div>\n              <p class=\"text-sm text-gray-600 mt-1\">" + growthPercentage.toFixed(1) + "% complete</p>\n            </div>\n            \n            <div class=\"flex justify-end gap-2 mt-2\">\n              " + (daysLeft <= 0
                                     ? "\n              <button id=\"harvestPlant\" class=\"bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded\">\n                Harvest Plant\n              </button>\n              "
                                     : "") + "\n            </div>\n          </div>\n        ";
                                 plantsList.appendChild(plantStats);
@@ -140,6 +145,7 @@ define(["require", "exports", "../../src/MapView", "../../src/util", "../../src/
                                         // Logic for harvesting
                                         alert("Harvested " + tile.plant.name + "!");
                                         delete tile.plant;
+                                        // TODO - update game state with harvested plant
                                         tile.terrain = "grass";
                                         mapView.updateTiles([tile]);
                                         plantDialog_1.classList.add("hidden");
@@ -228,10 +234,8 @@ define(["require", "exports", "../../src/MapView", "../../src/util", "../../src/
                                             // Update the tile with the selected plant
                                             tile.plant = plant;
                                             // Update terrain to show it's planted
-                                            tile.terrain = "water";
+                                            tile.terrain = "tree";
                                             mapView.updateTiles([tile]);
-                                            tile.clouds = true;
-                                            tile.fog = true;
                                             // Close the dialog
                                             plantDialog_2.classList.add("hidden");
                                         });

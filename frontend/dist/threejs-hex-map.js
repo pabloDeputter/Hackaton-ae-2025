@@ -186,8 +186,35 @@ define("threejs-hex-map", ["three"], function(__WEBPACK_EXTERNAL_MODULE_4__) { r
 	            }
 	        };
 	        MapMesh.prototype.updateTiles = function (tiles) {
+	            var _this = this;
 	            this.updateFogAndClouds(tiles);
 	            this.trees.updateTiles(tiles);
+	            var landGeometry = this.land.geometry;
+	            var landStyleAttr = landGeometry.getAttribute("style");
+	            var mountainsGeometry = this.mountains.geometry;
+	            var mountainsStyleAttr = mountainsGeometry.getAttribute("style");
+	            tiles.forEach(function (updated) {
+	                var old = _this.localGrid.get(updated.q, updated.r);
+	                if (!old)
+	                    return;
+	                if (updated.terrain !== old.terrain) {
+	                    // Update tile terrain
+	                    old.terrain = updated.terrain;
+	                    old.isMountain = interfaces_1.isMountain(updated.height);
+	                    // Determine which geometry and attribute to update
+	                    var attribute = old.isMountain ? mountainsStyleAttr : landStyleAttr;
+	                    // Recalculate terrain style index
+	                    var atlas = _this.options.terrainAtlas;
+	                    var newCellIndex = atlas.textures[updated.terrain]
+	                        ? atlas.textures[updated.terrain].cellY * (atlas.width / atlas.cellSize) +
+	                            atlas.textures[updated.terrain].cellX
+	                        : 0;
+	                    // Update the buffer attribute
+	                    attribute.setX(old.bufferIndex, newCellIndex);
+	                }
+	            });
+	            landStyleAttr.needsUpdate = true;
+	            mountainsStyleAttr.needsUpdate = true;
 	        };
 	        MapMesh.prototype.getTile = function (q, r) {
 	            return this.localGrid.get(q, r);
