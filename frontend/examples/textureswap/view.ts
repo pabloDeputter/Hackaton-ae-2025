@@ -173,6 +173,34 @@ export async function initView(
     </div>
   `;
 
+// Add delete button for the plant
+      const deleteButton = document.createElement('button');
+      deleteButton.textContent = 'Delete Plant';
+      deleteButton.className = 'bg-red-500 text-white px-4 py-2 rounded mt-2 hover:bg-red-600';
+
+      // Add unique data attribute to link button with the specific tile
+      deleteButton.dataset.tileId = `${tile.q}-${tile.r}`;
+
+      // Handle delete button click
+      deleteButton.addEventListener('click', () => {
+        // Remove plant from the tile
+        tile.plant = null; // Remove the plant
+        tile.terrain = "plains"; // Optionally reset terrain or leave as is
+
+        // Update the map view
+        mapView.updateTiles([tile]);
+
+        // Close the dialog if it's open
+        document.getElementById("plantDialog").classList.add("hidden");
+
+        // Optionally clear the plant info display
+        document.getElementById("plantInfo").innerHTML = '';
+      });
+
+      // Add the delete button to the plant info container
+      document.getElementById("plantInfo").appendChild(deleteButton);
+
+
       return; // Exit early - don't proceed to the location-based plant selection
     }
 
