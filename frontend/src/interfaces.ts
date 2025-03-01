@@ -1,4 +1,3 @@
-import { Texture } from 'three';
 /**
  * Height between -1.0 and 1.0:
  * [-1.00,-0.25) == deep water
@@ -9,6 +8,31 @@ import { Texture } from 'three';
  */
 export type Height = number;
 
+
+export enum GrowthStage {
+    Seed = "Seed",
+    Sprout = "Sprout",
+    Young = "Young",
+    Mature = "Mature",
+    Harvestable = "Harvestable",
+    Dead = "Dead"
+}
+
+
+export interface Plant {
+    name: string;
+    latinName: string;
+    growthClimate: string;
+    wateringNeeds: string;
+    timeToConsumable: number; // in days
+    weightWhenFullGrown: number; // in kg
+    kcalPer100g: number;
+    proteinsPer100g: number;
+    growthStage: GrowthStage; // Current stage of the plant
+    daysSincePlanted: number; // Track days since it was planted
+}
+
+
 export interface TileData {
     q: number;
     r: number;
@@ -16,9 +40,10 @@ export interface TileData {
     fog: boolean;
     clouds: boolean;
     terrain: string;
-    rivers?: {riverIndex: number; riverTileIndex: number}[];
+    rivers?: { riverIndex: number; riverTileIndex: number }[];
     treeIndex?: number; // index of tree texture, optional
     location?: string; // Add location tag for 10 locations
+    plant?: Plant; // Add plant data
 }
 
 
