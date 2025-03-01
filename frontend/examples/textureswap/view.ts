@@ -295,7 +295,6 @@ export async function initView(
                                 <th class="px-4 py-2" title="Nutritional value (higher is better)">Nutrition</th>
                                 <th class="px-4 py-2" title="Water efficiency (higher is better)">Water Efficiency</th>
                                 <th class="px-4 py-2" title="Total score (higher is better)">Total Score</th>
-                                <th class="px-4 py-2">Action</th>
                             </tr>
                         </thead>
                         <tbody id="plantsTableBody">
@@ -365,19 +364,41 @@ export async function initView(
                             ? "bg-green-100 text-green-800"
                             : "bg-yellow-100 text-yellow-800"
                         }">${plant.totalScore}</span></td>
-                        <td class="px-4 py-2">
-                            <button class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-xs">Plant</button>
-                        </td>
                     `;
 
-            row.querySelector("button").addEventListener("click", () => {
-              // Update the tile with the selected plant
-              tile.plant = plant;
-              // Update terrain to show it's planted
-              tile.terrain = "tree";
-              mapView.updateTiles([tile]);
-              // Close the dialog
-              plantDialog.classList.add("hidden");
+            // Make the entire row clickable to show plant info
+            row.addEventListener("click", () => {
+                const plantDialog = document.getElementById("plantDialog");
+                const plantsList = document.getElementById("plantsList");
+                
+                // Create and show detailed plant info
+                plantsList.innerHTML = `
+                    <div class="bg-white p-4 rounded-lg shadow">
+                        <h3 class="text-xl font-bold text-gray-800 mb-4">${plant.name}</h3>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <p><span class="font-medium">Latin Name:</span> ${plant.latinName}</p>
+                                <p><span class="font-medium">Growth Climate:</span> ${plant.growthClimate}</p>
+                                <p><span class="font-medium">Watering Needs:</span> ${plant.wateringNeeds}</p>
+                                <p><span class="font-medium">Time to Harvest:</span> ${plant.timeToConsumable} days</p>
+                            </div>
+                            <div>
+                                <p><span class="font-medium">Weight when Grown:</span> ${plant.weightWhenFullGrown} kg</p>
+                                <p><span class="font-medium">Calories:</span> ${plant.kcalPer100g} kcal/100g</p>
+                                <p><span class="font-medium">Protein:</span> ${plant.proteinsPer100g}g/100g</p>
+                            </div>
+                        </div>
+                        <button class="mt-4 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">Plant</button>
+                    </div>
+                `;
+
+                // Add click handler to the new plant button
+                plantsList.querySelector("button").addEventListener("click", () => {
+                    tile.plant = plant;
+                    tile.terrain = "tree";
+                    mapView.updateTiles([tile]);
+                    plantDialog.classList.add("hidden");
+                });
             });
 
             tableBody.appendChild(row);
