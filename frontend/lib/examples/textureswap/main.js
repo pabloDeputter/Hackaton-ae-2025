@@ -33,14 +33,14 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-define(["require", "exports", "view", "input", "./util"], function (require, exports, view_1, input_1, util_1) {
+define(["require", "exports", "view", "input", "./util", "../../src/Simulator"], function (require, exports, view_1, input_1, util_1, Simulator_1) {
     "use strict";
     Object.defineProperty(exports, "__esModule", { value: true });
     var mapSize = util_1.paramInt("size", 20);
     var zoom = util_1.paramFloat("zoom", 50);
     function init() {
         return __awaiter(this, void 0, void 0, function () {
-            var mapView, containers, _loop_1, i;
+            var mapView, containers, _loop_1, i, simulator;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, view_1.initView(mapSize, zoom)];
@@ -63,6 +63,8 @@ define(["require", "exports", "view", "input", "./util"], function (require, exp
                         for (i = 0; i < containers.length; i++) {
                             _loop_1(i);
                         }
+                        simulator = new Simulator_1.Simulator();
+                        simulator.start();
                         return [2 /*return*/];
                 }
             });

@@ -3,6 +3,7 @@ import { initInput } from "input"
 import { paramInt, paramFloat } from './util';
 import { qrRange, range } from '../../src/util';
 import MapView from "../../src/MapView";
+import {Simulator} from "../../src/Simulator";
 
 const mapSize = paramInt("size", 20)
 const zoom = paramFloat("zoom", 50)
@@ -26,6 +27,9 @@ async function init() {
             replaceTexture(mapView, name, e.dataTransfer.files[0])
         }, false)
     }
+
+    let simulator = new Simulator();
+    simulator.start();
 }
 
 
