@@ -2040,7 +2040,7 @@ define("threejs-hex-map", ["three"], function(__WEBPACK_EXTERNAL_MODULE_4__) { r
 	                    var mousePos = coords_1.screenToWorld(e.clientX, e.clientY, _this.controls.getCamera());
 	                    var tile = _this.controls.pickTile(mousePos);
 	                    if (tile) {
-	                        if (tile.location) {
+	                        if (!tile.locked) {
 	                            _this.controls.selectTile(tile);
 	                        }
 	                        _this.selectedQR = tile;

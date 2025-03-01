@@ -12,12 +12,11 @@ export declare enum GrowthStage {
     Sprout = "Sprout",
     Young = "Young",
     Mature = "Mature",
-    Harvestable = "Harvestable",
-    Dead = "Dead"
+    Harvestable = "Harvestable"
 }
 export interface Plant {
     name: string;
-    latinName: string;
+    totalScore: number;
     growthClimate: string;
     wateringNeeds: string;
     timeToConsumable: number;
@@ -26,6 +25,10 @@ export interface Plant {
     proteinsPer100g: number;
     growthStage: GrowthStage;
     daysSincePlanted: number;
+    climateScore: number;
+    growthSpeed: number;
+    nutritionScore: number;
+    waterEfficiency: number;
 }
 export interface TileData {
     q: number;

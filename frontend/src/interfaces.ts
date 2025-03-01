@@ -8,84 +8,83 @@
  */
 export type Height = number;
 
-
 export enum GrowthStage {
-    Seed = "Seed",
-    Sprout = "Sprout",
-    Young = "Young",
-    Mature = "Mature",
-    Harvestable = "Harvestable",
-    Dead = "Dead"
+  Seed = "Seed",
+  Sprout = "Sprout",
+  Young = "Young",
+  Mature = "Mature",
+  Harvestable = "Harvestable",
 }
-
 
 export interface Plant {
-    name: string;
-    latinName: string;
-    growthClimate: string;
-    wateringNeeds: string;
-    timeToConsumable: number; // in days
-    weightWhenFullGrown: number; // in kg
-    kcalPer100g: number;
-    proteinsPer100g: number;
-    growthStage: GrowthStage; // Current stage of the plant
-    daysSincePlanted: number; // Track days since it was planted
+  name: string;
+  totalScore: number;
+  growthClimate: string;
+  wateringNeeds: string;
+  timeToConsumable: number; // in days
+  weightWhenFullGrown: number; // in kg
+  kcalPer100g: number;
+  proteinsPer100g: number;
+  growthStage: GrowthStage; // Current stage of the plant
+  daysSincePlanted: number; // Track days since it was planted
+  climateScore: number;
+  growthSpeed: number;
+  nutritionScore: number;
+  waterEfficiency: number;
 }
-
 
 export interface TileData {
-    q: number;
-    r: number;
-    height: Height;
-    fog: boolean;
-    clouds: boolean;
-    terrain: string;
-    rivers?: { riverIndex: number; riverTileIndex: number }[];
-    treeIndex?: number; // index of tree texture, optional
-    location?: string; // Add location tag for 10 locations
-    plant?: Plant; // Add plant data
-    locked: boolean;
+  q: number;
+  r: number;
+  height: Height;
+  fog: boolean;
+  clouds: boolean;
+  terrain: string;
+  rivers?: { riverIndex: number; riverTileIndex: number }[];
+  treeIndex?: number; // index of tree texture, optional
+  location?: string; // Add location tag for 10 locations
+  plant?: Plant; // Add plant data
+  locked: boolean;
 }
 
-
 export function isLand(height: Height) {
-    return height >= 0.0 && height < 0.75
+  return height >= 0.0 && height < 0.75;
 }
 
 export function isWater(height: Height) {
-    return height < 0.0
+  return height < 0.0;
 }
 
 export function isHill(height: Height) {
-    return height >= 0.375 && height < 0.75
+  return height >= 0.375 && height < 0.75;
 }
 
 export function isMountain(height: Height) {
-    return height >= 0.75
+  return height >= 0.75;
 }
 
 export interface TextureAtlas {
-    textures: {
-        [name: string]: Cell;
-    },
-    image: string;
-    width: number;
-    height: number;
-    cellSize: number;
-    cellSpacing: number;
+  textures: {
+    [name: string]: Cell;
+  };
+  image: string;
+  width: number;
+  height: number;
+  cellSize: number;
+  cellSpacing: number;
 }
 
 export interface Cell {
-    cellX: number;
-    cellY: number;
+  cellX: number;
+  cellY: number;
 }
 
 export interface QR {
-    q: number;
-    r: number;
+  q: number;
+  r: number;
 }
 
 export interface TileDataSource {
-    getTile(q: number, r: number): TileData;
-    updateTiles(tiles: TileData[]): void;
+  getTile(q: number, r: number): TileData;
+  updateTiles(tiles: TileData[]): void;
 }
