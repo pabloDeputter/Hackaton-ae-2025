@@ -14,31 +14,49 @@ define(["require", "exports", "./interfaces"], function (require, exports, inter
             this.currentPopulation = 0;
             this.currentFood = 1000;
             this.currentTime = new Date().getTime();
-            this.lockedLocations = ["Victory Mansions", "Ministry of Truth",
-                "Ministry of Love", "Ministry of Peace", "Ministry of Plenty",
-                "Chestnut Tree Café", "Golden Country", "Outer Party Sector",
-                "Prole District"];
+            this.lockedLocations = [
+                { name: "Victory Mansions", value: 100 },
+                { name: "Ministry of Truth", value: 200 },
+                { name: "Ministry of Love", value: 400 },
+                { name: "Ministry of Peace", value: 800 },
+                { name: "Ministry of Plenty", value: 2000 },
+                { name: "Chestnut Tree Café", value: 5000 },
+                { name: "Golden Country", value: 10000 },
+                { name: "Outer Party Sector", value: 30000 },
+                { name: "Prole District", value: 100000 }
+            ];
             this.mapView = mapview;
         }
-        Simulator.prototype.start = function () {
+        Simulator.prototype.lockTiles = function () {
             var _this = this;
             var tiles = this.mapView.getTileGrid();
             tiles.forEachQR(function (q, r, tile) {
-                console.log("tile", tile);
-                if (_this.lockedLocations.indexOf(tile.location) !== -1) {
+                if (_this.lockedLocations.some(function (loc) { return loc.name === tile.location; })) {
                     tile.locked = true;
                     tile.fog = true;
                 }
+                else {
+                    tile.locked = false;
+                    tile.fog = false;
+                }
             });
             this.mapView.updateTiles(tiles.toArray());
+        };
+        Simulator.prototype.start = function () {
+            var _this = this;
+            this.lockTiles();
             var interval = setInterval(function () {
                 _this.nextStep();
             }, 1000);
         };
         Simulator.prototype.nextStep = function () {
             var _this = this;
-            this.currentTime += 3600;
-            this.currentPopulation = Math.random();
+            this.currentTime += 24 * 60 * 60 * 1000;
+            this.currentPopulation += 10;
+            if (this.currentPopulation >= this.lockedLocations[0].value) {
+                this.lockedLocations.shift();
+                this.lockTiles();
+            }
             this.updateInterface();
             var tiles = this.mapView.getTileGrid();
             tiles.forEachQR(function (q, r, tile) {
@@ -62,7 +80,7 @@ define(["require", "exports", "./interfaces"], function (require, exports, inter
             }
         };
         Simulator.prototype.updateInterface = function () {
-            document.getElementById("clock").innerHTML = new Date(this.currentTime).toISOString();
+            document.getElementById("clock").innerHTML = new Date(this.currentTime).toDateString();
         };
         Simulator.prototype.progressPlantGrowth = function (plant) {
             var daysSincePlanted = plant.daysSincePlanted, timeToConsumable = plant.timeToConsumable;
