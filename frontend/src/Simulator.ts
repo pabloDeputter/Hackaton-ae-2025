@@ -1,9 +1,10 @@
 import MapView from "./MapView";
-import { GrowthStage, Plant , Weather} from "./interfaces";
+import { GrowthStage, Plant , Weather, TileData} from "./interfaces";
 import {loadWeatherJSON} from "./util"
 
 export class Simulator {
   currentPopulation: number = 10;
+  activeTile: TileData;
   currentFood: number = 1000;
   currentProtein: number = 0;
   currentCalories: number = 0;
@@ -19,6 +20,7 @@ export class Simulator {
   // New properties for simulation control
   isPaused: boolean = false;
   simulationSpeed: number = 1; // Default speed multiplier
+  // @ts-ignore
   private intervalId: NodeJS.Timeout | null = null;
   mapView: MapView;
   lockedLocations: Array<{ name: string; value: number }> = [
@@ -34,7 +36,11 @@ export class Simulator {
   ];
   weather_data: Array<any>;
 
-  constructor(mapview: MapView) {
+  constructor() {
+
+  }
+
+  setMapVieuw(mapview: MapView){
     this.mapView = mapview;
     loadWeatherJSON().then(data => {
       this.weather_data = data
@@ -167,7 +173,7 @@ export class Simulator {
     tiles.forEachQR((q, r, tile) => {
       if (tile.plant) {
         tile.plant = this.progressPlantGrowth(tile.plant);
-        
+
         console.log(tile.plant);
         // Harvest plants when ready
         if (tile.plant.daysSincePlanted >= tile.plant.timeToConsumable) {
@@ -180,6 +186,24 @@ export class Simulator {
           // Reset plant to seed stage
           tile.plant.growthStage = GrowthStage.Seed;
           tile.plant.daysSincePlanted = 0;
+          tile.terrain = "green_plant";
+        }
+        else if(tile.plant.growthStage == GrowthStage.Dead){
+          tile.terrain = "red_plant";
+        }
+        else{
+          tile.terrain = "orange_plant";
+        }
+
+        if(this.activeTile.q == tile.q && this.activeTile.r == tile.r){
+          const growthPercentage =
+              (tile.plant.daysSincePlanted / tile.plant.timeToConsumable) * 100;
+          try{
+            // @ts-ignore
+            document.getElementById("progress_bar").style = "width: " + Math.min(growthPercentage ,100) + "%";
+            document.getElementById("progress_bar_text").innerHTML = "" + growthPercentage.toFixed(1) + "%";
+          }
+          catch (error) {}
         }
       }
     });
@@ -294,6 +318,7 @@ export class Simulator {
 
   getWeather(timestamp: number, location: string): Weather | null {
     try {
+      // @ts-ignore
       const result = this.weather_data.find(entry =>
           entry.UNIXTimestamp === timestamp && entry.Location === location
       );
@@ -308,5 +333,9 @@ export class Simulator {
       console.error("Error loading weather data:", error);
       return null;
     }
+  }
+
+  setActiveCell(tile: TileData) {
+    this.activeTile = tile;
   }
 }

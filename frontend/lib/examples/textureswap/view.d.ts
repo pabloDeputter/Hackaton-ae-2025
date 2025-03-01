@@ -1,2 +1,3 @@
 import MapView from "../../src/MapView";
-export declare function initView(mapSize: number, initialZoom: number): Promise<MapView>;
+import { Simulator } from "../../src/Simulator";
+export declare function initView(mapSize: number, initialZoom: number, simulator: Simulator): Promise<MapView>;

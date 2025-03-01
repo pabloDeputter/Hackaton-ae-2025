@@ -13,6 +13,7 @@ export declare function qrEquals(a: QR, b: QR): boolean;
 export declare function minBy<T>(items: T[], by: (item: T) => number): T | null;
 export declare function isInteger(value: number): boolean;
 export declare function flatten<T>(items: T[][]): T[];
+export declare function loadWeatherJSON(): Promise<any>;
 /**
  * Convert hex color string to an RGB object.
  */

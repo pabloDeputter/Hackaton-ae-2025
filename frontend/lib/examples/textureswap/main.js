@@ -40,13 +40,16 @@ define(["require", "exports", "view", "input", "./util", "../../src/Simulator"],
     var zoom = util_1.paramFloat("zoom", 50);
     function init() {
         return __awaiter(this, void 0, void 0, function () {
-            var mapView, containers, i, container, name_1, simulator;
+            var simulator, mapView, containers, i, container, name_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, view_1.initView(mapSize, zoom)];
+                    case 0:
+                        simulator = new Simulator_1.Simulator();
+                        return [4 /*yield*/, view_1.initView(mapSize, zoom, simulator)];
                     case 1:
                         mapView = _a.sent();
                         input_1.initInput(mapView);
+                        simulator.setMapVieuw(mapView);
                         containers = document.querySelectorAll("#textures div");
                         console.log(containers);
                         for (i = 0; i < containers.length; i++) {
@@ -59,7 +62,6 @@ define(["require", "exports", "view", "input", "./util", "../../src/Simulator"],
                                 e.preventDefault();
                             }, false);
                         }
-                        simulator = new Simulator_1.Simulator(mapView);
                         simulator.start();
                         return [2 /*return*/];
                 }

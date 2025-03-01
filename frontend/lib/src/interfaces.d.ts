@@ -32,6 +32,10 @@ export interface Plant {
     waterEfficiency: number;
     latinName: string;
 }
+export interface Weather {
+    temperature: number;
+    Precipitation_mm: number;
+}
 export interface TileData {
     q: number;
     r: number;
@@ -39,6 +43,7 @@ export interface TileData {
     fog: boolean;
     clouds: boolean;
     terrain: string;
+    Weather?: Weather;
     rivers?: {
         riverIndex: number;
         riverTileIndex: number;

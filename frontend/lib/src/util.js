@@ -153,6 +153,32 @@ define(["require", "exports", "three"], function (require, exports, three_1) {
         return [].concat.apply([], items);
     }
     exports.flatten = flatten;
+    function loadWeatherJSON() {
+        return __awaiter(this, void 0, void 0, function () {
+            var response, error_1;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 3, , 4]);
+                        return [4 /*yield*/, fetch('/assets/dataset_weather.json')];
+                    case 1:
+                        response = _a.sent();
+                        if (!response.ok)
+                            throw new Error('Failed to fetch JSON');
+                        return [4 /*yield*/, response.json()];
+                    case 2: 
+                    // Parse JSON response
+                    return [2 /*return*/, _a.sent()];
+                    case 3:
+                        error_1 = _a.sent();
+                        console.error('Error loading JSON:', error_1);
+                        throw error_1; // Re-throw error for handling in caller function
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
+    }
+    exports.loadWeatherJSON = loadWeatherJSON;
     /**
      * Convert hex color string to an RGB object.
      */

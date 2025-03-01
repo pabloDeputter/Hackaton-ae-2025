@@ -53,7 +53,7 @@ define(["require", "exports", "../../src/MapView", "../../src/util", "../../src/
             });
         });
     }
-    function initView(mapSize, initialZoom) {
+    function initView(mapSize, initialZoom, simulator) {
         return __awaiter(this, void 0, void 0, function () {
             var textureLoader, loadTexture, options, _a, map, atlas, mapView, dialog;
             return __generator(this, function (_b) {
@@ -106,6 +106,7 @@ define(["require", "exports", "../../src/MapView", "../../src/util", "../../src/
                             }, { passive: false });
                         }
                         mapView.onTileSelected = function (tile) {
+                            simulator.setActiveCell(tile);
                             // Update debug information for all tiles
                             document.getElementById("currentTile").innerHTML =
                                 "Tile data " + tile.r + " " + tile.q;
@@ -118,7 +119,7 @@ define(["require", "exports", "../../src/MapView", "../../src/util", "../../src/
                                 var daysLeft = tile.plant.timeToConsumable - tile.plant.daysSincePlanted;
                                 var growthPercentage = (tile.plant.daysSincePlanted / tile.plant.timeToConsumable) * 100;
                                 // Update debug panel with comprehensive plant information
-                                document.getElementById("plantInfo").innerHTML = "\n    <div class=\"bg-white p-3 rounded border border-gray-200\">\n      <h5 class=\"font-bold text-green-800\">" + tile.plant.name + "</h5>\n      <div class=\"grid grid-cols-2 gap-2 text-sm mt-2\">\n        <div>\n          <p><span class=\"font-medium\">Growth Stage:</span> " + tile.plant.growthStage + "</p>\n          <p><span class=\"font-medium\">Days Planted:</span> " + tile.plant.daysSincePlanted + "</p>\n          <p><span class=\"font-medium\">Days Until Harvest:</span> " + (daysLeft > 0 ? daysLeft : "Ready!") + "</p>\n          <p><span class=\"font-medium\">Latin Name:</span> " + (tile.plant.latinName || "N/A") + "</p>\n        </div>\n        <div>\n          <p><span class=\"font-medium\">Expected Weight:</span> " + tile.plant.weightWhenFullGrown + " kg</p>\n          <p><span class=\"font-medium\">Calories:</span> " + tile.plant.kcalPer100g + " kcal/100g</p>\n          <p><span class=\"font-medium\">Protein:</span> " + tile.plant.proteinsPer100g + "g/100g</p>\n        </div>\n      </div>\n      <div class=\"mt-2\">\n        <p><span class=\"font-medium\">Growth Progress:</span></p>\n        <div class=\"w-full bg-gray-200 rounded-full h-2 mt-1\">\n          <div class=\"bg-green-600 h-2 rounded-full\" style=\"width: " + Math.min(growthPercentage, 100) + "%\"></div>\n        </div>\n        <p class=\"text-xs text-right mt-0.5\">" + growthPercentage.toFixed(1) + "%</p>\n      </div>\n    </div>\n  ";
+                                document.getElementById("plantInfo").innerHTML = "\n    <div class=\"bg-white p-3 rounded border border-gray-200\">\n      <h5 class=\"font-bold text-green-800\">" + tile.plant.name + "</h5>\n      <div class=\"grid grid-cols-2 gap-2 text-sm mt-2\">\n        <div>\n          <p><span class=\"font-medium\">Growth Stage:</span> " + tile.plant.growthStage + "</p>\n          <p><span class=\"font-medium\">Days Planted:</span> " + tile.plant.daysSincePlanted + "</p>\n          <p><span class=\"font-medium\">Days Until Harvest:</span> " + (daysLeft > 0 ? daysLeft : "Ready!") + "</p>\n          <p><span class=\"font-medium\">Latin Name:</span> " + (tile.plant.latinName || "N/A") + "</p>\n        </div>\n        <div>\n          <p><span class=\"font-medium\">Expected Weight:</span> " + tile.plant.weightWhenFullGrown + " kg</p>\n          <p><span class=\"font-medium\">Calories:</span> " + tile.plant.kcalPer100g + " kcal/100g</p>\n          <p><span class=\"font-medium\">Protein:</span> " + tile.plant.proteinsPer100g + "g/100g</p>\n        </div>\n      </div>\n      <div class=\"mt-2\">\n        <p><span class=\"font-medium\">Growth Progress:</span></p>\n        <div class=\"w-full bg-gray-200 rounded-full h-2 mt-1\">\n          <div class=\"bg-green-600 h-2 rounded-full\" id=\"progress_bar\" style=\"width: " + Math.min(growthPercentage, 100) + "%\"></div>\n        </div>\n        <p class=\"text-xs text-right mt-0.5\" id=\"progress_bar_text\">" + growthPercentage.toFixed(1) + "%</p>\n      </div>\n    </div>\n  ";
                                 // Add delete button for the plant
                                 var deleteButton = document.createElement('button');
                                 deleteButton.textContent = 'Delete Plant';
@@ -229,7 +230,7 @@ define(["require", "exports", "../../src/MapView", "../../src/util", "../../src/
                                                 .querySelector("button")
                                                 .addEventListener("click", function () {
                                                 tile.plant = plant;
-                                                tile.terrain = "green_plant";
+                                                tile.terrain = "orange_plant";
                                                 mapView.updateTiles([tile]);
                                                 plantDialog.classList.add("hidden");
                                             });

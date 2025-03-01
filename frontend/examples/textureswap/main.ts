@@ -8,8 +8,10 @@ const mapSize = paramInt("size", 20)
 const zoom = paramFloat("zoom", 50)
 
 async function init() {
-    const mapView = await initView(mapSize, zoom)
+    let simulator = new Simulator();
+    const mapView = await initView(mapSize, zoom, simulator)
     initInput(mapView)
+    simulator.setMapVieuw(mapView)
 
     // texture swap
     const containers = document.querySelectorAll("#textures div")
@@ -25,8 +27,6 @@ async function init() {
             e.preventDefault()
         }, false)
     }
-
-    let simulator = new Simulator(mapView);
     simulator.start();
 }
 

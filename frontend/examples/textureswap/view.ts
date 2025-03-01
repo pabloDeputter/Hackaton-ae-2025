@@ -11,6 +11,7 @@ import { varying } from "./util";
 import { TextureLoader, Texture } from "three";
 import * as THREE from "three";
 import { MapMeshOptions } from "../../src/MapMesh";
+import {Simulator} from "../../src/Simulator";
 
 function asset(relativePath: string): string {
   return "../../assets/" + relativePath;
@@ -32,7 +33,8 @@ async function generateMap(mapSize: number) {
 
 export async function initView(
   mapSize: number,
-  initialZoom: number
+  initialZoom: number,
+  simulator: Simulator
 ): Promise<MapView> {
   const textureLoader = new TextureLoader();
   const loadTexture = (name: string) => textureLoader.load(asset(name));
@@ -111,12 +113,15 @@ export async function initView(
   }
 
   mapView.onTileSelected = (tile: TileData) => {
+    simulator.setActiveCell(tile)
+
     // Update debug information for all tiles
     document.getElementById("currentTile").innerHTML =
       "Tile data " + tile.r + " " + tile.q;
     document.getElementById("location").textContent = `Location: ${
       tile.location || "Unknown"
     }`;
+
 
     // Clear plant info
     document.getElementById("plantInfo").innerHTML = "";
@@ -163,12 +168,12 @@ export async function initView(
       <div class="mt-2">
         <p><span class="font-medium">Growth Progress:</span></p>
         <div class="w-full bg-gray-200 rounded-full h-2 mt-1">
-          <div class="bg-green-600 h-2 rounded-full" style="width: ${Math.min(
+          <div class="bg-green-600 h-2 rounded-full" id="progress_bar" style="width: ${Math.min(
             growthPercentage,
             100
           )}%"></div>
         </div>
-        <p class="text-xs text-right mt-0.5">${growthPercentage.toFixed(1)}%</p>
+        <p class="text-xs text-right mt-0.5" id="progress_bar_text">${growthPercentage.toFixed(1)}%</p>
       </div>
     </div>
   `;
@@ -371,7 +376,7 @@ export async function initView(
                 .querySelector("button")
                 .addEventListener("click", () => {
                   tile.plant = plant;
-                  tile.terrain = "green_plant";
+                  tile.terrain = "orange_plant";
                   mapView.updateTiles([tile]);
                   plantDialog.classList.add("hidden");
                 });
