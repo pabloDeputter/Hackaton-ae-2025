@@ -30,6 +30,7 @@ export interface Plant {
     growthSpeed: number;
     nutritionScore: number;
     waterEfficiency: number;
+    latinName: string;
 }
 export interface TileData {
     q: number;

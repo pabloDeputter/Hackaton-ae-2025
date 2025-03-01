@@ -35,7 +35,7 @@ define(["require", "exports", "./interfaces"], function (require, exports, inter
                     tile.locked = true;
                     tile.fog = true;
                 }
-                else {
+                else if (tile.location) {
                     tile.locked = false;
                     tile.fog = false;
                 }
@@ -62,12 +62,12 @@ define(["require", "exports", "./interfaces"], function (require, exports, inter
             tiles.forEachQR(function (q, r, tile) {
                 if (tile.plant) {
                     tile.plant = _this.progressPlantGrowth(tile.plant);
-                    if (tile.plant.growthStage == interfaces_1.GrowthStage.Harvestable) {
-                        console.log("Growth stage", tile.plant);
-                        _this.currentFood += tile.plant.kcalPer100g * tile.plant.weightWhenFullGrown;
-                        tile.plant.growthStage = interfaces_1.GrowthStage.Seed;
-                        tile.plant.daysSincePlanted = 0;
-                    }
+                }
+                if (tile.plant.growthStage == interfaces_1.GrowthStage.Harvestable) {
+                    console.log("Growth stage", tile.plant);
+                    _this.currentFood += tile.plant.kcalPer100g * tile.plant.weightWhenFullGrown;
+                    tile.plant.growthStage = interfaces_1.GrowthStage.Seed;
+                    tile.plant.daysSincePlanted = 0;
                 }
             });
             this.currentFood -= this.currentPopulation * 10;
