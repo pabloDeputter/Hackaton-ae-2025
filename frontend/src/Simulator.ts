@@ -191,8 +191,21 @@ export class Simulator {
         else if(tile.plant.growthStage == GrowthStage.Dead){
           tile.terrain = "red_plant";
         }
-        else{
-          tile.terrain = "orange_plant";
+        else {
+          // Calculate growth percentage
+          const growthPercentage = (tile.plant.daysSincePlanted / tile.plant.timeToConsumable) * 100;
+          console.log(growthPercentage);
+          
+          // Set terrain color based on growth percentage
+          if (growthPercentage < 25) {
+            tile.terrain = "red_plant";
+          } else if (growthPercentage < 50) {
+            tile.terrain = "orange_plant";
+          } else if (growthPercentage < 75) {
+            tile.terrain = "mountain";
+          } else {
+            tile.terrain = "green_plant";
+          }
         }
 
         if(this.activeTile.q == tile.q && this.activeTile.r == tile.r){
